@@ -18,7 +18,7 @@
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面xxx</a>
+    <a href="/pages/counter/main" class="counter">去往Vuex示例页面xxxppp</a>
   </div>
 </template>
 
@@ -66,11 +66,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
 .userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color:  $theme-color;
 }
 
 .userinfo-avatar {
