@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
 		"minified": true,
@@ -11,6 +11,7 @@
 	"compileType": "miniprogram",
 	"appid": "touristappid",
 	"projectname": "mpvue-elm",
+	"libVersion": "2.2.4",
 	"condition": {
 		"search": {
 			"current": -1,
