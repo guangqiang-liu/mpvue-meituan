@@ -1,2 +1,56 @@
+/** Created by guangqiang on 2018-06-29 18:07:09 */
 
- $theme-color: #FF1B55;
+  /** 主题色 **/
+  $theme-color: #228FE4;
+  // 默认背景颜色
+  $page-bgcolor: #F9F9F9;
+  // 默认黑色字体颜色
+  $textBlack-color: #434343;
+  // 默认灰色字体颜色
+  $textGray-color: #999999;
+  // 默认深灰色字体颜色
+  $textDarkGray-color: #666666;
+  // 默认浅灰色
+  $textLightGray-color: #ccc;
+  // 默认分割线颜色
+  $spLine-color: #EFEFEF;
+  // 默认虚分割线颜色
+  $dashedLine-color: #EAEAEA;
+  // 默认placeholder颜色
+  $placeholder-textcolor: #c8c8cd;
+  // borderColor
+  $border-color: #808080;
+  // 导航title 颜色
+  $nav-titlecolor: #262626;
+  // 导航背景颜色
+  $nav-bgcolor: #FEFEFE;
+
+  /** width **/
+  // 边框线宽度
+  $border-width: 2rpx;
+  // 分割线高度
+  $line-width: 2rpx;
+
+  /** height **/
+  // 底部按钮高度
+  $bottonBtn-height: 44;
+  // 通用列表cell高度
+  $cell-height: 44;
+
+  /** font **/
+  // 默认文字字体
+  $text-font: 14;
+  // 默认按钮文字字体
+  $btn-font: 15;
+  // 按钮小号文字字体
+  $btnFont-small: 13;
+  // 导航title字体
+  $navTitle-font: 17;
+  // tabBar文字字体
+  $tabbarTitle-font: 12;
+  // 占位符的默认字体大小
+  $placeholder-font: 13;
+
+  /** opacity **/
+  // mask 透明度
+  $modal-opacity: 0.3;

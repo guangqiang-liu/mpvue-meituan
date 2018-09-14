@@ -58,7 +58,7 @@ export default {
       console.log("clickHandle:", msg, ev);
     },
     push() {
-      wx.navigateTo({ url: '../cityList/main' });
+      wx.navigateTo({ url: '../citys/main' });
     }
   },
 

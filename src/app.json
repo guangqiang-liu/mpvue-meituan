@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/index/main",
+    "pages/home/main",
+    "pages/citySearch/main",
+    "pages/citys/main",
     "pages/counter/main",
     "pages/logs/main",
-    "pages/cityList/main"
+    "pages/index/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
