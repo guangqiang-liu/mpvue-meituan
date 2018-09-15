@@ -4,7 +4,7 @@
 
 const host = {
   dev: {
-    API_URL: 'https://elm.cangdu.org',
+    API_URL: 'https://meituan.cangdu.org',
     XIAMI_URL: 'https://api-m.mtime.cn',
     MSITE_URL: 'https://api.douban.com',
     VENILOG_URL: 'https://api.douban.com',
@@ -12,7 +12,7 @@ const host = {
     envVersion: 'develop'
   },
   test: {
-    API_URL: 'https://elm.cangdu.org',
+    API_URL: 'https://meituan.cangdu.org',
     XIAMI_URL: 'http://10.10.21.108:9990',
     MSITE_URL: 'https://api.douban.com',
     VENILOG_URL: 'https://api.douban.com',
@@ -20,13 +20,13 @@ const host = {
     envVersion: 'develop'
   },
   qa: {
-    API_URL: 'https://elm.cangdu.org',
+    API_URL: 'https://meituan.cangdu.org',
     XIAMI_URL: 'http://xiamirun.avosapps.com',
     MSITE_URL: 'https://api.douban.com',
     VENILOG_URL: 'https://api.douban.com'
   },
   pre: {
-    API_URL: 'https://elm.cangdu.org',
+    API_URL: 'https://meituan.cangdu.org',
     XIAMI_URL: 'https://api-m.mtime.cn',
     MSITE_URL: 'https://api.douban.com',
     VENILOG_URL: 'https://api.douban.com',
@@ -34,7 +34,7 @@ const host = {
     envVersion: 'develop'
   },
   prd: {
-    API_URL: 'https://elm.cangdu.org',
+    API_URL: 'https://meituan.cangdu.org',
     XIAMI_URL: 'https://api-m.mtime.cn',
     MSITE_URL: 'https://api.douban.com',
     VENILOG_URL: 'https://api.douban.com',

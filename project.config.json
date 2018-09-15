@@ -7,10 +7,10 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"miniprogramRoot": "./dist/",
+	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"appid": "touristappid",
-	"projectname": "mpvue-elm",
+	"projectname": "mpvue-meituan",
 	"libVersion": "2.2.4",
 	"condition": {
 		"search": {

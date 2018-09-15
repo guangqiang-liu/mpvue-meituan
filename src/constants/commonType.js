@@ -72,7 +72,7 @@ const logEventType = {
 
 // 同一工程多域名配置
 const ApiSource = {
-  ELM: 'ELM',
+  meituan: 'meituan',
   XIAMIMUSIC: 'XIAMIMUSIC',
   TIMEMOVIE: 'TIMEMOVIE'
 }
