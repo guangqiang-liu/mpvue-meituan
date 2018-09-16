@@ -29,7 +29,16 @@
           <span class="sub-title">这是子标题</span>
         </div>
         <div class="list-item">
-
+          <div class="item">
+            <div class="item-l">
+              <img src="" alt="">
+            </div>
+            <div class="item-r">
+              <span class="title">手撕包菜</span>
+              <span class="sub-title">手撕包菜，酸甜可口</span>
+              <span class="sale-num">月售1000 赞100</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -159,7 +168,8 @@ export default {
         }
       }
       .list-item {
-        display: flex
+        display: flex;
+        flex-direction: column;
       }
     }
   }
