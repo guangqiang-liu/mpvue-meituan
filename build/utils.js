@@ -73,8 +73,7 @@ exports.cssLoaders = function (options) {
           resources: path.resolve(__dirname, '../src/assets/global.scss')
         }
       }
-    )
-,
+    ),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }
