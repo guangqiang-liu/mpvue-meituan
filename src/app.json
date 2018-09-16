@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/shoppingCart/main",
     "pages/home/main",
     "pages/citySearch/main",
     "pages/citys/main",
     "pages/counter/main",
-    "pages/logs/main"
+    "pages/logs/main",
+    "pages/index/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
