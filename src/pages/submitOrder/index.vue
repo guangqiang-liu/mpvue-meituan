@@ -164,13 +164,19 @@ export default {
         display: flex;
         flex: 1;
         border-right: 2rpx solid $spLine-color;
+        font-size: 32rpx;
+        color: $textBlack-color;
+        height: 88rpx;
       }
       .right {
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 88rpx;
         flex: 1;
         background-color: $page-bgcolor;
+        font-size: 32rpx;
+        color: $textBlack-color;
       }
     }
     .address-c {
@@ -220,7 +226,7 @@ export default {
           color: $textBlack-color;
         }
         .c-r {
-          font-size: 20rpx;
+          font-size: 24rpx;
           color: $theme-color;
           margin-left: 20rpx;
         }
@@ -455,9 +461,8 @@ export default {
       }
     }
     span {
-      font-size: 28rpx;
-      color:  $textGray-color;
-      margin-top: 20rpx;
+      font-size: 20rpx;
+      color: $textGray-color;
       margin: 0 20rpx;
     }
   }
