@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/submitOrder/main",
     "pages/shoppingCart/main",
     "pages/home/main",
     "pages/citySearch/main",

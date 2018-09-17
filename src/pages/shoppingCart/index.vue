@@ -101,7 +101,8 @@ export default {
     .header {
       display: flex;
       height: 204rpx;
-      background-color: orangered;
+      align-items: center;
+      background-color: crimson;
       .h-l {
         width: 136rpx;
         height: 136rpx;

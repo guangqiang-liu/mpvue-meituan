@@ -82,10 +82,12 @@ page {
 }
 
 .container {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background-color: #F9F9F9;
 }
 
 /* this rule will be remove */
