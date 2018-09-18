@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/addressList/main",
+    "pages/addAddress/main",
     "pages/expiredCoupon/main",
     "pages/couponList/main",
     "pages/expiredRedPacket/main",
