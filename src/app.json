@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/categoryList/main",
     "pages/searchList/main",
     "pages/addAddress/main",
     "pages/expiredCoupon/main",
