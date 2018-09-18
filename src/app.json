@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/me/main",
     "pages/orderList/main",
     "pages/remark/main",
     "pages/submitOrder/main",
