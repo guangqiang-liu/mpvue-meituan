@@ -19,18 +19,12 @@
         </div>
         <div class="item-b">
           <span class="b-l">不可与满减、折扣商品、第二份半价活动优惠同时享受。在线支付专享。</span>
-          <div class="b-r">
-            <span>去使用</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
-          </div>
         </div>
+        <img class="status-im" src="" alt="">
       </div>
     </div>
     <div class="bottom">
-      <span class="s-l">没有更多商家代金券了</span>
-      <span class="s-m">|</span>
-      <span class="s-r">查看过期券</span>
-      <span class="s-arrow">>></span>
+      <span class="s-l">没有更多过期商家代金券了</span>
     </div>
   </div>
 </template>
@@ -66,6 +60,8 @@ export default {
       margin-top: 30rpx;
       background-color: white;
       border-radius: 10rpx;
+      opacity: 0.6;
+      position: relative;
       .item-t {
         display: flex;
         margin: 20rpx;
@@ -81,20 +77,20 @@ export default {
           flex: 1;
           .s-t {
             font-size: 32rpx;
-            color: $textBlack-color;
+            color: $textGray-color;
           }
           .s-m {
             font-size: 24rpx;
-            color: #50B8AC;
+            color: $textGray-color;
             padding: 6rpx 10rpx;
-            border: 2rpx solid #50B8AC;
+            border: 2rpx solid $textGray-color;
             width: 100rpx;
             text-align: center;
             margin: 10rpx 0;
           }
           .s-b {
             font-size: 24rpx;
-            color: $textDarkGray-color;
+            color: $textGray-color;
           }
         }
         .top-r {
@@ -105,15 +101,15 @@ export default {
           margin-right: 20rpx;
           .s-t {
             font-size: 32rpx;
-            color: #E14130;
+            color: $textGray-color;
             span {
               font-size: 76rpx;
-              color: #E14130;
+              color: $textGray-color;
             }
           }
           .s-b {
             font-size: 24rpx;
-            color: $textDarkGray-color;
+            color: $textGray-color;
           }
         }
       }
@@ -127,22 +123,18 @@ export default {
         align-items: center;
         .b-l {
           font-size: 24rpx;
-          color: $textDarkGray-color;
+          color: $textGray-color;
           flex: 1;
         }
-        .b-r {
-          display: flex;
-          margin-left: 40rpx;
-          span {
-            font-size: 24rpx;
-            color: #F54748;
-          }
-          i {
-            font-size: 24rpx;
-            color: #F54748;
-            margin-left: 20rpx;
-          }
-        }
+      }
+      .status-im {
+        position: absolute;
+        right: 30rpx;
+        top: 80rpx;
+        width: 120rpx;
+        height: 120rpx;
+        background-color: aquamarine;
+        border-radius: 60rpx;
       }
     }
   }
@@ -154,20 +146,6 @@ export default {
     .s-l {
       font-size: 24rpx;
       color: $textBlack-color;
-    }
-    .s-m {
-      font-size: 24rpx;
-      color: $textDarkGray-color;
-      margin: 0 20rpx;
-    }
-    .s-r {
-      font-size: 24rpx;
-      color: $textBlack-color;
-    }
-    .s-arrow {
-      font-size: 24rpx;
-      color: $textDarkGray-color;
-      margin-left: 20rpx;
     }
   }
 }

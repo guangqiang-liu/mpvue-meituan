@@ -98,8 +98,7 @@ export default {
         }
       }
       .item-m {
-        flex: 1;
-        align-self: center;
+        display: flex;
         width: 100%;
       }
       .item-b {
