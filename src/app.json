@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/redPacket/main",
     "pages/me/main",
     "pages/orderList/main",
     "pages/remark/main",
