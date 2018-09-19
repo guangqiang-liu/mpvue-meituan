@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/shoppingCart/main",
     "pages/home/main",
     "pages/categoryList/main",
     "pages/selectAddress/main",
@@ -13,7 +14,6 @@
     "pages/orderList/main",
     "pages/remark/main",
     "pages/submitOrder/main",
-    "pages/shoppingCart/main",
     "pages/citySearch/main",
     "pages/citys/main",
     "pages/counter/main",
@@ -31,15 +31,22 @@
     "backgroundColor": "#fff",
     "borderStyle": "black",
     "list": [{
-      "pagePath": "pages/index/main",
-      "text": "首页",
-      "iconPath": "static/images/home.png",
-      "selectedIconPath": "static/images/home-active.png"
-    }, {
-      "pagePath": "pages/counter/main",
-      "text": "我的",
-      "iconPath": "static/images/me.png",
-      "selectedIconPath": "static/images/me-active.png"
-    }]
+        "pagePath": "pages/home/main",
+        "text": "首页",
+        "iconPath": "static/images/home.png",
+        "selectedIconPath": "static/images/home-active.png"
+      },{
+        "pagePath": "pages/orderList/main",
+        "text": "订单",
+        "iconPath": "static/images/home.png",
+        "selectedIconPath": "static/images/home-active.png"
+      },
+      {
+        "pagePath": "pages/me/main",
+        "text": "我的",
+        "iconPath": "static/images/me.png",
+        "selectedIconPath": "static/images/me-active.png"
+      }
+    ]
   }
 }

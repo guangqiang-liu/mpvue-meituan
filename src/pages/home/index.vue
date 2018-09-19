@@ -2,26 +2,21 @@
   <div class="container">
     <div class="content">
       <div class="header-c">
-        <div class="header-l">
+        <div class="header-l" @click="addressClick">
           <i class="icon qb-icon-down-arrow-s" :style="{color: '#434343', 'font-size': 20 + 'rpx'}"></i>
           <span>上海市漕河泾开发区</span>
           <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
         </div>
-        <div class="header-r">
-          <div class="search-bar">
-            <i class="icon qb-icon-search-o"></i>
-            <input placeholder="请输入收货地址" @input="search"/>
-            <div class="cancle" v-if="keyword" @click="cancle">
-              <i class="icon qb-icon-cancle-o"></i>
-            </div>
-          </div>
+        <div class="header-r" @click="searchClick">
+          <i class="icon qb-icon-search-o"></i>
+          <span>请输入收货地址</span>
         </div>
       </div>
       <swiper class="category-c" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
         <div v-for="(item, index) in imgUrls" :key="index">
           <swiper-item>
             <div class="grid-c">
-              <div class="item" v-for="(itx, idx) in item.items" :key="idx">
+              <div class="item" v-for="(itx, idx) in item.items" :key="idx" @click="categoryClick">
                 <img class="item-img" src="">
                 <span class="item-title">{{itx}}</span>
               </div>
@@ -36,11 +31,11 @@
           </swiper-item>
         </div>
       </swiper>
-      <div class="recommended">
+      <div class="recommended" @click="categoryClick">
         <img src="" alt="">
       </div>
       <div class="hot-sale">
-        <div class="item" v-for="(item, index) in hotSale" :key="index">
+        <div class="item" v-for="(item, index) in hotSale" :key="index" @click="shoppingCartClick">
           <div class="img-c">
             <img src="" alt="">
              <div class="name-c">
@@ -68,7 +63,7 @@
               <span>{{item}}</span>
             </div>
           </div>
-          <div class="item" v-for="(item, index) in itemList" :key="index">
+          <div class="item" v-for="(item, index) in itemList" :key="index" @click="shoppingCartClick">
             <div class="item-l">
               <img src="" alt="">
             </div>
@@ -139,6 +134,20 @@ export default {
       interval: 5000,
       duration: 1000
     };
+  },
+  methods: {
+    categoryClick() {
+      wx.navigateTo({url: '/pages/categoryList/main'})
+    },
+    addressClick() {
+      wx.navigateTo({url: '/pages/selectAddress/main'})
+    },
+    searchClick() {
+      wx.navigateTo({url: '/pages/searchList/main'})
+    },
+    shoppingCartClick() {
+      wx.navigateTo({url: '/pages/shoppingCart/main'})
+    }
   }
 };
 </script>
@@ -173,41 +182,20 @@ export default {
         display: flex;
         align-items: center;
         flex: 1;
-        .search-bar {
-          align-items: center;
-          justify-content: center;
-          display: flex;
-          flex: 1;
-          background-color: #f6f6f6;
-          height: 60rpx;
-          border-radius: 30rpx;
-          padding-left: 20rpx;
-          margin-left: 30rpx;
-          i {
-            margin-right: 20rpx;
-            color: #999999;
-            font-size: 32rpx;
-          }
-          input {
-            display: flex;
-            flex: 1;
-            width: 100%;
-            font-size: 28rpx;
-            height: 32rpx;
-            margin-top: 5rpx;
-          }
-          .cancle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50rpx;
-            height: 60rpx;
-            margin-left: 20rpx;
-            i {
-              color: #999999;
-              font-size: 40rpx;
-            }
-          }
+        background-color: $page-bgcolor;
+        height: 50rpx;;
+        border-radius: 30rpx;
+        margin-left: 30rpx;
+        align-items: center;
+        i {
+          color: $textDarkGray-color;
+          font-size: 32rpx;
+          margin-left: 20rpx;
+        }
+        span {
+          color: $textDarkGray-color;
+          font-size: 24rpx;
+          margin-left: 10rpx;
         }
       }
     }

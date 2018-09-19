@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="content">
-      <div class="search-bar">
+      <div class="search-bar" @click="searchClick">
         <i class="icon qb-icon-down-arrow-s"></i>
         <span>请输入商家或者商品名称</span>
       </div>
@@ -26,7 +26,7 @@
               <span>{{item}}</span>
             </div>
           </div>
-          <div class="item" v-for="(item, index) in itemList" :key="index">
+          <div class="item" v-for="(item, index) in itemList" :key="index" @click="categoryClick">
             <div class="item-l">
               <img src="" alt="">
             </div>
@@ -82,6 +82,14 @@ export default {
       itemList: [1, 2, 3, 4, 5, 6, 7],
       activityList: ['减', '折', '首']
     }
+  },
+  methods: {
+    searchClick() {
+      wx.navigateTo({url: '/pages/searchList/main'})
+    },
+    categoryClick() {
+       wx.navigateTo({url: '/pages/shoppingCart/main'})
+    }
   }
 }
 </script>
@@ -99,7 +107,7 @@ export default {
       align-items: center;
       height: 60rpx;
       border-radius: 30rpx;
-      margin-bottom: 0
+      margin-bottom: 0;
       i {
         font-size: 28rpx;
         color: $textDarkGray-color;

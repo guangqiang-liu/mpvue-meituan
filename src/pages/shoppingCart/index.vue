@@ -6,18 +6,26 @@
           <img src="">
         </div>
         <div class="h-r">
-          <div class="r-l">
-            <span class="shop-name">演示效果</span>
-            <span class="delivery">商家配送 / 分钟送达 / 配送费￥5</span>
-            <span class="tip">公告：欢迎光临，用餐高峰请提前下单，谢谢</span>
+          <div class="r-t">
+            <span class="t-l">起送￥80</span>
+            <div class="s-l"></div>
+            <span class="t-m">40分钟</span>
+            <div class="s-r"></div>
+            <span class="t-r">6.7km</span>
           </div>
-          <div class="r-r">
+          <span class="r-m">公告：本店所有菜品现做现卖保证新鲜! 本店已上线</span>
+          <div class="r-b">
+            <span class="b-l">减</span>
+            <span class="b-r">满35减22；满65减40；满100减48</span>
             <i class="icon qb-icon-down-arrow-s"></i>
           </div>
         </div>
       </div>
        <div class="cate-c">
-      </div>
+         <span class="c-l">菜单</span>
+         <span class="c-m">评价</span>
+         <span class="c-r">商家</span>
+       </div>
     </div>
     <div class="list-c">
       <scroll-view class="list-l" :scroll-y="true">
@@ -26,25 +34,22 @@
         </div>
       </scroll-view>
       <scroll-view class="list-r" :scroll-y="true">
-        <div class="r" v-for="(item, index) in rightList" :key="index">
-          <div class="section-header">
-            <span class="title">{{item.title}}</span>
-            <span class="sub-title">这是子标题</span>
-          </div>
-          <div class="item-list" v-for="(itx, idx) in item.lists" :key="idx">
-            <div class="item">
-              <div class="item-l">
-                <img src="" alt="">
-              </div>
-              <div class="item-r">
-                <span class="title">手撕包菜</span>
-                <span class="sub-title">手撕包菜，酸甜可口</span>
-                <span class="sale-num">月售1000 赞100</span>
-                <div class="r-t">
-                  <span class="price">￥40.3</span>
-                  <div class="sku">
-                    <span>选规格</span>
-                  </div>
+        <div class="section">
+          <span class="title">这是标题</span>
+        </div>
+        <div class="item-list" v-for="(itx, idx) in rightList" :key="idx">
+          <div class="item">
+            <div class="item-l">
+              <img src="" alt="">
+            </div>
+            <div class="item-r">
+              <span class="title">手撕包菜</span>
+              <span class="sub-title">手撕包菜，酸甜可口</span>
+              <span class="sale-num">月售1000 赞100</span>
+              <div class="r-t">
+                <span class="price">￥40.3</span>
+                <div class="sku">
+                  <span>选规格</span>
                 </div>
               </div>
             </div>
@@ -60,24 +65,7 @@ export default {
   data() {
     return {
       leftList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      rightList: [
-        {
-          title: '热销榜',
-          lists: [1, 2, 3, 4]
-        },
-        {
-          title: '热销榜2',
-          lists: [1, 2, 3, 4]
-        },
-        {
-          title: '热销榜3',
-          lists: [1, 2, 3, 4]
-        },
-        {
-          title: '热销榜4',
-          lists: [1, 2, 3, 4]
-        },
-      ]
+      rightList: [1, 2, 3, 4, 5, 6, 7, 8]
     }
   }
 }
@@ -102,7 +90,7 @@ export default {
       display: flex;
       height: 204rpx;
       align-items: center;
-      background-color: crimson;
+      background-color: #333;
       .h-l {
         width: 136rpx;
         height: 136rpx;
@@ -117,46 +105,89 @@ export default {
       }
       .h-r {
         display: flex;
-        height: 150rpx;
-        justify-content: space-between;
-        background-color: orange;
-        margin: 20rpx;
-        width: 100%;
-        .r-l {
-          display: flex;
-          flex: 1;
-          background-color: darkviolet;
-          flex-direction: column;
-          justify-content: space-around;
-          .shop-name {
-            color: white;
-            font-size: 32rpx;
-            font-weight: bold;
-          }
-          .delivery {
-            color: white;
-            font-size: 20rpx;
-          }
-          .tip {
-            color: white;
-            font-size: 20rpx;
-          }
-        }
-        .r-r {
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20rpx;
+        .r-t {
           display: flex;
           align-items: center;
-          justify-content: center;
-          i {
+          .t-l {
+            font-size: 24rpx;
             color: white;
-            font-size: 32rpx;
+          }
+          .s-l {
+            margin: 0 20rpx;
+            width: 2rpx;
+            height: 30rpx;
+            background-color: white;
+          }
+          .t-m {
+            font-size: 24rpx;
+            color: white;
+          }
+          .s-r {
+            margin: 0 20rpx;
+            width: 2rpx;
+            height: 30rpx;
+            background-color: white;
+          }
+          .t-r {
+            font-size: 24rpx;
+            color: white;
+          }
+        }
+        .r-m {
+          font-size: 24rpx;
+          color: white;
+          margin: 20rpx 0;
+        }
+        .r-b {
+          display: flex;
+          align-items: center;
+          .b-l {
+            width: 30rpx;
+            height: 30rpx;
+            background-color: #FF616D;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            font-size: 20rpx;
+            margin-left: 20rpx;
+          }
+          .b-r {
+            font-size: 24rpx;
+            color: white;
+            flex: 1;
+          }
+          i {
+            font-size: 24rpx;
+            color: white;
           }
         }
       }
     }
     .cate-c {
       display: flex;
-      height: 110rpx;
-      background-color: darkgoldenrod;
+      height: 100rpx;
+      align-items: center;
+      border-bottom: 2rpx solid $spLine-color;
+
+      .c-l {
+        font-size: 32rpx;
+        color: $textBlack-color;
+        margin-left: 40rpx;
+      }
+      .c-m {
+        font-size: 32rpx;
+        color: $textBlack-color;
+        margin-left: 80rpx;
+      }
+      .c-r {
+        font-size: 32rpx;
+        color: $textBlack-color;
+        margin-left: 80rpx;
+      }
     }
   }
   .list-c {
@@ -169,17 +200,18 @@ export default {
     .list-l {
       display: flex;
       flex-direction: column;
-      width: 180rpx;
+      width: 140rpx;
+      background-color: $page-bgcolor;
       .l-item {
         display: flex;
-        width: 180rpx;
-        height: 132rpx;
+        width: 140rpx;
         align-items: center;
         justify-content: center;
-        background-color: darksalmon;
-        border-bottom: 2rpx solid  $spLine-color;
+        padding: 20rpx;
+        box-sizing: border-box;
+        border-bottom: 2rpx solid white;
         span {
-          font-size: 32rpx;
+          font-size: 24rpx;
           color: $textBlack-color;
         }
       }
@@ -188,89 +220,72 @@ export default {
       display: flex;
       flex-direction: column;
       flex: 1;
-      .r {
+      .section {
         display: flex;
+        height: 88rpx;
+        align-items: center;
+        margin-left: 20rpx;
+        span {
+          font-size: 28rpx;
+          color: $textBlack-color;
+        }
+      }
+      .item-list {
+        display: flex;
+        margin: 0 20rpx;
         flex-direction: column;
-        .section-header {
+        .item {
           display: flex;
           align-items: center;
-          background-color: #F5F5F5;
-          height: 98rpx;
-          background-color: aqua;
-          margin-left: 10rpx;
-          flex-direction: column;
-          .title {
-            margin-left: 20rpx;
-            font-size: 32rpx;
-            color: $textBlack-color;
-            font-weight: bold;
-          }
-          .sub-title {
-            margin-left: 20rpx;
-            font-size: 24rpx;
-            color: $textGray-color;
-          }
-        }
-        .item-list {
-          display: flex;
-          background-color: blue;
-          margin: 0 20rpx;
-          flex-direction: column;
-          .item {
-            height: 200rpx;
-            display: flex;
-            align-items: center;
-            .item-l {
+          margin-bottom: 20rpx;
+          .item-l {
+            width: 160rpx;
+            height: 160rpx;
+            img {
               width: 160rpx;
               height: 160rpx;
-              img {
-                width: 160rpx;
-                height: 160rpx;
-                background-color: green
-              }
+              background-color: green
             }
-            .item-r {
+          }
+          .item-r {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20rpx;
+            justify-content: space-between;
+            flex: 1;
+            height: 160rpx;
+            .title {
+              font-size: 28rpx;
+              color: $textBlack-color;
+              font-weight: bold;
+              margin-top: 8rpx;
+            }
+            .sub-title {
+              font-size: 20rpx;
+              color: $textGray-color;
+            }
+            .sale-num {
+              font-size: 20rpx;
+              color: $textGray-color;
+            }
+            .r-t {
               display: flex;
-              flex-direction: column;
-              margin-left: 20rpx;
+              align-items: center;
               justify-content: space-between;
-              background-color: mediumseagreen;
-              flex: 1;
-              height: 160rpx;
-              .title {
-                font-size: 28rpx;
-                color: $textBlack-color;
-                font-weight: bold;
-                margin-top: 8rpx;
+              .price {
+                font-size: 32rpx;
+                color: red;
               }
-              .sub-title {
-                font-size: 20rpx;
-                color: $textGray-color;
-              }
-              .sale-num {
-                font-size: 20rpx;
-                color: $textGray-color;
-              }
-              .r-t {
+              .sku {
                 display: flex;
                 align-items: center;
-                background-color: hotpink;
-                justify-content: space-between;
-                .price {
-                  font-size: 32rpx;
-                  color: red;
-                }
-                .sku {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  background-color: orangered;
-                  padding: 8rpx 12rpx;
-                  border-radius: 25rpx;
-                  span {
-                    font-size: 20rpx;
-                    color: $textBlack-color
-                  }
+                justify-content: center;
+                background-color: $theme-color;
+                padding: 8rpx 12rpx;
+                border-radius: 25rpx;
+                span {
+                  font-size: 20rpx;
+                  color: $textBlack-color
                 }
               }
             }
