@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/selectAddress/main",
     "pages/categoryList/main",
     "pages/searchList/main",
     "pages/addAddress/main",

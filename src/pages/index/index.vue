@@ -23,7 +23,7 @@
 
 <script>
 import card from "@/components/card";
-import { getCityLocation } from "@/network/action/action";
+import { getCityLocation } from "@/action/action";
 export default {
   data() {
     return {
