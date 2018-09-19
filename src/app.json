@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/selectAddress/main",
+    "pages/home/main",
     "pages/categoryList/main",
+    "pages/selectAddress/main",
     "pages/searchList/main",
     "pages/addAddress/main",
     "pages/expiredCoupon/main",
@@ -13,7 +14,6 @@
     "pages/remark/main",
     "pages/submitOrder/main",
     "pages/shoppingCart/main",
-    "pages/home/main",
     "pages/citySearch/main",
     "pages/citys/main",
     "pages/counter/main",

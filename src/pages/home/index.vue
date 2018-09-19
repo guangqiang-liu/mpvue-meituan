@@ -1,56 +1,112 @@
 <template>
   <div class="container">
-    <swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-      <div v-for="(item, index) in imgUrls" :key="index">
-        <swiper-item>
-          <div class="grid-c">
-            <div class="item" v-for="(itx, idx) in item.items" :key="idx">
-              <img class="item-img" src="">
-              <span class="item-title">{{itx}}</span>
-            </div>
-          </div>
-        </swiper-item>
-      </div>
-    </swiper>
-    <div class="list-c">
-      <div class="header">
-        <i class="icon qb-icon-down-arrow-s"></i>
-        <span>附近商家</span>
-      </div>
-      <div class="item" v-for="(item, index) in item" :key="index">
-        <div class="item-l">
-          <img src="">
+    <div class="content">
+      <div class="header-c">
+        <div class="header-l">
+          <i class="icon qb-icon-down-arrow-s" :style="{color: '#434343', 'font-size': 20 + 'rpx'}"></i>
+          <span>上海市漕河泾开发区</span>
+          <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
         </div>
-        <div class="item-r">
-          <div class="r-t">
-            <div class="t-l">
-              <span class="tip">品牌</span>
-              <span class="shop-name">店铺名称</span>
-            </div>
-            <div class="t-r">
-              <div v-for="(itx, idx) in tips" :key="idx">保</div>
+        <div class="header-r">
+          <div class="search-bar">
+            <i class="icon qb-icon-search-o"></i>
+            <input placeholder="请输入收货地址" @input="search"/>
+            <div class="cancle" v-if="keyword" @click="cancle">
+              <i class="icon qb-icon-cancle-o"></i>
             </div>
           </div>
-          <div class="r-m">
-            <div class="m-l">
-              <div class="star-c" v-for="(itx, idx) in tips" :key="idx">
-                <img src="" alt="">
+        </div>
+      </div>
+      <swiper class="category-c" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+        <div v-for="(item, index) in imgUrls" :key="index">
+          <swiper-item>
+            <div class="grid-c">
+              <div class="item" v-for="(itx, idx) in item.items" :key="idx">
+                <img class="item-img" src="">
+                <span class="item-title">{{itx}}</span>
               </div>
-              <span class="score">5.0</span>
-              <span class="sale-num">月售1000单</span>
             </div>
-            <div class="m-r">
-              <div class="deliver">蜂鸟专送</div>
-              <div class="on-time">准时达</div>
+          </swiper-item>
+        </div>
+      </swiper>
+      <swiper class="ad-c" :indicator-dots="indicatorDots" :autoplay="true" :interval="interval" :duration="duration">
+        <div class="item" v-for="(item, index) in activityList" :key="index">
+          <swiper-item>
+            <img src="">
+          </swiper-item>
+        </div>
+      </swiper>
+      <div class="recommended">
+        <img src="" alt="">
+      </div>
+      <div class="hot-sale">
+        <div class="item" v-for="(item, index) in hotSale" :key="index">
+          <div class="img-c">
+            <img src="" alt="">
+             <div class="name-c">
+              <span>小炒肉</span>
+             </div>
+          </div>
+          <span>￥17</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="l"></div>
+        <span class="m">附近商家</span>
+        <div class="r"></div>
+      </div>
+      <div class="category-list">
+        <div class="filter-bar">
+          <div class="item" v-for="(item, index) in filterList" :key="index">
+            <span>{{item}}</span>
+            <i class="icon qb-icon-down-arrow-s"></i>
+          </div>
+        </div>
+        <div class="item-list">
+          <div class="header">
+            <div class="item" v-for="(item, index) in tags" :key="index">
+              <span>{{item}}</span>
             </div>
           </div>
-          <div class="r-b">
-            <div class="b-l">
-              <span>￥20元起送 / 配送费约￥5</span>
+          <div class="item" v-for="(item, index) in itemList" :key="index">
+            <div class="item-l">
+              <img src="" alt="">
             </div>
-            <div class="b-r">
-              <span class="distance">1000公里</span>
-              <span class="time">2小时30分支</span>
+            <div class="item-r">
+              <div class="r-t">
+                <span class="shop-name">快客(古龙路店)</span>
+                <div class="t-c">
+                  <div class="c-l">
+                    <div class="l-l">
+                      <i class="icon qb-icon-down-arrow-s" v-for="(itx, idx) in itemList" :key="idx"></i>
+                    </div>
+                    <span class="l-m">4.8</span>
+                    <span class="l-r">月售202</span>
+                  </div>
+                  <div class="c-r">
+                    <span class="r-l">30分钟</span>
+                    <div class="r-m"></div>
+                    <span class="r-r">780m</span>
+                  </div>
+                </div>
+              </div>
+              <div class="r-m">
+                <span class="m-l">起送￥30</span>
+                <div class="m-m"></div>
+                <span class="m-r">配送 ￥5.6</span>
+              </div>
+              <div class="r-b">
+                <span class="b-l">支持自取</span>
+                <span class="b-r">极速配送</span>
+              </div>
+              <div class="activity-c">
+                <div class="ac-item" v-for="(itm, idx) in activityList" :key="idx">
+                  <div class="ac">
+                    <span class="ac-l">{{itm}}</span>
+                    <span class="ac-r">满30减20</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -65,14 +121,19 @@ export default {
     return {
       imgUrls: [
         {
-          items: [1, 2, 3, 4, 5, 6, 7, 8]
+          items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         },
         {
-          items: [1, 2, 3, 4, 5, 6, 7, 8]
+          items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         }
       ],
       item: [1, 2, 3, 4, 5],
-      tips: [1, 2, 3],
+      activityList: [1, 2, 3],
+      hotSale: [1, 2, 3],
+      filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
+      tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
+      itemList: [1, 2, 3, 4, 5, 6, 7],
+      activityList: ['减', '折', '首'],
       indicatorDots: true,
       autoplay: false,
       interval: 5000,
@@ -84,203 +145,382 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  background-color: $page-bgcolor;
-  .swiper {
-    width: 100%;
-    height: 400rpx;
-    background-color: white;
-    .grid-c {
-      width: 100%;
-      height: 400rpx;
-      background-color: orangered;
-      flex-wrap: wrap;
-      display: flex;
-      .item {
-        height: 50%;
-        width: 25%;
-        background-color: mediumaquamarine;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        img {
-          width: 100%;
-          height: 100rpx;
-          background-color: red;
-        }
-        span {
-          font-size: 32rpx;
-          color: $textDarkGray-color
-        }
-      }
-    }
-  }
-  .list-c {
+  .content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-top: 20rpx;
-    background-color: white;
-    .header {
+    position: relative;
+    .header-c {
       display: flex;
-      height: 88rpx;
-      background-color: maroon;
       align-items: center;
-      i {
-        font-size: 32rpx;
-        color:  $textGray-color;
-        margin-left: 20rpx;
+      height: 80rpx;
+      position: fixed;
+      width: auto;
+      padding: 0 30rpx;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: white;
+      z-index: 999;
+      .header-l {
+        display: flex;
+        align-items: center;
+        span {
+          font-size: 28rpx;
+          color: $textBlack-color;
+          margin: 0 10rpx;
+        }
       }
-      span {
-        font-size: 28rpx;
-        color:  $textGray-color;
-        margin-left: 20rpx;
+      .header-r {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        .search-bar {
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          flex: 1;
+          background-color: #f6f6f6;
+          height: 60rpx;
+          border-radius: 30rpx;
+          padding-left: 20rpx;
+          margin-left: 30rpx;
+          i {
+            margin-right: 20rpx;
+            color: #999999;
+            font-size: 32rpx;
+          }
+          input {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            font-size: 28rpx;
+            height: 32rpx;
+            margin-top: 5rpx;
+          }
+          .cancle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50rpx;
+            height: 60rpx;
+            margin-left: 20rpx;
+            i {
+              color: #999999;
+              font-size: 40rpx;
+            }
+          }
+        }
       }
     }
-    .item {
-      display: flex;
+    .category-c {
+      height: 360rpx;
       background-color: white;
-      height: 208rpx;
-      background-color: aqua;
-      border-bottom: 2rpx solid $spLine-color;
-      .item-l {
-        width: 122rpx;
-        height: 122rpx;
-        margin: 0 20rpx;
-        margin-top: (208 - 122) / 2 + rpx;
-        img {
-          width: 122rpx;
-          height: 122rpx;
-          background-color: orangered;
+      padding-top: 100rpx;
+      .grid-c {
+        height: 340rpx;
+        flex-wrap: wrap;
+        display: flex;
+        .item {
+          width: 20%;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-sizing: border-box;
+          img {
+            width: 80rpx;
+            height: 80rpx;
+            border: 2rpx solid orangered;
+            border-radius: 40rpx;
+          }
+          span {
+            font-size: 32rpx;
+            color: $textDarkGray-color;
+            margin-top: 10rpx;
+          }
         }
       }
-      .item-r {
+    }
+    .ad-c {
+      display: flex;
+      height: 200rpx;
+      background-color: white;
+      margin: 20rpx;
+      .item {
+        height: 200rpx;
+        img {
+          height: 200rpx;
+          background-color: magenta;
+          width: 100%;
+        }
+      }
+    }
+    .recommended {
+      display: flex;
+      align-items: center;
+      height: 160rpx;
+      margin: 20rpx;
+      margin-top: 0;
+      img {
+        height: 160rpx;
+        width: 100%;
+        background-color: orangered;
+      }
+    }
+    .hot-sale {
+      display: flex;
+      background-color: white;
+      height: 160rpx;
+      justify-content: space-between;
+      margin: 0 20rpx;
+      .item {
         display: flex;
         flex-direction: column;
-        background-color: brown;
-        margin-top: (208 - 122) / 2 + rpx;
-        width: 100%;
-        margin-right: 20rpx;
-        .r-t {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          .t-l {
-            display: flex;
-            align-items: center;
-            .tip {
-              background-color: #FED450;
-              color: $textBlack-color;
-              font-size: 24rpx;
-              text-align: center;
-              border-radius: 6rpx;
-              padding: 0 8rpx;
-            }
-            .shop-name {
-              font-size: 32rpx;
-              color: $textBlack-color;
-              font-weight: bold;
-              background-color: green;
-              margin-left: 20rpx
-            }
-          }
-          .t-r {
-            display: flex;
-            background-color: blueviolet;
-            align-items: center;
-            justify-content: space-around;
-            div {
-              font-size: 20rpx;
-              color:  $textGray-color;
-              width: 30rpx;
-              height: 30rpx;
-              border: 2rpx solid $spLine-color;
-              margin-right: 5rpx;
-              text-align: center;
-            }
-          }
-        }
-        .r-m {
+        width: 160rpx;
+        padding: 0 20rpx;
+        height: 160;
+        .img-c {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          background-color: #FED450;
-          margin-top: 10rpx;
-          .m-l {
-            display: flex;
-            align-items: center;
-            .star-c {
-              display: flex;
-              align-items: center;
-              img {
-                width: 20rpx;
-                height: 20rpx;
-                background-color: orange;
-                margin-left: 4rpx;
-              }
-            }
-            .score {
-              font-size: 20rpx;
-              color: #FC6127;
-              margin-left: 20rpx;
-            }
-            .sale-num {
-              font-size: 20rpx;
-              color: $textDarkGray-color;
-              margin-left: 20rpx;
-            }
+          justify-content: center;
+          position: relative;
+          img {
+            width: 160rpx;
+            height: 120rpx;
+            background-color: blue;
+            border-radius: 8rpx;
           }
-          .m-r {
+          .name-c {
             display: flex;
             align-items: center;
-            .deliver {
-              background-color: $theme-color;
-              text-align: center;
-              font-size: 20rpx;
-              color: white;
-              padding: 3rpx 6rpx;
-              border-radius: 4rpx;
-            }
-            .on-time {
-              text-align: center;
-              font-size: 20rpx;
-              color: $theme-color;
-              border-radius: 4rpx;
-              border: 2rpx solid $theme-color;
-              margin-left: 20rpx;
-              padding: 3rpx 6rpx;
-            }
-          }
-        }
-        .r-b {
-          display: flex;
-          align-items: center;
-          background-color: orchid;
-          justify-content: space-between;
-          margin-top: 10rpx;
-          .b-l {
-            display: flex;
-            align-items: center;
+            position: absolute;
+            height: 30rpx;
+            bottom: 0;
+            background: rgba($color: #000000, $alpha: 0.3);
+            width: 160rpx;
             span {
               font-size: 20rpx;
+              color: white;
+              margin: 0 10rpx;
+            }
+          }
+        }
+        span {
+          font-size: 20rpx;
+          color: red;
+          margin: 10rpx 0;
+        }
+      }
+    }
+    .section {
+      display: flex;
+      align-items: center;
+      margin: 20rpx;
+      justify-content: center;
+      box-sizing: border-box;
+      .l {
+        height: 2rpx;
+        width: 60rpx;
+        background-color: $textDarkGray-color;
+      }
+      .m {
+        font-size: 32rpx;
+        color: $textDarkGray-color;
+        margin: 0 20rpx;
+      }
+      .r {
+        height: 2rpx;
+        width: 60rpx;
+        background-color: $textDarkGray-color;
+      }
+    }
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      .filter-bar {
+        display: flex;
+        align-items: center;
+        padding: 0 20rpx;
+        background-color: white;
+        height: 70rpx;
+        border-top: 2rpx solid $spLine-color;
+        border-bottom: 2rpx solid $spLine-color;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 1;
+          span {
+            font-size: 28rpx;
+            color: $textBlack-color;
+          }
+          i {
+            font-size: 24rpx;
+            color: $textBlack-color;
+            margin-left: 10rpx;
+          }
+        }
+      }
+      .item-list {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        .header {
+          display: flex;
+          align-items: center;
+          background-color: white;
+          justify-content: space-around;
+          .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F8F8F8;
+            flex: 1;
+            margin-left: 20rpx;
+            padding: 10rpx 0;
+            span {
+              font-size: 24rpx;
               color: $textDarkGray-color;
             }
           }
-          .b-r {
+          .item:last-child {
+            margin-right: 20rpx;
+          }
+        }
+        .item {
+          display: flex;
+          background-color: white;
+          margin: 20rpx;
+          .item-l {
             display: flex;
-            align-items: center;
-            .distance {
-              font-size: 20rpx;
-              color: $textDarkGray-color;
+            width: 160rpx;
+            height: 120rpx;
+            background-color: olive;
+            img {
+              width: 160rpx;
+              height: 120rpx;
             }
-            .time {
-              font-size: 20rpx;
-              color: $theme-color;
-              margin-left: 20rpx;
+          }
+          .item-r {
+            margin-left: 20rpx;
+            flex-direction: column;
+            flex: 1;
+            .r-t {
+              display: flex;
+              flex-direction: column;
+              .shop-name {
+                font-size: 28rpx;
+                color: $textBlack-color;
+              }
+              .t-c {
+                display: flex;
+                align-items: center;
+                margin-top: 10rpx;
+                .c-l {
+                  display: flex;
+                  flex: 1;
+                  .l-l {
+                    display: flex;
+                    i {
+                      font-size: 20rpx;
+                      color: $theme-color;
+                      margin-right: 10rpx;
+                    }
+                  }
+                  .l-m {
+                    font-size: 20rpx;
+                    color: $textDarkGray-color;
+                    margin-left: 10rpx;
+                  }
+                  .l-r {
+                    font-size: 20rpx;
+                    color: $textDarkGray-color;
+                    margin-left: 20rpx;
+                  }
+                }
+                .c-r {
+                  display: flex;
+                  align-items: center;
+                  .r-l {
+                    font-size: 20rpx;
+                    color: $textDarkGray-color;
+                  }
+                  .r-m {
+                    width: 2rpx;
+                    height: 20rpx;
+                    background-color: $textGray-color;
+                    margin: 0 10rpx;
+                  }
+                  .r-r {
+                    font-size: 20rpx;
+                    color: $textDarkGray-color;
+                  }
+                }
+              }
+            }
+            .r-m {
+              display: flex;
+              align-items: center;
+              margin-top: 10rpx;
+              .m-l {
+                font-size: 20rpx;
+                color: $textDarkGray-color;
+              }
+              .m-m {
+                width: 2rpx;
+                height: 20rpx;
+                margin: 0 10rpx;
+                background-color: $textGray-color;
+              }
+              .m-r {
+                font-size: 20rpx;
+                color: $textDarkGray-color;
+              }
+            }
+            .r-b {
+              display: flex;
+              align-items: center;
+              margin-top: 10rpx;
+              .b-l {
+                color: #ACF4E3;
+                font-size: 20rpx;
+                border: 2rpx solid #ACF4E3;
+                text-align: center;
+                padding: 0 8rpx;
+              }
+              .b-r {
+                color: #ACF4E3;
+                font-size: 20rpx;
+                border: 2rpx solid #ACF4E3;
+                text-align: center;
+                padding: 0 10rpx;
+                margin-left: 10rpx;
+              }
+            }
+            .activity-c {
+              display: flex;
+              flex-direction: column;
+              .ac-item {
+                display: flex;
+                align-items: center;
+                margin-top: 20rpx;
+                .ac {
+                  display: flex;
+                  align-items: center;
+                  .ac-l {
+                    color: white;
+                    font-size: 20rpx;
+                    background-color: #FE6464;
+                    width: 30rpx;
+                    height: 30rpx;
+                    text-align: center;
+                  }
+                  .ac-r {
+                    color: $textDarkGray-color;
+                    font-size: 20rpx;
+                    margin-left: 10rpx;
+                  }
+                }
+              }
             }
           }
         }
