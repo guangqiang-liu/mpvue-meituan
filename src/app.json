@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/shoppingCart/main",
     "pages/home/main",
+    "pages/shoppingCart/main",
     "pages/categoryList/main",
     "pages/selectAddress/main",
     "pages/searchList/main",
@@ -17,7 +17,8 @@
     "pages/citySearch/main",
     "pages/citys/main",
     "pages/counter/main",
-    "pages/index/main"
+    "pages/index/main",
+    "pages/addressList/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

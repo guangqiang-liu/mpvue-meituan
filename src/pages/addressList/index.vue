@@ -13,7 +13,7 @@
         <i class="icon qb-icon-down-arrow-s"></i>
       </div>
     </div>
-    <div class="add-btn">
+    <div class="add-btn" @click="addClick">
       <i class="icon qb-icon-down-arrow-s"></i>
       <span>新增收货地址</span>
     </div>
@@ -25,6 +25,11 @@ export default {
   data() {
     return {
       itemList: [1, 2, 3, 4]
+    }
+  },
+  methods: {
+    addClick() {
+      wx.navigateTo({url: '/pages/addAddress/main'})
     }
   }
 }

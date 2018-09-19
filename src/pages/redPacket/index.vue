@@ -18,7 +18,7 @@
         <span class="item-b">限仅限外卖狂欢月部分指定商品可用，微信小程序，非到店自取</span>
       </div>
     </div>
-    <div class="bottom">
+    <div class="bottom" @click="expiredClick">
       <span class="s-l">没有更多有效券了</span>
       <span class="s-m">|</span>
       <span class="s-r">查看无效券</span>
@@ -42,6 +42,11 @@ export default {
   components: {
     sepLine
   },
+  methods: {
+    expiredClick() {
+      wx.navigateTo({url: '/pages/expiredRedPacket/main'})
+    }
+  }
 }
 </script>
 

@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom">
+    <div class="bottom" @click="expiredClick">
       <span class="s-l">没有更多商家代金券了</span>
       <span class="s-m">|</span>
       <span class="s-r">查看过期券</span>
@@ -50,6 +50,11 @@ export default {
   components: {
     sepLine
   },
+  methods: {
+    expiredClick() {
+      wx.navigateTo({url: '/pages/expiredCoupon/main'})
+    }
+  }
 }
 </script>
 

@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="footer">
+    <div class="footer" @click="addAddress">
       <i class="icon qb-icon-down-arrow-s"></i>
       <span>新增收货地址</span>
     </div>
@@ -66,6 +66,11 @@ export default {
   data() {
     return {
       myAddressList: [1, 2, 3, 4, 5, 6, 7]
+    }
+  },
+  methods: {
+    addAddress() {
+       wx.navigateTo({url: '/pages/addAddress/main'})
     }
   }
 }

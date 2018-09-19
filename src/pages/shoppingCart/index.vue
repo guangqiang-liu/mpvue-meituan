@@ -57,6 +57,24 @@
         </div>
       </scroll-view>
     </div>
+    <div class="footer-c">
+      <div class="c-t">
+        <span>满35减22；满65减40；满100减48</span>
+      </div>
+      <div class="c-m">
+        <div class="m-l">
+          <span class="l-l">另需配送费￥8</span>
+          <div class="l-m"></div>
+          <span class="l-r">支持自取</span>
+        </div>
+        <div class="m-r" @click="orderClick">
+          <span>80元起送</span>
+        </div>
+      </div>
+      <div class="cart-c">
+        <img src="" alt="">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +84,11 @@ export default {
     return {
       leftList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       rightList: [1, 2, 3, 4, 5, 6, 7, 8]
+    }
+  },
+  methods: {
+    orderClick() {
+      wx.navigateTo({url: '/pages/submitOrder/main'})
     }
   }
 }
@@ -79,6 +102,7 @@ export default {
   background-color: $page-bgcolor;
   width: 100%;
   height: 100%;
+  position: relative;
   .header-c {
     display: flex;
     flex-direction: column;
@@ -153,12 +177,12 @@ export default {
             text-align: center;
             color: white;
             font-size: 20rpx;
-            margin-left: 20rpx;
           }
           .b-r {
             font-size: 24rpx;
             color: white;
             flex: 1;
+            margin-left: 20rpx;
           }
           i {
             font-size: 24rpx;
@@ -172,7 +196,6 @@ export default {
       height: 100rpx;
       align-items: center;
       border-bottom: 2rpx solid $spLine-color;
-
       .c-l {
         font-size: 32rpx;
         color: $textBlack-color;
@@ -196,7 +219,7 @@ export default {
     top: 314rpx;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 200rpx;
     .list-l {
       display: flex;
       flex-direction: column;
@@ -291,6 +314,77 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+  .footer-c {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    height: 200rpx;
+    background-color: #333;
+    z-index: 990;
+    width: 100%;
+    .c-t {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50rpx;
+      background-color: #FFEFD2;
+      span {
+        font-size: 24rpx;
+        color: $textBlack-color;
+      }
+    }
+    .c-m {
+      display: flex;
+      justify-content: center;
+      height: 88rpx;
+      margin-left: 120rpx;
+      .m-l {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        .l-l {
+          font-size: 24rpx;
+          color: $textDarkGray-color;
+        }
+        .l-m {
+          width: 2rpx;
+          height: 20rpx;
+          background-color: $textDarkGray-color;
+          margin: 0 20rpx;
+        }
+        .l-r {
+          font-size: 24rpx;
+          color: $textDarkGray-color;
+        }
+      }
+      .m-r {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200rpx;
+        height: 88rpx;
+        background-color: #2F2F2F;
+        span {
+          font-size: 32rpx;
+          color: $textDarkGray-color;
+          font-weight: bold;
+        }
+      }
+    }
+    .cart-c {
+      position: absolute;
+      left: 20rpx;
+      top: 30rpx;
+      z-index: 991;
+      img {
+        width: 90rpx;
+        height: 90rpx;
+        background-color: #FF616D;
+        border-radius: 45rpx;
       }
     }
   }

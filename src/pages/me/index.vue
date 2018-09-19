@@ -7,11 +7,11 @@
         <span class="phone">15214313256</span>
       </div>
     </div>
-    <div class="list-c">
-      <div class="item" v-for="(item, index) in itemList" :key="index">
+    <div class="list-c" @click="itemClick">
+      <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index">
         <div class="item-l">
           <i class="icon qb-icon-down-arrow-s"></i>
-          <span>美团红包</span>
+          <span>{{item}}</span>
         </div>
         <i class="icon qb-icon-down-arrow-s"></i>
       </div>
@@ -24,7 +24,11 @@
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4, 5, 6, 7, 8]
+      itemList: ['美团红包', '商家代金券', '我的地址', '邀请有奖', '客服中心', '帮助和反馈', '协议和说明']
+    }
+  },
+  methods: {
+    itemClick(e) {
     }
   }
 }

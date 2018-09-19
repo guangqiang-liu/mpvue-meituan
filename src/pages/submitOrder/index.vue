@@ -5,7 +5,7 @@
         <div class="left">外卖配送</div>
         <div class="right">到店自取</div>
       </div>
-      <div class="address-c">
+      <div class="address-c" @click="addressClick">
         <i class="icon qb-icon-down-arrow-s"></i>
         <div class="address">
           <span class="address-info">上海市，静安区，上海马戏城，3楼，meituan外卖</span>
@@ -62,14 +62,14 @@
           </div>
           <span class="r">-￥3.5</span>
         </div>
-        <div class="red-packet">
+        <div class="red-packet" @click="redPacketClick">
           <span class="l">美团红包</span>
           <div class="r">
             <span>2张可用</span>
             <i class="icon qb-icon-down-arrow-s"></i>
           </div>
         </div>
-        <div class="coupon">
+        <div class="coupon" @click="couponClick">
           <span class="l">商家代金券</span>
           <div class="r">
             <span>2张可用</span>
@@ -100,7 +100,7 @@
         <span>支付方式</span>
         <span>在线支付</span>
       </div>
-      <div class="b-mid">
+      <div class="b-mid" @click="remarkClick">
         <span class="mid-l">备注</span>
         <div class="mid-r">
           <span>口味、偏好等要求</span>
@@ -118,9 +118,11 @@
       </div>
     </div>
     <div class="pay-btn">
-      <span class="s-l">微信支付</span>
-      <span class="s-m">￥300.8</span>
-      <span class="s-r">已优惠￥100</span>
+      <div class="top">
+        <span class="s-l">微信支付</span>
+        <span class="s-m">￥300.8</span>
+        <span class="s-r">已优惠￥100</span>
+      </div>
     </div>
   </div>
 </template>
@@ -140,6 +142,20 @@ export default {
   components: {
     sepLine
   },
+  methods: {
+    addressClick() {
+      wx.navigateTo({url: '/pages/addressList/main'})
+    },
+    redPacketClick() {
+      wx.navigateTo({url: '/pages/redPacket/main'})
+    },
+    couponClick() {
+      wx.navigateTo({url: '/pages/couponList/main'})
+    },
+    remarkClick() {
+      wx.navigateTo({url: '/pages/remark/main'})
+    }
+  }
 }
 </script>
 
@@ -539,7 +555,6 @@ export default {
   }
   .pay-btn {
     display: flex;
-    align-items: center;
     position: fixed;
     left: 0;
     right: 0;
@@ -547,19 +562,25 @@ export default {
     height: 166rpx;
     background-color: #4EAA31;
     justify-content: center;
-    .s-l {
-      font-size: 32rpx;
-      color: white;
-    }
-    .s-m {
-      font-size: 36rpx;
-      color: white;
-      font-weight: bold;
-      margin: 0 20rpx;
-    }
-    .s-r {
-      font-size: 24rpx;
-      color: white;
+    .top {
+      display: flex;
+      height: 50rpx;
+      align-items: center;
+      margin-top: 30rpx;
+      .s-l {
+        font-size: 32rpx;
+        color: white;
+      }
+      .s-m {
+        font-size: 36rpx;
+        color: white;
+        font-weight: bold;
+        margin: 0 20rpx;
+      }
+      .s-r {
+        font-size: 24rpx;
+        color: white;
+      }
     }
   }
 }
