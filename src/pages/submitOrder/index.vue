@@ -6,21 +6,21 @@
         <div class="right">到店自取</div>
       </div>
       <div class="address-c" @click="addressClick">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-location-s"></i>
         <div class="address">
           <span class="address-info">上海市，静安区，上海马戏城，3楼，meituan外卖</span>
           <span class="user-info">刘光强 先生  15214313256</span>
         </div>
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-arrow-right-o"></i>
       </div>
       <div class="line-sp"></div>
       <div class="delivery-time">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-clock-o"></i>
         <div class="content">
           <span class="c-l">立即送出</span>
           <span class="c-r">大约 20：00送达</span>
         </div>
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-arrow-right-o"></i>
       </div>
     </div>
     <div class="item-list">
@@ -44,7 +44,7 @@
       <div class="footer">
         <div class="fold">
           <span>点击收起</span>
-          <i class="icon qb-icon-down-arrow-s"></i>
+          <i class="icon mt-arrow-right-o"></i>
         </div>
         <div class="package-cast">
           <span>包装费</span>
@@ -66,14 +66,14 @@
           <span class="l">美团红包</span>
           <div class="r">
             <span>2张可用</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
         <div class="coupon" @click="couponClick">
           <span class="l">商家代金券</span>
           <div class="r">
             <span>2张可用</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
         <sep-line></sep-line> 
@@ -87,9 +87,9 @@
     <div class="privacy-c">
       <div class="top">
         <div class="t-l">
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
+          <i class="icon mt-lock-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
           <span>号码保护</span>
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
+          <i class="icon mt-help-o" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
         </div>
         <switch bindchange="switch2Change"/>
       </div>
@@ -104,16 +104,16 @@
         <span class="mid-l">备注</span>
         <div class="mid-r">
           <span>口味、偏好等要求</span>
-          <i class="icon qb-icon-down-arrow-s"></i>
+          <i class="icon mt-arrow-right-o"></i>
         </div>
       </div>
       <div class="b-btm">
         <span class="b-l">餐具数量</span>
         <div class="b-r">
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#00CB91', 'font-size': 28 + 'rpx'}"></i>
+          <i class="icon mt-leaf-o" :style="{color: '#00CB91', 'font-size': 38 + 'rpx'}"></i>
           <span class="s-l">一起为环保助力</span>
           <span class="s-r">未选择</span>
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 28 + 'rpx'}"></i>
+          <i class="icon mt-arrow-right-o" :style="{color: '#999', 'font-size': 28 + 'rpx'}"></i>
         </div>
       </div>
     </div>
@@ -197,12 +197,12 @@ export default {
     }
     .address-c {
       display: flex;
-      align-items: center;
       background-color: white;
       padding: 20rpx 0;
       i {
-        font-size: 28rpx;
+        font-size: 32rpx;
         margin: 20rpx;
+        color: #434343;
       }
       .address {
         display: flex;
@@ -472,7 +472,7 @@ export default {
         span {
           font-size: 32rpx;
           color: $textBlack-color;
-          margin: 0 20rpx;
+          margin: 0 10rpx;
         }
       }
     }
@@ -543,7 +543,7 @@ export default {
         .s-l {
           font-size: 28rpx;
           color: #00CB91;
-          margin: 0 20rpx;
+          margin: 0 10rpx;
         }
         .s-r {
           font-size: 28rpx;

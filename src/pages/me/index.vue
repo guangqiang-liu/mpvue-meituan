@@ -10,10 +10,10 @@
     <div class="list-c" @click="itemClick">
       <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index">
         <div class="item-l">
-          <i class="icon qb-icon-down-arrow-s"></i>
-          <span>{{item}}</span>
+          <i class='iconClass(item)'></i>
+          <span>{{item.title}}</span>
         </div>
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class='icon mt-arrow-right-o'></i>
       </div>
     </div>
     <div class="btn">退出账号</div>
@@ -24,7 +24,40 @@
 export default {
   data() {
     return {
-      itemList: ['美团红包', '商家代金券', '我的地址', '邀请有奖', '客服中心', '帮助和反馈', '协议和说明']
+      itemList: [
+        {
+          title: '美团红包',
+          icon: 'mt-red-packet-o'
+        }, 
+        {
+          title: '商家代金券',
+          icon: 'mt-coupon-o'
+        },
+        {
+          title: '我的地址',
+          icon: 'mt-my-location-o'
+        },
+        {
+          title: '邀请有奖',
+          icon: 'mt-gift-o'
+        },
+        {
+          title: '客服中心',
+          icon: 'mt-customer-service-o'
+        },
+        {
+          title: '帮助和反馈',
+          icon: 'mt-help-o'
+        },
+        {
+          title: '协议和说明',
+          icon: 'mt-protocol-o'
+        }]
+    }
+  },
+  computed: {
+    iconClass(item) {
+      return `icon ${item.icon}`
     }
   },
   methods: {

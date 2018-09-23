@@ -2,7 +2,7 @@
   <div class="container">
     <div class="content">
       <div class="search-bar" @click="searchClick">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-search-o"></i>
         <span>请输入商家或者商品名称</span>
       </div>
       <div class="category-c">
@@ -17,7 +17,7 @@
         <div class="filter-bar">
           <div class="item" v-for="(item, index) in filterList" :key="index">
             <span>{{item}}</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-down-o"></i>
           </div>
         </div>
         <div class="item-list">

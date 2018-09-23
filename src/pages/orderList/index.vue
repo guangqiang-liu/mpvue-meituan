@@ -5,7 +5,7 @@
         <div class="shop-info">
           <img src="" alt="">
           <span class="shop-name">正新汉堡.炸鸡(古美路店)</span>
-          <i class="icon qb-icon-down-arrow-s"></i>
+          <i class="icon mt-arrow-right-o"></i>
           <span class="order-status">订单完成</span>
         </div>
         <div class="googs-c">

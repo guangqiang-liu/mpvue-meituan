@@ -3,7 +3,7 @@
     <div class="content">
       <div class="search-c">
         <div class="search-bar">
-          <i class="icon qb-icon-search-o"></i>
+          <i class="icon mt-search-o"></i>
           <input placeholder="请输入城市名称查询" @input="search"/>
           <div class="cancle" v-if="keyword" @click="cancle">
             <i class="icon qb-icon-cancle-o"></i>
@@ -22,7 +22,7 @@
       <div class="history-c">
         <div class="header">
           <span>历史搜索</span>
-          <i class="icon qb-icon-search-o"></i>
+          <i class="icon mt-trash-o"></i>
         </div>
         <div class="line-b"></div>
         <div class="history-list">

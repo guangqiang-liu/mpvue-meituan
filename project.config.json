@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wx69720258b4555088",
 	"projectname": "mpvue-meituan",
 	"condition": {
 		"search": {

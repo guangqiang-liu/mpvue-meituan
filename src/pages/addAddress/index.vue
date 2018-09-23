@@ -7,7 +7,7 @@
     <div class="sex">
       <div class="l"></div>
       <div class="m">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-discount-o"></i>
         <span>先生</span>
       </div>
       <div class="r">

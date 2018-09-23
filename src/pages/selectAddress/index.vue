@@ -2,13 +2,13 @@
   <div class="container">
     <div class="header-c">
       <div class="header-l">
-        <i class="icon qb-icon-down-arrow-s" :style="{color: '#434343', 'font-size': 20 + 'rpx'}"></i>
+        <i class="icon mt-location-o" :style="{color: '#434343', 'font-size': 38 + 'rpx'}"></i>
         <span>上海市</span>
-        <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
+        <i class="icon mt-arrow-right-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
       </div>
       <div class="header-r">
         <div class="search-bar">
-          <i class="icon qb-icon-search-o"></i>
+          <i class="icon mt-search-o"></i>
           <input placeholder="请输入收货地址" @input="search"/>
           <div class="cancle" v-if="keyword" @click="cancle">
             <i class="icon qb-icon-cancle-o"></i>
@@ -19,13 +19,13 @@
     <div class="location-c">
       <span class="c-l">上海市闵行区漕河泾开发区</span>
       <div class="c-r">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-relocation-o"></i>
         <span>重新定位</span>
       </div>
     </div>
     <div class="my-address">
       <div class="header">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-myhome-o"></i>
         <span>我的收获地址</span>
       </div>
       <div class="list-c">
@@ -40,12 +40,12 @@
       </div>
       <div class="footer">
         <span>展开全部4个地址</span>
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-arrow-down-o"></i>
       </div>
     </div>
     <div class="nearby-address">
       <div class="header">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-location-o"></i>
         <span>附近地址</span>
       </div>
       <div class="list-c">
@@ -54,8 +54,8 @@
         </div>
       </div>
     </div>
-    <div class="footer" @click="addAddress">
-      <i class="icon qb-icon-down-arrow-s"></i>
+    <div class="footer-c" @click="addAddress">
+      <i class="icon mt-add-o"></i>
       <span>新增收货地址</span>
     </div>
   </div>
@@ -114,7 +114,7 @@ export default {
         padding-left: 20rpx;
         margin-left: 30rpx;
         i {
-          margin-right: 20rpx;
+          margin-right: 10rpx;
           color: #999999;
           font-size: 32rpx;
         }
@@ -158,13 +158,13 @@ export default {
       display: flex;
       align-items: center;
       i {
-        font-size: 28rpx;
+        font-size: 32rpx;
         color: $theme-color;
       }
       span {
         font-size: 28rpx;
         color: $theme-color;
-        margin-left: 20rpx;
+        margin-left: 10rpx;
       }
     }
   }
@@ -237,7 +237,7 @@ export default {
         color: $textDarkGray-color;
       }
       i {
-        font-size: 24rpx;
+        font-size: 32rpx;
         color: $textDarkGray-color;
         margin-left: 10rpx;
       }
@@ -254,7 +254,7 @@ export default {
       align-items: center;
       padding: 10rpx 30rpx;
       i {
-        font-size: 28rpx;
+        font-size: 38rpx;
         color: $textDarkGray-color;
       }
       span {
@@ -286,7 +286,7 @@ export default {
       }
     }
   }
-  .footer {
+  .footer-c {
     display: flex;
     align-items: center;
     height: 88rpx;
@@ -297,7 +297,7 @@ export default {
     justify-content: center;
     border-top: 2rpx solid $spLine-color;
     i {
-      font-size: 28rpx;
+      font-size: 32rpx;
       color: $theme-color;
     }
     span {

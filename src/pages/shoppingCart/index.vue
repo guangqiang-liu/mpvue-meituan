@@ -17,7 +17,7 @@
           <div class="r-b">
             <span class="b-l">减</span>
             <span class="b-r">满35减22；满65减40；满100减48</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
       </div>

@@ -3,12 +3,12 @@
     <div class="content">
       <div class="header-c">
         <div class="header-l" @click="addressClick">
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#434343', 'font-size': 20 + 'rpx'}"></i>
+          <i class="icon mt-location-o" :style="{color: '#434343', 'font-size': 38 + 'rpx'}"></i>
           <span>上海市漕河泾开发区</span>
-          <i class="icon qb-icon-down-arrow-s" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
+          <i class="icon mt-arrow-right-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
         </div>
         <div class="header-r" @click="searchClick">
-          <i class="icon qb-icon-search-o"></i>
+          <i class="icon mt-search-o"></i>
           <span>请输入收货地址</span>
         </div>
       </div>
@@ -54,7 +54,7 @@
         <div class="filter-bar">
           <div class="item" v-for="(item, index) in filterList" :key="index">
             <span>{{item}}</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-down-o"></i>
           </div>
         </div>
         <div class="item-list">
