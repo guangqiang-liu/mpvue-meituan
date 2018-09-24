@@ -1,27 +1,27 @@
 <template>
   <div class="container">
     <div class="list-c">
-      <div class="item" v-for="(item, index) in itemList" :key=index>
+      <div class="item" v-for="(item, index) in couponList" :key=index>
         <div class="item-t">
-          <img class="top-l" src="" alt="">
+          <img class="top-l" :src="item.poi_url">
           <div class="top-m">
-            <span class="s-t">麻辣无双 (东兰路店)</span>
+            <span class="s-t">{{item.title}}</span>
             <span class="s-m">互斥券</span>
-            <span class="s-b">有效期至2018.09.01</span>
+            <span class="s-b">{{item.valid_time_desc}}</span>
           </div>
           <div class="top-r">
-            <span class="s-t">￥<span>32</span></span>
-            <span class="s-b">满45可用</span>
+            <span class="s-t">￥<span>{{item.money}}</span></span>
+            <span class="s-b">{{item.price_limit}}</span>
           </div>
         </div>
         <div class="item-m">
           <sep-line></sep-line> 
         </div>
         <div class="item-b">
-          <span class="b-l">不可与满减、折扣商品、第二份半价活动优惠同时享受。在线支付专享。</span>
+          <span class="b-l">{{item.use_rule}}</span>
           <div class="b-r">
             <span>去使用</span>
-            <i class="icon qb-icon-down-arrow-s"></i>
+            <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
       </div>
@@ -37,11 +37,12 @@
 
 <script>
 import sepLine from "@/components/sep-line";
+import {couponList} from './data'
 
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4, 5]
+      couponList: []
     }
   },
   computed: {
@@ -54,6 +55,9 @@ export default {
     expiredClick() {
       wx.navigateTo({url: '/pages/expiredCoupon/main'})
     }
+  },
+  mounted() {
+    this.couponList = couponList.data.poi_coupon_info_list
   }
 }
 </script>
@@ -89,11 +93,10 @@ export default {
             color: $textBlack-color;
           }
           .s-m {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: #50B8AC;
-            padding: 6rpx 10rpx;
             border: 2rpx solid #50B8AC;
-            width: 100rpx;
+            width: 80rpx;
             text-align: center;
             margin: 10rpx 0;
           }
@@ -131,7 +134,7 @@ export default {
         margin: 20rpx;
         align-items: center;
         .b-l {
-          font-size: 24rpx;
+          font-size: 20rpx;
           color: $textDarkGray-color;
           flex: 1;
         }

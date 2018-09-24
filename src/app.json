@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/couponList/main",
     "pages/home/main",
     "pages/shoppingCart/main",
     "pages/categoryList/main",
@@ -7,7 +8,6 @@
     "pages/searchList/main",
     "pages/addAddress/main",
     "pages/expiredCoupon/main",
-    "pages/couponList/main",
     "pages/expiredRedPacket/main",
     "pages/redPacket/main",
     "pages/me/main",
