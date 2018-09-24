@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/home/main",
     "pages/redPacket/main",
     "pages/couponList/main",
-    "pages/home/main",
     "pages/shoppingCart/main",
     "pages/categoryList/main",
     "pages/selectAddress/main",
