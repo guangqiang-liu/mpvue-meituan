@@ -4,18 +4,18 @@
       <div class="item" v-for="(item, index) in itemList" :key="index">
         <div class="item-t">
           <div class="t-l">
-            <span class="s-t">狂欢月专属红包</span>
-            <span class="s-b">有效期至2018.09.19</span>
+            <span class="s-t">{{item.title}}</span>
+            <span class="s-b">{{item.valid_time_desc}}</span>
           </div>
           <div class="t-r">
-            <span class="s-t">￥<span>4</span></span>
-            <span class="s-b">满20可用</span>
+            <span class="s-t">￥<span>{{item.amount}}</span></span>
+            <span class="s-b">{{item.price_limit}}</span>
           </div>
         </div>
         <div class="item-m">
           <sep-line></sep-line> 
         </div>
-        <span class="item-b">限仅限外卖狂欢月部分指定商品可用，微信小程序，非到店自取</span>
+        <span class="item-b">{{item.use_limits}}</span>
       </div>
     </div>
     <div class="bottom" @click="expiredClick">
@@ -29,6 +29,7 @@
 
 <script>
 import sepLine from "@/components/sep-line";
+import {redPacket} from './data'
 
 export default {
   data() {
@@ -46,6 +47,9 @@ export default {
     expiredClick() {
       wx.navigateTo({url: '/pages/expiredRedPacket/main'})
     }
+  },
+  mounted() {
+    this.itemList = redPacket.data.coupon_list
   }
 }
 </script>
