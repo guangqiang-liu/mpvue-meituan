@@ -1,22 +1,22 @@
 <template>
   <div class="container">
     <div class="list-c">
-      <div class="item" v-for="(item, index) in itemList" :key="index">
+      <div class="item" v-for="(item, index) in orderList" :key="index">
         <div class="shop-info">
-          <img src="" alt="">
-          <span class="shop-name">正新汉堡.炸鸡(古美路店)</span>
+          <img :src="item.poi_pic">
+          <span class="shop-name">{{item.poi_name}}</span>
           <i class="icon mt-arrow-right-o"></i>
-          <span class="order-status">订单完成</span>
+          <span class="order-status">{{item.status_description}}</span>
         </div>
         <div class="googs-c">
-          <div class="goods" v-for="(itx, idx) in goodsList" :key="idx">
-            <span class="s-l">可乐(大杯)</span>
-            <span class="s-r">x2</span>
+          <div class="goods" v-for="(itx, idx) in item.product_list" :key="idx">
+            <span class="s-l">{{itx.product_name}}</span>
+            <span class="s-r">x{{itx.product_count}}</span>
           </div>
         </div>
         <div class="price">
-          <span class="count">共3件商品，实付</span>
-          <span class="amount">￥20.8</span>
+          <span class="count">共{{item.product_list.length}}件商品，实付</span>
+          <span class="amount">￥{{item.total}}</span>
         </div>
         <div class="bottom-c">
           <div class="btn">
@@ -29,12 +29,16 @@
 </template>
 
 <script>
+import {orderList} from './data'
+
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      goodsList: [1, 2, 3]
+      orderList: [],
     }
+  },
+  mounted() {
+    this.orderList = orderList.data.digestlist
   }
 }
 </script>
@@ -60,7 +64,6 @@ export default {
         img {
           width: 80rpx;
           height: 80rpx;
-          background-color: magenta;
         }
         .shop-name {
           font-size: 32rpx;
@@ -70,7 +73,7 @@ export default {
         i {
           font-size: 28rpx;
           color: $textGray-color;
-          margin-left: 20rpx;
+          margin-left: 10rpx;
           flex: 1;
         }
         .order-status {
@@ -128,7 +131,7 @@ export default {
           border: 2rpx solid $spLine-color;
           margin: 20rpx;
           span {
-            font-size: 32rpx;
+            font-size: 28rpx;
             color: $textBlack-color;
             margin: 16rpx 24rpx;
           }

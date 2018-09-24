@@ -1,7 +1,7 @@
 /** Created by guangqiang on 2018-06-29 10:26:46 */
 
 const PATH = {
-  PICTURE_LIST: '/Showtime/LocationMovies.api',
+  HOME_HEAD_CATEGORY: '/weapp/v1/v8/home/head',
   PICTURE_DETAIL: '/hp/detail/',
   PICTURE_GRID_LIST: '/hp/bymonth/',
   MOVIE_LIST: '/movie/list/',

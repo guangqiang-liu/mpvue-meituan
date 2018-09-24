@@ -11,7 +11,7 @@ const movieShowTimeList = params =>  getFetch(PATH.MOVIE_SHOWTIME, params, false
 const movieComeingNewList = params =>  getFetch(PATH.MOVIE_COMEING_NEW, params, ApiSource.TIMEMOVIE)
 const movieDetail = params => getFetch(PATH.MOVIE_DETAIL, params, ApiSource.TIMETICKET)
 
-const getCityLocation = params => getFetch(PATH.CITY_LOCATION, params, false)
+const queryHomeHeadCategory = params => postFetch(`${PATH.HOME_HEAD_CATEGORY}?ui=${params.ui}&region_id=${params.region_id}&region_version=${params.region_version}`, params, false)
 const createActivity = params => postFetch(PATH.CREATE_ACTIVITY, params, true)
 const getActivityDetail = params => getFetch(`${PATH.GET_ACTIVITY_DETAIL}/${params.id}?longitude=${params.longitude}&latitude=${params.latitude}&append=${params.append}`, {}, false)
 const getActivityDetailGpsNull = params => getFetch(`${PATH.GET_ACTIVITY_DETAIL}/${params.id}?append=${params.append}`, {}, false)
@@ -40,5 +40,6 @@ const postFormId = () => {}
 export {
   movieList,
   movieDetail,
-  getCityLocation
+  getCityLocation,
+  queryHomeHeadCategory
 }

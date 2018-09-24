@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header-c">
-      <img src="" alt="">
+      <img src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJvoc0l3Oe4lWTMtUvLd7UYm9IvSWNjM6S5ibZBu3OE5XbCEqgPw9llpibmkyqEX9GbLKOCfTIe6wWQ/132" alt="">
       <div class="info-c">
         <span class="name">光强</span>
         <span class="phone">15214313256</span>
@@ -10,7 +10,7 @@
     <div class="list-c" @click="itemClick">
       <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index">
         <div class="item-l">
-          <i class='iconClass(item)'></i>
+          <i class='icon mt-red-packet-o'></i>
           <span>{{item.title}}</span>
         </div>
         <i class='icon mt-arrow-right-o'></i>
@@ -56,8 +56,9 @@ export default {
     }
   },
   computed: {
-    iconClass(item) {
-      return `icon ${item.icon}`
+    iconClass() {
+      var str = `icon mt-red-packet-o`
+      return str
     }
   },
   methods: {
@@ -78,7 +79,6 @@ export default {
       width: 120rpx;
       height: 120rpx;
       border-radius: 60rpx;
-      background-color: maroon;
       margin-left: 30rpx
     }
     .info-c {

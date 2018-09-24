@@ -3,7 +3,7 @@
     <div class="header-c">
       <div class="header-l">
         <i class="icon mt-location-o" :style="{color: '#434343', 'font-size': 38 + 'rpx'}"></i>
-        <span>上海市</span>
+        <span>{{cityData.result}}</span>
         <i class="icon mt-arrow-right-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
       </div>
       <div class="header-r">
@@ -29,12 +29,12 @@
         <span>我的收获地址</span>
       </div>
       <div class="list-c">
-        <div class="item" v-for="(item, index) in myAddressList" :key="index">
-          <span class="i-t">上海市闵行区 漕河泾开发区</span>
+        <div class="item" v-for="(item, index) in myAddress" :key="index">
+          <span class="i-t">{{item.address}}</span>
           <div class="i-b">
-            <span class="b-l">刘光强</span>
-            <span class="b-m">先生</span>
-            <span class="b-r">15214313256</span>
+            <span class="b-l">{{item.name}}</span>
+            <span class="b-m">{{item.gender}}</span>
+            <span class="b-r">{{item.phone}}</span>
           </div>
         </div>
       </div>
@@ -49,8 +49,8 @@
         <span>附近地址</span>
       </div>
       <div class="list-c">
-        <div class="item" v-for="(item, index) in myAddressList" :key="index">
-          <span>上海市闵行区 漕河泾开发区</span>
+        <div class="item" v-for="(item, index) in nearbyAddress" :key="index">
+          <span>{{item.name}}</span>
         </div>
       </div>
     </div>
@@ -62,16 +62,25 @@
 </template>
 
 <script>
+import {addressData} from './data'
+
 export default {
   data() {
     return {
-      myAddressList: [1, 2, 3, 4, 5, 6, 7]
+      cityData: {},
+      myAddress: [],
+      nearbyAddress: []
     }
   },
   methods: {
     addAddress() {
        wx.navigateTo({url: '/pages/addAddress/main'})
     }
+  },
+  mounted() {
+    this.cityData = addressData.cityData.data
+    this.myAddress = addressData.myAddress.data
+    this.nearbyAddress = addressData.nearbyAddress.data.mapPoiVo
   }
 }
 </script>

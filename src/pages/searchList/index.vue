@@ -14,8 +14,8 @@
       <span class="title">热门搜索</span>
       <div class="line-t"></div>
       <div class="tag-list">
-        <div class="tag" v-for="(item, index) in tags" :key="index">
-          <span>{{item}}</span>
+        <div class="tag" v-for="(item, index) in hotList" :key="index">
+          <span>{{item.label_name}}</span>
         </div>
       </div>
       <div class="line-m"></div>
@@ -27,7 +27,7 @@
         <div class="line-b"></div>
         <div class="history-list">
           <div class="item" v-for="(item, index) in historyList" :key="index">
-            <span>{{item}}</span>
+            <span>{{item.label_name}}</span>
           </div>
         </div>
       </div>
@@ -36,13 +36,19 @@
 </template>
 
 <script>
+import {searchData} from './data'
 export default {
   data() {
     return {
-      tags: ['麻辣烫', '卤肉饭', '小炒肉', '米线', '盐酥鸡', '披萨', '土豆丝', '粉丝汤', '瘦肉粥', '薯条'],
-      historyList: ['小炒肉', '麦当劳']
+      hotList: [],
+      historyList: []
     }
+  },
+  mounted() {
+    this.hotList = searchData.data.data.labels
+    this.historyList = searchData.data.data.searchHotLabelWithTgtStid.searchHotLabelList
   }
+
 }
 </script>
 

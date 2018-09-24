@@ -12,37 +12,39 @@
           <span>请输入收货地址</span>
         </div>
       </div>
-      <swiper class="category-c" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-        <div v-for="(item, index) in imgUrls" :key="index">
+      <swiper class="category-c" indicator-dots="true" indicator-color="#999" indicator-active-color="#FFC24A">
+        <div v-for="(item, index) in categoryArr" :key="index">
           <swiper-item>
             <div class="grid-c">
               <div class="item" v-for="(itx, idx) in item.items" :key="idx" @click="categoryClick">
-                <img class="item-img" src="">
-                <span class="item-title">{{itx}}</span>
+                <img class="item-img" :src="itx.url">
+                <span class="item-title">{{itx.name}}</span>
               </div>
             </div>
           </swiper-item>
         </div>
       </swiper>
-      <swiper class="ad-c" :indicator-dots="indicatorDots" :autoplay="true" :interval="interval" :duration="duration">
-        <div class="item" v-for="(item, index) in activityList" :key="index">
+      <swiper class="ad-c" indicator-dots="true" indicator-color="#999" indicator-active-color="#FFC24A" autoplay="true">
+        <block v-for="(item, index) in topBannerData" :key="index">
           <swiper-item>
-            <img src="">
+            <img class="ad-img" :src="item.banner_pic_url">
           </swiper-item>
-        </div>
+        </block>
       </swiper>
-      <div class="recommended" @click="categoryClick">
-        <img src="" alt="">
-      </div>
-      <div class="hot-sale">
-        <div class="item" v-for="(item, index) in hotSale" :key="index" @click="shoppingCartClick">
-          <div class="img-c">
-            <img src="" alt="">
-             <div class="name-c">
-              <span>小炒肉</span>
-             </div>
+      <div class="b-banner">
+        <div class="recommended" @click="categoryClick">
+          <img :src="bottomBanner.banner_pic_url">
+        </div>
+        <div class="hot-sale">
+          <div class="item" v-for="(item, index) in bottomBanner.products" :key="index" @click="shoppingCartClick">
+            <div class="img-c">
+              <img :src="item.picture">
+              <div class="name-c">
+                <span class="name">{{item.name}}</span>
+              </div>
+            </div>
+            <span class="price">{{item.price}}</span>
           </div>
-          <span>￥17</span>
         </div>
       </div>
       <div class="section">
@@ -63,42 +65,45 @@
               <span>{{item}}</span>
             </div>
           </div>
-          <div class="item" v-for="(item, index) in itemList" :key="index" @click="shoppingCartClick">
+          <div class="item" v-for="(item, index) in shopsList" :key="index" @click="shoppingCartClick">
             <div class="item-l">
-              <img src="" alt="">
+              <img :src="item.pic_url">
+              <img class="tag" :src="item.poi_promotion_pic">
             </div>
             <div class="item-r">
               <div class="r-t">
-                <span class="shop-name">快客(古龙路店)</span>
+                <span class="shop-name">{{item.name}}</span>
                 <div class="t-c">
                   <div class="c-l">
                     <div class="l-l">
-                      <i class="icon qb-icon-down-arrow-s" v-for="(itx, idx) in itemList" :key="idx"></i>
+                      <i class="icon mt-star-s" v-for="(itx, idx) in itemList" :key="idx"></i>
                     </div>
-                    <span class="l-m">4.8</span>
-                    <span class="l-r">月售202</span>
+                    <span class="l-m">{{item.wm_poi_score}}</span>
+                    <span class="l-r">{{item.month_sales_tip}}</span>
                   </div>
                   <div class="c-r">
-                    <span class="r-l">30分钟</span>
+                    <span class="r-l">{{item.delivery_time_tip}}</span>
                     <div class="r-m"></div>
-                    <span class="r-r">780m</span>
+                    <span class="r-r">{{item.distance}}</span>
                   </div>
                 </div>
               </div>
               <div class="r-m">
-                <span class="m-l">起送￥30</span>
+                <span class="m-l">{{item.min_price_tip}}</span>
                 <div class="m-m"></div>
-                <span class="m-r">配送 ￥5.6</span>
+                <span class="m-r">{{item.shipping_fee_tip}}</span>
+                <div class="m-m"></div>
+                <span class="m-r">{{item.average_price_tip}}</span>
               </div>
               <div class="r-b">
                 <span class="b-l">支持自取</span>
                 <span class="b-r">极速配送</span>
               </div>
               <div class="activity-c">
-                <div class="ac-item" v-for="(itm, idx) in activityList" :key="idx">
+                <div class="ac-item" v-for="(itm, idx) in item.discounts2" :key="idx">
                   <div class="ac">
-                    <span class="ac-l">{{itm}}</span>
-                    <span class="ac-r">满30减20</span>
+                    <img class="ac-l" :src="itm.icon_url">
+                    <span class="ac-r">{{itm.info}}</span>
                   </div>
                 </div>
               </div>
@@ -111,28 +116,18 @@
 </template>
 
 <script>
+import {queryHomeHeadCategory} from '@/action/action'
+import {homeData} from './data'
+
 export default {
   data() {
     return {
-      imgUrls: [
-        {
-          items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        },
-        {
-          items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        }
-      ],
-      item: [1, 2, 3, 4, 5],
-      activityList: [1, 2, 3],
-      hotSale: [1, 2, 3],
+      categoryArr: [{items: []}, {items: []}],
+      topBannerData: [],
+      bottomBanner: {},
+      shopsList: [],
       filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
-      tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
-      itemList: [1, 2, 3, 4, 5, 6, 7],
-      activityList: ['减', '折', '首'],
-      indicatorDots: true,
-      autoplay: false,
-      interval: 5000,
-      duration: 1000
+      tags: ['满减优惠', '点评高分', '新商家', '美团专送']
     };
   },
   methods: {
@@ -148,6 +143,19 @@ export default {
     shoppingCartClick() {
       wx.navigateTo({url: '/pages/shoppingCart/main'})
     }
+  },
+  mounted() {
+    var categoryData = homeData.headData.data.primary_filter;
+    categoryData.map((item, index) => {
+      if (index < 10) {
+        this.categoryArr[0].items.push(item)
+      } else {
+         this.categoryArr[1].items.push(item)
+      }
+    })
+    this.topBannerData = homeData.topBannerData.data.top_banner_list
+    this.bottomBanner = homeData.bannerData.data.rcmd_board_v9.mid_ad_banner.platinum_banner
+    this.shopsList = homeData.homeList.data.poilist
   }
 };
 </script>
@@ -217,11 +225,10 @@ export default {
           img {
             width: 80rpx;
             height: 80rpx;
-            border: 2rpx solid orangered;
             border-radius: 40rpx;
           }
           span {
-            font-size: 32rpx;
+            font-size: 24rpx;
             color: $textDarkGray-color;
             margin-top: 10rpx;
           }
@@ -233,69 +240,71 @@ export default {
       height: 200rpx;
       background-color: white;
       margin: 20rpx;
-      .item {
+      .ad-img {
         height: 200rpx;
+        width: 100%;
+        background-size: cover;
+      }
+    }
+    .b-banner {
+      display: flex;
+      flex-direction: column;
+      .recommended {
+        display: flex;
+        align-items: center;
+        height: 160rpx;
+        margin: 20rpx;
+        margin-top: 0;
         img {
-          height: 200rpx;
-          background-color: magenta;
+          height: 160rpx;
           width: 100%;
+          background-size: cover;
         }
       }
-    }
-    .recommended {
-      display: flex;
-      align-items: center;
-      height: 160rpx;
-      margin: 20rpx;
-      margin-top: 0;
-      img {
-        height: 160rpx;
-        width: 100%;
-        background-color: orangered;
-      }
-    }
-    .hot-sale {
-      display: flex;
-      background-color: white;
-      height: 160rpx;
-      justify-content: space-between;
-      margin: 0 20rpx;
-      .item {
+      .hot-sale {
         display: flex;
-        flex-direction: column;
-        width: 160rpx;
-        padding: 0 20rpx;
-        height: 160;
-        .img-c {
+        background-color: white;
+        height: 160rpx;
+        justify-content: space-between;
+        margin: 0 20rpx;
+        .item {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          img {
-            width: 160rpx;
-            height: 120rpx;
-            background-color: blue;
-            border-radius: 8rpx;
-          }
-          .name-c {
+          flex-direction: column;
+          width: 160rpx;
+          padding: 0 20rpx;
+          height: 160;
+          .img-c {
             display: flex;
             align-items: center;
-            position: absolute;
-            height: 30rpx;
-            bottom: 0;
-            background: rgba($color: #000000, $alpha: 0.3);
-            width: 160rpx;
-            span {
-              font-size: 20rpx;
-              color: white;
-              margin: 0 10rpx;
+            justify-content: center;
+            position: relative;
+            img {
+              width: 160rpx;
+              height: 120rpx;
+              border-radius: 8rpx;
+            }
+            .name-c {
+              display: flex;
+              align-items: center;
+              position: absolute;
+              height: 30rpx;
+              bottom: 0;
+              background: rgba($color: #000000, $alpha: 0.3);
+              width: 160rpx;
+              .name {
+                font-size: 20rpx;
+                color: white;
+                margin: 0 10rpx;
+                height: 30rpx;
+                overflow: hidden;
+              }
             }
           }
-        }
-        span {
-          font-size: 20rpx;
-          color: red;
-          margin: 10rpx 0;
+          .price {
+            font-size: 20rpx;
+            color: red;
+            margin: 10rpx 0;
+          }
         }
       }
     }
@@ -382,10 +391,17 @@ export default {
             display: flex;
             width: 160rpx;
             height: 120rpx;
-            background-color: olive;
+            position: relative;
             img {
               width: 160rpx;
               height: 120rpx;
+            }
+            .tag {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100rpx;
+              height: 60rpx;
             }
           }
           .item-r {
@@ -495,12 +511,9 @@ export default {
                   display: flex;
                   align-items: center;
                   .ac-l {
-                    color: white;
-                    font-size: 20rpx;
-                    background-color: #FE6464;
                     width: 30rpx;
                     height: 30rpx;
-                    text-align: center;
+                    background-size: cover;
                   }
                   .ac-r {
                     color: $textDarkGray-color;

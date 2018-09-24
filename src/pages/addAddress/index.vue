@@ -7,12 +7,12 @@
     <div class="sex">
       <div class="l"></div>
       <div class="m">
-        <i class="icon mt-discount-o"></i>
+        <i class="icon mt-selected-o"></i>
         <span>先生</span>
       </div>
       <div class="r">
-        <i class="icon qb-icon-down-arrow-s"></i>
-        <span>先生</span>
+        <i class="icon mt-unselected-o"></i>
+        <span>女士</span>
       </div>
     </div>
     <div class="phone">
@@ -26,7 +26,7 @@
         <span>点击选择</span>
       </div>
       <div class="r">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-arrow-right-o"></i>
       </div>
     </div>
     <div class="house-num">
@@ -95,8 +95,8 @@ export default {
       display: flex;
       margin-left: 60rpx;
       i {
-        font-size: 32rpx;
-        color: $theme-color;
+        font-size: 38rpx;
+        color: $textGray-color;
       }
       span {
         font-size: 32rpx;
@@ -149,7 +149,7 @@ export default {
     .r {
       i {
         font-size: 28rpx;
-        color: $textBlack-color;
+        color: $textGray-color;
       }
     }
   }
