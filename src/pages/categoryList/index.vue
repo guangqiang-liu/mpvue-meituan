@@ -6,11 +6,12 @@
         <span>请输入商家或者商品名称</span>
       </div>
       <div class="category-c">
-        <div class="l">
-
-        </div>
+        <scroll-view class="l" scroll-x>
+          <view class="tab-item" v-for="(item, index) in tabList" :key="index">{{item}}</view>
+          <view class="line"></view>
+        </scroll-view>
         <div class="r">
-          <i class="icon qb-icon-down-arrow-s"></i>
+          <i class="icon mt-arrow-down-o"></i>
         </div>
       </div>
       <div class="category-list">
@@ -28,40 +29,41 @@
           </div>
           <div class="item" v-for="(item, index) in itemList" :key="index" @click="categoryClick">
             <div class="item-l">
-              <img src="" alt="">
+              <img :src="item.pic_url">
+              <img class="tag-img" :src="item.poi_promotion_pic">
             </div>
             <div class="item-r">
               <div class="r-t">
-                <span class="shop-name">快客(古龙路店)</span>
+                <span class="shop-name">{{item.name}}</span>
                 <div class="t-c">
                   <div class="c-l">
                     <div class="l-l">
-                      <i class="icon qb-icon-down-arrow-s" v-for="(itx, idx) in itemList" :key="idx"></i>
+                      <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
                     </div>
-                    <span class="l-m">4.8</span>
-                    <span class="l-r">月售202</span>
+                    <span class="l-m">{{item.wm_poi_score}}</span>
+                    <span class="l-r">{{item.month_sales_tip}}</span>
                   </div>
                   <div class="c-r">
-                    <span class="r-l">30分钟</span>
+                    <span class="r-l">{{item.delivery_time_tip}}</span>
                     <div class="r-m"></div>
-                    <span class="r-r">780m</span>
+                    <span class="r-r">{{item.distance}}</span>
                   </div>
                 </div>
               </div>
               <div class="r-m">
-                <span class="m-l">起送￥30</span>
+                <span class="m-l">{{item.min_price_tip}}</span>
                 <div class="m-m"></div>
-                <span class="m-r">配送 ￥5.6</span>
+                <span class="m-r">{{item.shipping_fee_tip}}</span>
               </div>
               <div class="r-b">
                 <span class="b-l">支持自取</span>
                 <span class="b-r">极速配送</span>
               </div>
               <div class="activity-c">
-                <div class="ac-item" v-for="(itm, idx) in activityList" :key="idx">
+                <div class="ac-item" v-for="(itm, idx) in item.discounts2" :key="idx">
                   <div class="ac">
-                    <span class="ac-l">{{itm}}</span>
-                    <span class="ac-r">满30减20</span>
+                    <img class="ac-l" :src="itm.icon_url"/>
+                    <span class="ac-r">{{itm.info}}</span>
                   </div>
                 </div>
               </div>
@@ -74,13 +76,16 @@
 </template>
 
 <script>
+import {categoryData} from './data'
+
 export default {
   data() {
     return {
       filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
       tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
-      itemList: [1, 2, 3, 4, 5, 6, 7],
-      activityList: ['减', '折', '首']
+      itemList: [],
+      stars: [1, 2, 3, 4],
+      tabList: ['美食', '快餐便当', '汉堡薯条', '意面披萨', '包子粥店', '米粉面馆', '饺子混沌', '麻辣烫冒菜', '川湘菜', '地方菜系', '炸鸡炸串', '特色小吃', '夹馍饼类', '鸭脖卤味', '日料寿司', '韩式料理', '香锅干锅', '嗨吃火锅', '龙虾烧烤', '轻食沙拉']
     }
   },
   methods: {
@@ -90,6 +95,9 @@ export default {
     categoryClick() {
        wx.navigateTo({url: '/pages/shoppingCart/main'})
     }
+  },
+  mounted() {
+    this.itemList = categoryData.data.poilist
   }
 }
 </script>
@@ -121,14 +129,32 @@ export default {
     }
     .category-c {
       display: flex;
-      align-items: center;
-      background-color: magenta;
       height: 70rpx;
-      margin-left: 20rpx;
+      position: relative;
       .l {
-        display: flex;
-        align-items: center;
-        flex: 1;
+        text-align: center;
+        line-height: 70rpx;
+        white-space: nowrap;
+        position: relative;
+        .tab-item {
+          transition: all 0.2s;
+          font-size: 28rpx;
+          height: 70rpx;
+          display: inline-block;
+          color: $textDarkGray-color;
+          margin: 0 30rpx;
+        }
+        .line {
+          display: block;
+          position: absolute;
+          left: 40rpx;
+          height: 4rpx;
+          background: $theme-color;
+          bottom: 38rpx;
+          transition: left 0.2s;
+          z-index: 99;
+          width: 32rpx;
+        }
       }
       .r {
         display: flex;
@@ -136,7 +162,16 @@ export default {
         justify-content: center;
         width: 70rpx;
         height: 70rpx;
-        background-color: aquamarine;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: $page-bgcolor;
+        flex: 1;
+        i {
+          font-size: 24rpx;
+          color: $textGray-color;
+        }
       }
     }
     .category-list {
@@ -201,9 +236,17 @@ export default {
             width: 160rpx;
             height: 120rpx;
             background-color: olive;
+            position: relative;
             img {
               width: 160rpx;
               height: 120rpx;
+            }
+            .tag-img {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100rpx;
+              height: 60rpx;
             }
           }
           .item-r {
@@ -313,12 +356,9 @@ export default {
                   display: flex;
                   align-items: center;
                   .ac-l {
-                    color: white;
-                    font-size: 20rpx;
-                    background-color: #FE6464;
                     width: 30rpx;
                     height: 30rpx;
-                    text-align: center;
+                    background-size: cover;
                   }
                   .ac-r {
                     color: $textDarkGray-color;

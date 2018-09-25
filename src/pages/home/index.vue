@@ -76,7 +76,7 @@
                 <div class="t-c">
                   <div class="c-l">
                     <div class="l-l">
-                      <i class="icon mt-star-s" v-for="(itx, idx) in itemList" :key="idx"></i>
+                      <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
                     </div>
                     <span class="l-m">{{item.wm_poi_score}}</span>
                     <span class="l-r">{{item.month_sales_tip}}</span>
@@ -127,7 +127,8 @@ export default {
       bottomBanner: {},
       shopsList: [],
       filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
-      tags: ['满减优惠', '点评高分', '新商家', '美团专送']
+      tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
+      stars: [1, 2, 3, 4, 5]
     };
   },
   methods: {
