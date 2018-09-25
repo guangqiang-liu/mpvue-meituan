@@ -4,19 +4,19 @@
       <div class="item" v-for="(item, index) in itemList" :key="index">
         <div class="item-t">
           <div class="t-l">
-            <span class="s-t">狂欢月专属红包</span>
-            <span class="s-b">有效期至2018.09.19</span>
+            <span class="s-t">{{item.title}}</span>
+            <span class="s-b">{{item.valid_time_desc}}</span>
           </div>
           <div class="t-r">
-            <span class="s-t">￥<span>4</span></span>
-            <span class="s-b">满20可用</span>
+            <span class="s-t">￥<span>{{item.amount}}</span></span>
+            <span class="s-b">{{item.price_limit}}</span>
           </div>
         </div>
         <div class="item-m">
           <sep-line></sep-line> 
         </div>
-        <span class="item-b">限仅限外卖狂欢月部分指定商品可用，微信小程序，非到店自取</span>
-        <img class="status" src="" alt="">
+        <span class="item-b">{{item.use_limits}}</span>
+        <img class="status" src="http://ovyjkveav.bkt.clouddn.com/18-9-25/44107642.jpg">
       </div>
     </div>
     <div class="bottom">
@@ -27,11 +27,12 @@
 
 <script>
 import sepLine from "@/components/sep-line";
+import {dataList} from './data'
 
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4]
+      itemList: []
     }
   },
    computed: {
@@ -40,6 +41,9 @@ export default {
   components: {
     sepLine
   },
+  mounted() {
+    this.itemList = dataList.data.coupon_list
+  }
 }
 </script>
 
@@ -57,7 +61,6 @@ export default {
       flex-direction: column;
       margin-top: 20rpx;
       border-radius: 8rpx;
-      opacity: 0.6;
       position: relative;
       .item-t {
         display: flex;
@@ -117,7 +120,6 @@ export default {
         right: 40rpx;
         width: 120rpx;
         height: 120rpx;
-        background-color: maroon;
         border-radius: 60rpx;
       }
     }
@@ -128,7 +130,7 @@ export default {
     margin: 40rpx;
     justify-content: center;
     span {
-      font-size: 24rpx;
+      font-size: 20rpx;
       color: $textBlack-color;
     }
   }
