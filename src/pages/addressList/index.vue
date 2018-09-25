@@ -3,11 +3,11 @@
     <div class="list-c">
       <div class="item" v-for="(item, index) in itemList" :key="index">
         <div class="i-l">
-          <span class="address">广中西路运城路 1111号 1栋</span>
+          <span class="address">{{item.address}} {{item.house_number}}</span>
           <div class="user-info">
-            <span class="s-l">刘光强</span>
-            <span class="s-m">先生</span>
-            <span class="s-r">15214313256</span>
+            <span class="s-l">{{item.name}}</span>
+            <span class="s-m">{{item.gender}}</span>
+            <span class="s-r">{{item.phone}}</span>
           </div>
         </div>
         <i class="icon mt-edit-o"></i>
@@ -21,16 +21,20 @@
 </template>
 
 <script>
+import {addressList} from './data'
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4]
+      itemList: []
     }
   },
   methods: {
     addClick() {
       wx.navigateTo({url: '/pages/addAddress/main'})
     }
+  },
+  mounted() {
+    this.itemList = addressList.data
   }
 }
 </script>
@@ -91,7 +95,7 @@ export default {
     left: 0;
     right: 0;
     i {
-      font-size: 32rpx;
+      font-size: 36rpx;
       color: $theme-color;
     }
     span {
