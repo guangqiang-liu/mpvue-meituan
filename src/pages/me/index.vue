@@ -11,12 +11,13 @@
       <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index" @click="itemClick(item)">
         <div class="item-l">
           <i class='icon' :class="item.icon"></i>
-          <span>{{item.title}}</span>
+          <span class="title">{{item.title}}</span>
+          <span class="amount" v-if="item.amount">{{item.amount}}<span>张</span></span>
         </div>
         <i class='icon mt-arrow-right-o'></i>
       </div>
     </div>
-    <div class="btn">退出账号</div>
+    <div class="btn" @click="logoutClick">退出账号</div>
   </div>
 </template>
 
@@ -28,12 +29,14 @@ export default {
         {
           title: '美团红包',
           icon: 'mt-red-packet-o',
-          path: '/pages/redPacket/main'
+          path: '/pages/redPacket/main',
+          amount: 4
         }, 
         {
           title: '商家代金券',
           icon: 'mt-coupon-o',
-          path: '/pages/couponList/main'
+          path: '/pages/couponList/main',
+          amount: 10
         },
         {
           title: '我的地址',
@@ -64,6 +67,20 @@ export default {
   methods: {
     itemClick(e) {
       wx.navigateTo({url: e.path})
+    },
+    logoutClick() {
+      wx.showModal({
+        title: '确认退出？',
+        content: '退出登录后将无法查看订单，重新登录即可查看',
+        confirmColor: '#FFC24A',
+        success: function(res) {
+          if (res.confirm) {
+            resolve('ok')
+          } else if (res.cancel) {
+            resolve('cancle')
+          }
+      }
+    })
     }
   }
 }
@@ -115,10 +132,23 @@ export default {
           font-size: 38rpx;
           color: $textBlack-color;
         }
-        span {
-          font-size: 32rpx;
+        .title {
+          font-size: 28rpx;
           color: $textBlack-color;
           margin-left: 30rpx;
+          margin-top: 6rpx;
+        }
+        .amount {
+          font-size: 38rpx;
+          color: red;
+          margin: 0 10rpx;
+          display: flex;
+          align-items: center;
+           span {
+             font-size: 24rpx;
+             color: $textDarkGray-color;
+             margin-left: 10rpx;
+           }
         }
       }
       i {

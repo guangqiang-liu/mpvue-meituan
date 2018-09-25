@@ -1,0 +1,1 @@
+https://i.waimai.meituan.com/node/account/agreement?isMini=1
