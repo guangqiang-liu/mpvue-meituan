@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/home/main",
+    "pages/shoppingCart/main",
     "pages/me/main",
     "pages/expiredRedPacket/main",
     "pages/expiredCoupon/main",
-    "pages/home/main",
     "pages/redPacket/main",
     "pages/couponList/main",
-    "pages/shoppingCart/main",
     "pages/categoryList/main",
     "pages/selectAddress/main",
     "pages/searchList/main",
