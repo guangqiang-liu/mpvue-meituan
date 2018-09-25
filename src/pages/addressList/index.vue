@@ -10,11 +10,11 @@
             <span class="s-r">15214313256</span>
           </div>
         </div>
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-edit-o"></i>
       </div>
     </div>
     <div class="add-btn" @click="addClick">
-      <i class="icon qb-icon-down-arrow-s"></i>
+      <i class="icon mt-add-o"></i>
       <span>新增收货地址</span>
     </div>
   </div>
@@ -73,6 +73,10 @@ export default {
           }
         }
       }
+      i{
+        font-size: 32rpx;
+        color: $textBlack-color;
+      }
     }
   }
   .add-btn {
@@ -88,12 +92,12 @@ export default {
     right: 0;
     i {
       font-size: 32rpx;
-      color: #EFD674;
+      color: $theme-color;
     }
     span {
-      font-size: 32rpx;
+      font-size: 28rpx;
       color: $textBlack-color;
-      margin-left: 20rpx;
+      margin-left: 10rpx;
     }
   }
 }

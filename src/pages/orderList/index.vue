@@ -2,7 +2,7 @@
   <div class="container">
     <div class="list-c">
       <div class="item" v-for="(item, index) in orderList" :key="index">
-        <div class="shop-info">
+        <div class="shop-info" @click="headerClick">
           <img :src="item.poi_pic">
           <span class="shop-name">{{item.poi_name}}</span>
           <i class="icon mt-arrow-right-o"></i>
@@ -35,6 +35,11 @@ export default {
   data() {
     return {
       orderList: [],
+    }
+  },
+  methods: {
+    headerClick() {
+      wx.navigateTo({url: '/pages/shoppingCart/main'})
     }
   },
   mounted() {

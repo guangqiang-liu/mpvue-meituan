@@ -7,10 +7,10 @@
         <span class="phone">15214313256</span>
       </div>
     </div>
-    <div class="list-c" @click="itemClick">
-      <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index">
+    <div class="list-c">
+      <div class="item" v-for="(item, index) in itemList" :key="index" :data-index="index" @click="itemClick(item)">
         <div class="item-l">
-          <i class='icon mt-red-packet-o'></i>
+          <i class='icon' :class="item.icon"></i>
           <span>{{item.title}}</span>
         </div>
         <i class='icon mt-arrow-right-o'></i>
@@ -27,15 +27,18 @@ export default {
       itemList: [
         {
           title: '美团红包',
-          icon: 'mt-red-packet-o'
+          icon: 'mt-red-packet-o',
+          path: '/pages/redPacket/main'
         }, 
         {
           title: '商家代金券',
-          icon: 'mt-coupon-o'
+          icon: 'mt-coupon-o',
+          path: '/pages/couponList/main'
         },
         {
           title: '我的地址',
-          icon: 'mt-my-location-o'
+          icon: 'mt-my-location-o',
+          path: '/pages/addressList/main'
         },
         {
           title: '邀请有奖',
@@ -56,13 +59,11 @@ export default {
     }
   },
   computed: {
-    iconClass() {
-      var str = `icon mt-red-packet-o`
-      return str
-    }
+
   },
   methods: {
     itemClick(e) {
+      wx.navigateTo({url: e.path})
     }
   }
 }
@@ -111,8 +112,8 @@ export default {
         display: flex;
         flex: 1;
         i {
-          font-size: 32rpx;
-          color: $textGray-color;
+          font-size: 38rpx;
+          color: $textBlack-color;
         }
         span {
           font-size: 32rpx;

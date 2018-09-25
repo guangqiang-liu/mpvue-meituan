@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="list-c">
-      <div class="item" v-for="(item, index) in couponList" :key=index>
+      <div class="item" v-for="(item, index) in couponList" :key=index @click="itemClick">
         <div class="item-t">
           <img class="top-l" :src="item.poi_url">
           <div class="top-m">
@@ -54,6 +54,9 @@ export default {
   methods: {
     expiredClick() {
       wx.navigateTo({url: '/pages/expiredCoupon/main'})
+    },
+    itemClick() {
+      wx.navigateTo({url: '/pages/shoppingCart/main'})
     }
   },
   mounted() {

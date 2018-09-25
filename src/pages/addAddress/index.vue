@@ -22,7 +22,7 @@
     <div class="address">
       <span class="l">收货地址：</span>
       <div class="m">
-        <i class="icon qb-icon-down-arrow-s"></i>
+        <i class="icon mt-location-o"></i>
         <span>点击选择</span>
       </div>
       <div class="r">
@@ -137,13 +137,14 @@ export default {
       display: flex;
       flex: 1;
       i {
-        font-size: 28rpx;
-        color: $textBlack-color;
+        font-size: 38rpx;
+        color: $textGray-color;
       }
       span {
         font-size: 28rpx;
         color:  $textGray-color;
-        margin-left: 20rpx;
+        margin-left: 10rpx;
+        margin-top: 6rpx;
       }
     }
     .r {

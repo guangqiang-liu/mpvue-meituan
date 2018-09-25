@@ -27,7 +27,7 @@
         <div class="line-b"></div>
         <div class="history-list">
           <div class="item" v-for="(item, index) in historyList" :key="index">
-            <span>{{item.label_name}}</span>
+            <span>{{item}}</span>
           </div>
         </div>
       </div>
@@ -41,12 +41,12 @@ export default {
   data() {
     return {
       hotList: [],
-      historyList: []
+      historyList: ['麻辣烫', '麦当劳', '小炒肉', '奶茶']
     }
   },
   mounted() {
     this.hotList = searchData.data.data.labels
-    this.historyList = searchData.data.data.searchHotLabelWithTgtStid.searchHotLabelList
+    // this.historyList = searchData.data.data.searchHotLabelWithTgtStid.searchHotLabelList
   }
 
 }
