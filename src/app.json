@@ -18,7 +18,9 @@
     "pages/citys/main",
     "pages/counter/main",
     "pages/index/main",
-    "pages/addressList/main"
+    "pages/addressList/main",
+    "pages/protocol/main",
+    "pages/feedback/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

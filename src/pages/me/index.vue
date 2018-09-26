@@ -53,11 +53,13 @@ export default {
         },
         {
           title: '帮助和反馈',
-          icon: 'mt-help-o'
+          icon: 'mt-help-o',
+          path: '/pages/feedback/main'
         },
         {
           title: '协议和说明',
-          icon: 'mt-protocol-o'
+          icon: 'mt-protocol-o',
+          path: '/pages/protocol/main'
         }]
     }
   },
@@ -70,17 +72,17 @@ export default {
     },
     logoutClick() {
       wx.showModal({
-        title: '确认退出？',
-        content: '退出登录后将无法查看订单，重新登录即可查看',
-        confirmColor: '#FFC24A',
-        success: function(res) {
-          if (res.confirm) {
-            resolve('ok')
-          } else if (res.cancel) {
-            resolve('cancle')
-          }
-      }
-    })
+          title: '确认退出？',
+          content: '退出登录后将无法查看订单，重新登录即可查看',
+          confirmColor: '#FFC24A',
+          success: function(res) {
+            if (res.confirm) {
+              resolve('ok')
+            } else if (res.cancel) {
+              resolve('cancle')
+            }
+        }
+      })
     }
   }
 }

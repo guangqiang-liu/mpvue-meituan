@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-
+    <web-view class="webview" :src="url"></web-view>
   </div>
 </template>
 
@@ -16,6 +16,10 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-
+  .webview {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
