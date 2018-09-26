@@ -8,92 +8,92 @@
       <div class="address-c" @click="addressClick">
         <i class="icon mt-location-s"></i>
         <div class="address">
-          <span class="address-info">上海市，静安区，上海马戏城，3楼，meituan外卖</span>
-          <span class="user-info">刘光强 先生  15214313256</span>
+          <span class="address-info">{{addressInfo.address}} {{addressInfo.house_number}}</span>
+          <span class="user-info">{{addressInfo.name}} {{addressInfo.gender}}  {{addressInfo.phone}}</span>
         </div>
-        <i class="icon mt-arrow-right-o"></i>
+        <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
       </div>
       <div class="line-sp"></div>
       <div class="delivery-time">
-        <i class="icon mt-clock-o"></i>
+        <i class="icon mt-clock-s"></i>
         <div class="content">
-          <span class="c-l">立即送出</span>
-          <span class="c-r">大约 20：00送达</span>
+          <span class="c-l">{{arrivalInfo.date_type_tip}}</span>
+          <span class="c-r">{{arrivalInfo.select_view_time}}</span>
         </div>
-        <i class="icon mt-arrow-right-o"></i>
+        <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
       </div>
     </div>
     <div class="item-list">
       <div class="section">
-        <img src="" alt="">
-        <span>汉堡王 (龙茗路店))</span>
-        <div>商家自配</div>
+        <img :src="itemData.poi_icon" >
+        <span>{{itemData.poi_name}}</span>
+        <text class="tag">商家自配</text>
       </div>
       <div class="list">
-        <div class="item" v-for="(item, index) in itemList" :key="index">
-          <img src="" alt="">
+        <div class="item" v-for="(item, index) in foodlist" :key="index">
+          <img :src="item.picture">
           <div class="item-r">
             <div class="r-t">
-              <span>薯条 (中暑)</span>
-              <span>￥10</span>
+              <span>{{item.name}}</span>
+              <span>￥{{item.price}}</span>
             </div>
-            <span>x2</span>
+            <span>x{{item.count}}</span>
           </div>
         </div>
       </div>
       <div class="footer">
         <div class="fold">
           <span>点击收起</span>
-          <i class="icon mt-arrow-right-o"></i>
+          <i class="icon mt-arrow-up-o"></i>
         </div>
         <div class="package-cast">
           <span>包装费</span>
-          <span>￥8.0</span>
+          <span>￥{{itemData.box_total_price}}</span>
         </div>
         <div class="delivery-cast">
           <span>配送费</span>
-          <span>￥8.0</span>
+          <span>￥{{itemData.shipping_fee}}</span>
         </div>
         <sep-line></sep-line> 
         <div class="discount">
-          <div class="l">
-            <div>减</div>
-            <span class="title">满减优惠</span>
+          <div class="item" v-for="(item, index) in itemData.discounts" :key="index">
+            <img :src="item.icon_url">
+            <span class="name">{{item.name}}</span>
+            <span class="info">{{item.info}}</span>
           </div>
-          <span class="r">-￥3.5</span>
         </div>
         <div class="red-packet" @click="redPacketClick">
           <span class="l">美团红包</span>
           <div class="r">
-            <span>2张可用</span>
+            <span>4张可用</span>
             <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
         <div class="coupon" @click="couponClick">
           <span class="l">商家代金券</span>
           <div class="r">
-            <span>2张可用</span>
+            <span>10张可用</span>
             <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
         <sep-line></sep-line> 
         <div class="totle-price">
-          <span class="l">已优惠￥30</span>
+          <span class="l">已优惠￥35</span>
           <span class="m">小计</span>
-          <span class="r">￥100.9</span>
+          <span class="r">￥34.8</span>
         </div>
       </div>
     </div>
     <div class="privacy-c">
       <div class="top">
         <div class="t-l">
-          <i class="icon mt-lock-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
-          <span>号码保护</span>
-          <i class="icon mt-help-o" :style="{color: '#999', 'font-size': 20 + 'rpx'}"></i>
+          <i class="icon mt-lock-o" :style="{color: '#434343', 'font-size': 32 + 'rpx'}"></i>
+          <span>{{privacy_service.privacy_title}}</span>
+          <i class="icon mt-help-o" :style="{color: '#999', 'font-size': 24 + 'rpx'}"></i>
         </div>
         <switch bindchange="switch2Change"/>
       </div>
-      <span>对商家骑手隐藏您的真实手机号，保护您的隐私</span>
+      <span>{{privacy_service.privacy_close_desc}}</span>
     </div>
     <div class="bottom-c">
       <div class="b-top">
@@ -103,7 +103,7 @@
       <div class="b-mid" @click="remarkClick">
         <span class="mid-l">备注</span>
         <div class="mid-r">
-          <span>口味、偏好等要求</span>
+          <span>{{remark_field.hint}}</span>
           <i class="icon mt-arrow-right-o"></i>
         </div>
       </div>
@@ -120,8 +120,8 @@
     <div class="pay-btn">
       <div class="top">
         <span class="s-l">微信支付</span>
-        <span class="s-m">￥300.8</span>
-        <span class="s-r">已优惠￥100</span>
+        <span class="s-m">￥34.8</span>
+        <span class="s-r">已优惠￥35</span>
       </div>
     </div>
   </div>
@@ -129,11 +129,17 @@
 
 <script>
 import sepLine from "@/components/sep-line";
+import {orderData} from './data'
 
 export default {
   data() {
     return {
-      itemList: [1, 2, 3, 4]
+      itemData: {},
+      addressInfo: {},
+      arrivalInfo: {},
+      foodlist: [],
+      privacy_service: {},
+      remark_field: {}
     }
   },
   computed: {
@@ -155,6 +161,14 @@ export default {
     remarkClick() {
       wx.navigateTo({url: '/pages/remark/main'})
     }
+  },
+  mounted() {
+    this.itemData = orderData.data
+    this.addressInfo = this.itemData.address_info
+    this.arrivalInfo = this.itemData.expected_arrival_info
+    this.foodlist = this.itemData.foodlist
+    this.privacy_service = this.itemData.privacy_service
+    this.remark_field = this.itemData.remark_field
   }
 }
 </script>
@@ -200,7 +214,7 @@ export default {
       background-color: white;
       padding: 20rpx 0;
       i {
-        font-size: 32rpx;
+        font-size: 36rpx;
         margin: 20rpx;
         color: #434343;
       }
@@ -208,12 +222,13 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        flex: 1;
         .address-info {
           font-size: 32rpx;
           color: $textBlack-color;
         }
         .user-info {
-          font-size: 20rpx;
+          font-size: 24rpx;
           color: $textGray-color;
         }
       }
@@ -231,6 +246,7 @@ export default {
       padding: 0 20rpx;
       i {
         font-size: 28rpx;
+        color: $textBlack-color;
       }
       .content {
         display: flex;
@@ -243,7 +259,7 @@ export default {
         }
         .c-r {
           font-size: 24rpx;
-          color: $theme-color;
+          color: #5584E2;
           margin-left: 20rpx;
         }
       }
@@ -264,7 +280,6 @@ export default {
         width: 40rpx;
         height: 40rpx;
         border-radius: 20rpx;
-        background-color: magenta;
       }
       span {
         font-size: 28rpx;
@@ -272,10 +287,10 @@ export default {
         flex: 1;
         margin-left: 20rpx;
       }
-      div {
+      text {
         color: $textBlack-color;
         font-size: 20rpx;
-        padding: 4rpx 10rpx;
+        padding: 3rpx 6rpx;
         border: 2rpx solid $textBlack-color;
       }
     }
@@ -293,7 +308,6 @@ export default {
         img {
           width: 100rpx;
           height: 100rpx;
-          background-color: chocolate;
           margin-left: 20rpx;
         }
         .item-r {
@@ -330,7 +344,7 @@ export default {
         margin-top: 30rpx;
         border: 2rpx solid $spLine-color;
         i {
-          font-size: 20rpx;
+          font-size: 24rpx;
           color: $textDarkGray-color;
         }
         span {
@@ -361,32 +375,26 @@ export default {
       }
       .discount {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
         margin: 20rpx;
-        .l {
+        flex-direction: column;
+        .item {
           display: flex;
           align-items: center;
-          flex: 1;
-          div {
-            font-size: 20rpx;
-            color: white;
-            background-color: #FF5151;
+          margin-top: 10rpx;
+          img {
             width: 30rpx;
             height: 30rpx;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
           }
-          .title {
-            font-size: 20rpx;
+          .name {
+            font-size: 28rpx;
             color: $textGray-color;
+            flex: 1;
             margin-left: 10rpx;
           }
-        }
-        span {
-          font-size: 28rpx;
-          color: #FF5151;
+          .info {
+            font-size: 28rpx;
+            color: #FF5151;
+          }
         }
       }
       .red-packet {
@@ -402,12 +410,13 @@ export default {
           display: flex;
           align-items: center;
           span {
-            font-size: 28rpx;
+            font-size: 24rpx;
             color: #FF5151;
           }
           i {
             font-size: 28rpx;
-            margin-left: 20rpx;
+            margin-left: 10rpx;
+            color: $textGray-color;
           }
         }
       }
@@ -424,12 +433,13 @@ export default {
           display: flex;
           align-items: center;
           span {
-            font-size: 28rpx;
+            font-size: 24rpx;
             color: #FF5151;
           }
           i {
             font-size: 28rpx;
-            margin-left: 20rpx;
+            margin-left: 10rpx;
+            color: $textGray-color;
           }
         }
       }
@@ -439,7 +449,7 @@ export default {
         justify-content: flex-end;
         margin: 20rpx;
         .l {
-          font-size: 28rpx;
+          font-size: 24rpx;
           color: $textGray-color;
         }
         .m {
@@ -470,7 +480,7 @@ export default {
         align-items: center;
         flex: 1;
         span {
-          font-size: 32rpx;
+          font-size: 28rpx;
           color: $textBlack-color;
           margin: 0 10rpx;
         }
@@ -498,7 +508,7 @@ export default {
       margin: 0 20rpx;
       border-bottom: 2rpx solid $spLine-color;
       span {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: $textBlack-color;
       }
     }
@@ -510,20 +520,20 @@ export default {
       margin: 0 20rpx;
       border-bottom: 2rpx solid $spLine-color;
       .mid-l {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: $textBlack-color;
       }
       .mid-r {
         display: flex;
         align-items: center;
         span {
-          font-size: 32rpx;
+          font-size: 28rpx;
           color: $textGray-color;
         }
         i {
           font-size: 28rpx;
           color: $textGray-color;
-          margin-left: 20rpx;
+          margin-left: 10rpx;
         }
       }
     }
@@ -531,24 +541,27 @@ export default {
       display: flex;
       background-color: white;
       margin: 20rpx;
-      justify-content: space-between;
+      align-items: center;
       .b-l {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: $textBlack-color;
+        flex: 1;
       }
       .b-r {
         display: flex;
         align-items: center;
         margin: 0 20rpx;
+        margin-right: 0;
         .s-l {
-          font-size: 28rpx;
+          font-size: 24rpx;
           color: #00CB91;
           margin: 0 10rpx;
         }
         .s-r {
           font-size: 28rpx;
           color: $textGray-color;
-          margin-right: 20rpx;
+          margin-right: 10rpx;
+          flex: 1;
         }
       }
     }

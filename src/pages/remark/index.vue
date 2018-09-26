@@ -2,7 +2,7 @@
   <div class="container">
     <div class="content-c">
       <div class="input-c">
-        <textarea placeholder="请输入备注，最多50个字哦" placeholder-style="font-size: 32rpx"/>
+        <textarea placeholder="请输入备注，最多50个字哦" placeholder-style="font-size: 28rpx"/>
         <span>0 / 50</span>
       </div>
       <div class="tag-c">
@@ -72,16 +72,16 @@ export default {
     }
   }
   .submit {
-      background-color: #FFCF6E;
-      display: flex;
-      height: 88rpx;
-      width: auto;
-      color: $textBlack-color;
-      font-size: 38rpx;
-      margin: 40rpx;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8rpx;
-    }
+    background-color: #FFCF6E;
+    display: flex;
+    height: 88rpx;
+    width: auto;
+    color: $textBlack-color;
+    font-size: 38rpx;
+    margin: 40rpx;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8rpx;
+  }
 }
 </style>
