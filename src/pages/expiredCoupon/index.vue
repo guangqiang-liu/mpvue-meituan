@@ -20,7 +20,7 @@
         <div class="item-b">
           <span class="b-l">{{item.use_rule}}</span>
         </div>
-        <img class="status-im" src="http://ovyjkveav.bkt.clouddn.com/18-9-25/44107642.jpg">
+        <img class="status-im" src="http://ovyjkveav.bkt.clouddn.com/18-9-26/49925456.jpg">
       </div>
     </div>
     <div class="bottom">

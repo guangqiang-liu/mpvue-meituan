@@ -66,7 +66,8 @@ const formatTime = date => {
   return `${t1} ${t2}`
 }
 
-const formatYMD = date => {
+const formatYMD = timestamp => {
+  const date = new Date(timestamp)
   const year = date.getFullYear()
   const month = add0(date.getMonth() + 1)
   const day = add0(date.getDate())

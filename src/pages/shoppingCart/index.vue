@@ -16,21 +16,21 @@
           <span class="r-m">公告：{{contentData.bulletin}}</span>
           <div class="r-b">
             <span class="b-l">减</span>
-            <span class="b-r">满35减22；满65减40；满100减48</span>
+            <span class="b-r">{{bottomTip}}</span>
             <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
       </div>
        <div class="cate-c">
-         <span class="c-l">菜单</span>
-         <span class="c-m">评价</span>
-         <span class="c-r">商家</span>
-         <div class="line"></div>
+         <span class="c-l" @click="menuClick">菜单</span>
+         <span class="c-m" @click="commentClick">评价</span>
+         <span class="c-r" @click="shopClick">商家</span>
+         <div class="line" :style="lineStyle"></div>
        </div>
     </div>
-    <div class="list-c">
+    <div class="list-c" v-if="pageIndex === 0">
       <scroll-view class="list-l" :scroll-y="true">
-        <div class="l-item" v-for="(item, index) in foods" :key="index">
+        <div class="l-item" :class="{active: index === tagIndex}" v-for="(item, index) in foods" :key="index" @click="tagClick(item, index)">
           <img :src="item.icon" v-if="item.icon.length > 0">
           <span>{{item.name}}</span>
         </div>
@@ -50,8 +50,17 @@
               <span class="sale-num">{{item.month_saled_content}} {{item.praise_content}}</span>
               <div class="r-t">
                 <span class="price">￥{{item.min_price}}</span>
-                <div class="sku">
+                <div class="sku" v-if="item.attrs.length">
                   <span>选规格</span>
+                </div>
+                <div class="add-item" v-else>
+                  <div class="add-l">
+                    <i class="icon mt-reduce-o"></i>
+                    <span>1</span>
+                  </div>
+                  <div class="add-r">
+                    <i class="icon mt-add-o"></i>
+                  </div>
                 </div>
               </div>
               <div class="tags-c">
@@ -62,18 +71,140 @@
         </div>
       </scroll-view>
     </div>
-    <div class="footer-c">
+    <div class="comment-c" v-else-if="pageIndex === 1">
+      <scroll-view class="comment-sc" :scroll-y="true">
+        <div class="comment-header">
+          <div class="h-l">
+            <span class="score">{{commentData.quality_score}}</span>
+            <span class="title">商家评分</span>
+          </div>
+          <div class="h-m">
+            <div class="m-t">
+              <span class="title">口味</span>
+              <div class="star-c">
+                <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
+              </div>
+              <span class="score">{{commentData.food_score}}</span>
+            </div>
+            <div class="m-b">
+              <span class="title">包装</span>
+              <div class="star-c">
+                <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
+              </div>
+              <span class="score">{{commentData.pack_score}}</span>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="h-r">
+            <span class="score">{{commentData.delivery_score}}</span>
+            <span class="title">配送评分</span>
+          </div>
+        </div>
+        <div class="comment-tags">
+          <div class="tag-item" v-for="(item, index) in commentData.commentMolds" :key="index">
+            <span>{{item}}</span>
+          </div>
+        </div>
+        <div class="comment-list">
+          <div class="item-c" v-for="(item, index) in commentData.comments" :key="index">
+            <div class="item-l">
+              <img :src="item.user_pic_url.length > 0 ? item.user_pic_url : 'http://ovyjkveav.bkt.clouddn.com/18-9-26/85572180.jpg'">
+            </div>
+            <div class="item-r">
+              <div class="h-r">
+                <div class="r-t">
+                  <span class="name">{{item.user_name}}</span>
+                  <span class="date">{{item.comment_time}}</span>
+                </div>
+                <div class="r-b">
+                  <div class="b-l">
+                    <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
+                  </div>
+                  <span class="b-r">{{item.ship_time}}分钟送达</span>
+                </div>
+              </div>
+              <div class="r-comtent">
+                <span>{{item.comment}}</span>
+              </div>
+              <div class="r-imgs">
+                <div class="single" v-if="item.comment_pics.length === 1">
+                  <img src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg">
+                </div>
+                <div class="double" v-if="item.comment_pics.length === 2 || item.comment_pics.length === 3">
+                  <img class="comment-img" src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg" v-for="(itm, idx) in item.comment_pics" :key="idx">
+                </div>
+                <div class="four" v-if="item.comment_pics.length === 4">
+                  <img class="comment-img" src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg" v-for="(itm, idx) in item.comment_pics" :key="idx">
+                </div>
+              </div>
+              <div class="food-name">
+                <div class="name-t" v-if="item.praise_food_tip.length > 0">
+                  <i class="icon mt-praise-o"></i>
+                  <span>{{item.praise_food_tip}}}</span>
+                </div>
+                <div class="name-b" v-if="item.comment_labels.length > 0">
+                  <i class="icon mt-discount-o"></i>
+                  <span>{{item.commentTags}}</span>
+                </div>
+              </div>
+              <div class="reply-c">
+                <span>{{item.poi_reply_contents}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </scroll-view>
+    </div>
+    <div class="shop-info" v-else-if="pageIndex === 2">
+      <div class="address">
+        <i class="icon mt-location-o"></i>
+        <span>上海市闵行区龙茗路1888号</span>
+        <i class="icon mt-phone-o"></i>
+      </div>
+      <div class="archive">
+        <i class="icon mt-security-o"></i>
+        <span>查看食品安全档案</span>
+        <i class="icon mt-arrow-right-o"></i>
+      </div>
+      <div class="delivery">
+        <div class="top">
+          <i class="icon mt-service-o"></i>
+          <span>配送服务：由美团快递提供配送服务</span>
+        </div>
+        <div class="btm">
+          <i class="icon mt-clock-s"></i>
+          <span>配送时间：09:50-23:59</span>
+        </div>
+      </div>
+      <div class="service">
+        <div class="top">
+          <i class="icon mt-selected-o"></i>
+          <span class="l">商家服务：</span>
+          <span class="k">订</span>
+          <span class="v">跨天预订</span>
+          <span class="k" :style="{'margin-left': 10 + 'rpx'}">取</span>
+          <span class="v">到店自取（享优惠）</span>
+        </div>
+        <div class="discounts">
+          <div class="item" v-for="(item, index) in contentData.discounts2" :key="index">
+            <img :src="item.icon_url">
+            <span>{{item.info}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-c" v-if="pageIndex === 0">
       <div class="c-t">
-        <span>满35减22；满65减40；满100减48</span>
+        <span>{{bottomTip}}</span>
       </div>
       <div class="c-m">
         <div class="m-l">
-          <span class="l-l">另需配送费￥8</span>
+          <span class="l-l">另需配送费￥{{contentData.support_pay}}</span>
           <div class="l-m"></div>
           <span class="l-r">支持自取</span>
         </div>
         <div class="m-r" @click="orderClick">
-          <span>80元起送</span>
+          <span>{{contentData.min_price}}元起送</span>
         </div>
       </div>
       <div class="cart-c">
@@ -85,26 +216,80 @@
 
 <script>
 import {shoppingCart} from './data'
-
+import {jointStyle} from "@/utils/style";
+import {formatYMD} from '@/utils/formatTime'
 export default {
   data() {
     return {
       contentData: {},
       foods: [],
       spus: [],
-      tagName: ''
+      tagName: '',
+      bottomTip: '',
+      tagIndex: 0,
+      pageIndex: 0,
+      left: '40rpx',
+      commentData: {},
+      stars: [1, 2, 3, 4]
+    }
+  },
+  computed: {
+    lineStyle() {
+      let left = this.left
+      let style = {left};
+      return jointStyle(style);
     }
   },
   methods: {
     orderClick() {
       wx.navigateTo({url: '/pages/submitOrder/main'})
+    },
+    tagClick(item, index) {
+      this.tagIndex = index;
+      this.tagName = item.name
+      this.spus = item.spus
+    },
+    menuClick() {
+      this.left = 40 + 'rpx'
+      this.pageIndex = 0
+    },
+    commentClick() {
+      this.left = 185 + 'rpx'
+      this.pageIndex = 1
+    },
+    shopClick() {
+      this.left = 325 + 'rpx'
+      this.pageIndex = 2
     }
   },
   mounted() {
-    this.contentData = shoppingCart.data.poi_info
-    this.foods = shoppingCart.data.food_spu_tags
+    this.contentData = shoppingCart.menuData.data.poi_info
+    this.foods = shoppingCart.menuData.data.food_spu_tags
     this.spus = this.foods[0].spus
     this.tagName = this.foods[0].name
+    this.bottomTip = this.contentData.discounts2[0].info
+
+    this.commentData = shoppingCart.commentData.data
+    var comments = this.commentData.comments.map(item => {
+      var reply = item.add_comment_list[0] || {}
+      item.poi_reply_contents = `${reply.desc}：${reply.content}`
+      item.commentTags = item.comment_labels.map(item => item.content).join()
+      item.comment_time = formatYMD(item.comment_time * 1000)
+      return item;
+    })
+    this.commentData.comments = comments
+
+    var commentMolds = this.commentData.comment_categories.map(item => {
+      var num = item.replace(/[^0-9]/ig,"");
+      var characters = item.match(/[\u4e00-\u9fa5]/g);
+      var title = characters.join("");
+      return `${title}(${num})`
+    })
+    this.commentData.labels.map(item => {
+      var tag = `${item.content}(${item.label_count})`
+      commentMolds.push(tag)
+    })
+    this.commentData.commentMolds = commentMolds
   }
 }
 </script>
@@ -115,24 +300,17 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: $page-bgcolor;
-  width: 100%;
-  height: 100%;
   position: relative;
   .header-c {
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     .header {
       display: flex;
       height: 204rpx;
       align-items: center;
       background-color: #333;
       .h-l {
-        width: 136rpx;
-        height: 136rpx;
         border-radius: 8rpx;
         margin-left: 20rpx;
         img {
@@ -214,6 +392,7 @@ export default {
       align-items: center;
       border-bottom: 2rpx solid $spLine-color;
       position: relative;
+      transition: all 0.2s;
       .c-l {
         font-size: 32rpx;
         color: $textBlack-color;
@@ -236,6 +415,7 @@ export default {
         background-color: $theme-color;
         left: 40rpx;
         bottom: 2rpx;
+        transition: left 0.2s;
       }
     }
   }
@@ -243,8 +423,6 @@ export default {
     display: flex;
     position: fixed;
     top: 284rpx;
-    left: 0;
-    right: 0;
     bottom: 200rpx;
     .list-l {
       display: flex;
@@ -258,7 +436,6 @@ export default {
         justify-content: center;
         padding: 20rpx;
         box-sizing: border-box;
-        border-bottom: 2rpx solid white;
         img {
           width: 30rpx;
           height: 30rpx;
@@ -269,6 +446,13 @@ export default {
           font-size: 24rpx;
           color: $textBlack-color;
           margin-left: 10rpx;
+        }
+      }
+      .active {
+        background-color: white;
+        span {
+          color: #000;
+          font-weight: bold;
         }
       }
     }
@@ -335,6 +519,7 @@ export default {
               .price {
                 font-size: 32rpx;
                 color: red;
+                font-weight: bold;
               }
               .sku {
                 display: flex;
@@ -348,6 +533,29 @@ export default {
                   color: $textBlack-color
                 }
               }
+              .add-item {
+                display: flex;
+                align-items: center;
+                .add-l {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  i {
+                    font-size: 36rpx;
+                    color: $textGray-color;
+                  }
+                  span {
+                    font-size: 24rpx;
+                    color: $textBlack-color;
+                    margin: 0 20rpx;
+                  }
+                }
+                .add-r {
+                  i {
+                    color: $theme-color;
+                  }
+                }
+              }
             }
             .tags-c {
               display: flex;
@@ -359,6 +567,380 @@ export default {
                 background-size: cover;
               }
             }
+          }
+        }
+      }
+    }
+    ::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+      color: transparent;
+    }
+  }
+  .comment-c {
+    .comment-sc {
+      display: flex;
+      position: fixed;
+      top: 284rpx;
+      flex-direction: column;
+      height: 100%;
+      .comment-header {
+        margin-top: 14rpx;
+        display: flex;
+        align-items: center;
+        height: 140rpx;
+        background-color: white;
+        width: 100%;
+        justify-content: space-around;
+        .h-l {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .score {
+            font-size: 50rpx;
+            color: $theme-color;
+          }
+          .title {
+            font-size: 20rpx;
+            color: $textBlack-color;
+          }
+        }
+        .h-m {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          .m-t {
+            display: flex;
+            align-items: center;
+            .title {
+              font-size: 20rpx;
+              color: $textBlack-color;
+            }
+            .star-c {
+              display: flex;
+              align-items: center;
+              margin: 0 30rpx;
+              i {
+                color: $theme-color;
+                font-size: 24rpx;
+              }
+            }
+            .score {
+              font-size: 24rpx;
+              color: $theme-color;
+            }
+          }
+          .m-b {
+            @extend .m-t;
+          }
+        }
+        .line {
+          width: 2rpx;
+          height: 80rpx;
+          background-color: $spLine-color;
+          margin-left: 30rpx;
+        }
+        .h-r {
+          @extend .h-l;
+          .score {
+            color: $textDarkGray-color
+          }
+        }
+      }
+      .comment-tags {
+        margin-top: 20rpx;
+        display: flex;
+        background-color: white;
+        padding: 30rpx;
+        width: auto;
+        flex-wrap: wrap;
+        padding-top: 12rpx;
+        .tag-item {
+          background-color: white;
+          border: 2rpx solid  $spLine-color;
+          padding: 0 16rpx;
+          margin-right: 20rpx;
+          margin-top: 18rpx;
+          align-items: center;
+          justify-content: center;
+          line-height: 50rpx;
+          span {
+            font-size: 24rpx;
+            color: $textDarkGray-color;
+          }
+        }
+        .tag-item:first-child {
+          background-color: #FFF7E2;
+          border: 2rpx solid#F0EDBA;
+          span {
+            color: #E7AC40;
+          }
+        }
+      }
+      .comment-list {
+        margin-top: 20rpx;
+        display: flex;
+        flex-direction: column;
+        .item-c {
+          display: flex;
+          overflow: hidden;
+          background-color: white;
+          border-bottom: 2rpx solid $spLine-color;
+          .item-l {
+            margin-left: 30rpx;
+            margin-top: 20rpx;
+            img {
+              width: 70rpx;
+              height: 70rpx;
+              border-radius: 35rpx;
+            }
+          }
+          .item-r {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            margin-left: 20rpx;
+            margin-top: 20rpx;
+            margin-right: 30rpx;
+            flex: 1;
+            .h-r {
+              display: flex;
+              flex-direction: column;
+              flex: 1;
+              .r-t {
+                display: flex;
+                justify-content: space-between;
+                .name {
+                  font-size: 32rpx;
+                  color: $textBlack-color;
+                }
+                .date {
+                  font-size:20rpx;
+                  color: $textGray-color;
+                }
+              }
+              .r-b {
+                display: flex;
+                align-items: center;
+                .b-l {
+                  display: flex;
+                  align-items: center;
+                  i {
+                    font-size: 20rpx;
+                    color: $theme-color;
+                  }
+                }
+                .b-r {
+                  font-size:20rpx;
+                  color: $textGray-color;
+                  margin-left: 20rpx;
+                }
+              }
+            }
+            .r-comtent {
+              display: flex;
+              margin-top: 10rpx;
+              span {
+                font-size: 24rpx;
+                color: $textBlack-color;
+              }
+            }
+            .r-imgs {
+              display: flex;
+              flex-direction: row;
+              margin-top: 10rpx;
+              .single {
+                margin-top: 10rpx;
+                img {
+                  width: 300rpx;
+                  height: 300rpx;
+                }
+              }
+              .double {
+                img {
+                  width: 160rpx;
+                  height: 160rpx;
+                  margin-right: 16rpx;
+                }
+              }
+              .four {
+                display: flex;
+                width: 300rpx;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                img {
+                  background-color: forestgreen;
+                  width: 140rpx;
+                  height: 140rpx;
+                  margin: 10rpx 0;
+                }
+              }
+            }
+            .food-name {
+              display: flex;
+              flex-direction: column;
+              margin-top: 10rpx;
+              .name-t {
+                display: flex;
+                i {
+                  font-size: 24rpx;
+                  color: $textGray-color;
+                }
+                span {
+                  font-size: 24rpx;
+                  color: #777D8A;
+                  margin-left: 20rpx;
+                }
+              }
+              .name-b {
+                @extend .name-t;
+                margin-top: 8rpx;
+                span {
+                  color: $textBlack-color;
+                }
+              }
+            }
+            .reply-c {
+              display: flex;
+              background-color: #F4F4F4;
+              padding: 20rpx 14rpx;
+              margin-top: 20rpx;
+              margin-bottom: 30rpx;
+              span {
+                color: $textGray-color;
+                font-size: 24rpx;
+              }
+            }
+          }
+        }
+        .item-c:last-child {
+          margin-bottom: 284rpx;
+        }
+      }
+    }
+  }
+  .shop-info {
+    display: flex;
+    position: fixed;
+    top: 284rpx;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    .address {
+      display: flex;
+      align-items: center;
+      height: 70rpx;
+      margin-top: 16rpx;
+      background-color: white;
+      padding: 0 20rpx;
+      i {
+        font-size: 38rpx;
+        color: $textGray-color;
+      }
+      i:last-child {
+        color: $textBlack-color;
+      }
+      span {
+        flex: 1;
+        margin: 0 20rpx;
+        font-size: 24rpx;
+        color: $textBlack-color;
+      }
+    }
+    .archive {
+      @extend .address;
+      i:last-child {
+        font-size: 24rpx;
+        color: $textGray-color;
+      }
+    }
+    .delivery {
+      display: flex;
+      flex-direction: column;
+      margin-top: 16rpx;
+      background-color: white;
+      padding: 0 16rpx;
+      .top {
+        display: flex;
+        align-items: center;
+        height: 80rpx;
+        padding-left: 14rpx;
+        border-bottom: 2rpx solid $spLine-color;
+        i {
+          font-size: 32rpx;
+          color: $textGray-color;
+        }
+        span {
+          font-size: 24rpx;
+          color: $textBlack-color;
+          margin: 0 20rpx;
+        }
+      }
+      .btm {
+        @extend .top;
+        border-bottom: 0 solid $spLine-color;
+      }
+    }
+    .service {
+      display: flex;
+      flex-direction: column;
+      margin-top: 16rpx;
+      background-color: white;
+      padding: 0 16rpx;
+      .top {
+        display: flex;
+        align-items: center;
+        height: 80rpx;
+        padding-left: 16rpx;
+        border-bottom: 2rpx solid $spLine-color;
+        i {
+          font-size: 28rpx;
+          color: $textGray-color;
+        }
+        .l {
+          font-size: 24rpx;
+          color: $textBlack-color;
+          margin-left: 20rpx;
+        }
+        .k {
+          width: 30rpx;
+          height: 30rpx;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          text-align: center;
+          border: 2rpx solid #0095D8;
+          color: #0095D8;
+          font-size: 20rpx;
+          margin-left: 10rpx;
+        }
+        .v {
+          font-size: 24rpx;
+          color: $textBlack-color;
+          margin-left: 10rpx;
+        }
+      }
+      .discounts {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 0 16rpx;
+        padding-bottom: 20rpx;
+        .item {
+          display: flex;
+          align-items: center;
+          height: 60rpx;
+          margin-top: 10rpx;
+          img {
+            width: 30rpx;
+            height: 30rpx;
+          }
+          span {
+            font-size: 24rpx;
+            color: $textBlack-color;
+            margin-left: 20rpx;
           }
         }
       }
@@ -380,7 +962,7 @@ export default {
       height: 50rpx;
       background-color: #FFEFD2;
       span {
-        font-size: 24rpx;
+        font-size: 20rpx;
         color: $textBlack-color;
       }
     }
