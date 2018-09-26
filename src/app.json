@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/submitOrder/main",
     "pages/home/main",
+    "pages/submitOrder/main",
     "pages/shoppingCart/main",
     "pages/me/main",
     "pages/expiredRedPacket/main",
@@ -19,7 +19,8 @@
     "pages/index/main",
     "pages/addressList/main",
     "pages/protocol/main",
-    "pages/feedback/main"
+    "pages/feedback/main",
+    "pages/pickProtocol/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

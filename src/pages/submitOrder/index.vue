@@ -2,25 +2,58 @@
   <div class="container">
     <div class="header-c">
       <div class="tab-c">
-        <div class="left">外卖配送</div>
-        <div class="right">到店自取</div>
+        <div class="left" :style="{'background-color': tabIndex === 0 ? '#fff' : '#F8F8F8'}" @click="deliveryClick">外卖配送</div>
+        <div class="right" :style="{'background-color': tabIndex === 1? '#fff' : '#F8F8F8'}" @click="pickClick">到店自取</div>
       </div>
-      <div class="address-c" @click="addressClick">
-        <i class="icon mt-location-s"></i>
-        <div class="address">
-          <span class="address-info">{{addressInfo.address}} {{addressInfo.house_number}}</span>
-          <span class="user-info">{{addressInfo.name}} {{addressInfo.gender}}  {{addressInfo.phone}}</span>
+      <div class="delivery" v-if="tabIndex === 0">
+        <div class="address-c" @click="addressClick">
+          <i class="icon mt-location-s"></i>
+          <div class="address">
+            <span class="address-info">{{addressInfo.address}} {{addressInfo.house_number}}</span>
+            <span class="user-info">{{addressInfo.name}} {{addressInfo.gender}}  {{addressInfo.phone}}</span>
+          </div>
+          <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
         </div>
-        <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
+        <div class="line-sp"></div>
+        <div class="delivery-time">
+          <i class="icon mt-clock-s"></i>
+          <div class="content">
+            <span class="c-l">{{arrivalInfo.date_type_tip}}</span>
+            <span class="c-r">{{arrivalInfo.select_view_time}}</span>
+          </div>
+          <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
+        </div>
       </div>
-      <div class="line-sp"></div>
-      <div class="delivery-time">
-        <i class="icon mt-clock-s"></i>
-        <div class="content">
-          <span class="c-l">{{arrivalInfo.date_type_tip}}</span>
-          <span class="c-r">{{arrivalInfo.select_view_time}}</span>
+      <div class="pick" v-if="tabIndex === 1">
+        <span class="title">商家地址</span>
+        <span class="address">{{pcikData.address}}</span>
+        <div class="map">
+          <span class="distance">距您{{pcikData.distance}}</span>
+          <div class="line"></div>
+          <span class="btn" @click="openMap">查看地图</span>
         </div>
-        <i class="icon mt-arrow-right-o" :style="{fontSize: 28 + 'rpx', color: '#999'}"></i>
+        <div class="time">
+          <div class="l">
+            <span class="l-t">自取时间</span>
+            <div class="l-b">
+              <span>22：49</span>
+              <i class="icon mt-arrow-right-o"></i>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="r">
+            <span class="r-t">预留电话</span>
+            <div class="r-b">
+              <span>{{pcikData.phone}}</span>
+              <i class="icon mt-arrow-right-o"></i>
+            </div>
+          </div>
+        </div>
+        <div class="protocol">
+          <i class="icon mt-selected-square-o"></i>
+          <span>同意</span>
+          <text @click="protocol">《到店自取用户协议》</text>
+        </div>
       </div>
     </div>
     <div class="item-list">
@@ -112,8 +145,12 @@
         <div class="b-r">
           <i class="icon mt-leaf-o" :style="{color: '#00CB91', 'font-size': 38 + 'rpx'}"></i>
           <span class="s-l">一起为环保助力</span>
-          <span class="s-r">未选择</span>
-          <i class="icon mt-arrow-right-o" :style="{color: '#999', 'font-size': 28 + 'rpx'}"></i>
+          <picker class="picker" mode="selector" :range="tablewareArr">
+            <div>
+              <span class="s-r">未选择</span>
+              <i class="icon mt-arrow-right-o" :style="{color: '#999', 'font-size': 28 + 'rpx'}"></i>
+            </div>
+          </picker>
         </div>
       </div>
     </div>
@@ -130,6 +167,7 @@
 <script>
 import sepLine from "@/components/sep-line";
 import {orderData} from './data'
+import {openLocation} from '@/utils/wxapi'
 
 export default {
   data() {
@@ -139,7 +177,10 @@ export default {
       arrivalInfo: {},
       foodlist: [],
       privacy_service: {},
-      remark_field: {}
+      remark_field: {},
+      tabIndex: 0,
+      pcikData: {},
+      tablewareArr: []
     }
   },
   computed: {
@@ -160,15 +201,41 @@ export default {
     },
     remarkClick() {
       wx.navigateTo({url: '/pages/remark/main'})
+    },
+    deliveryClick() {
+      this.tabIndex = 0;
+    },
+    pickClick() {
+      this.tabIndex = 1;
+    },
+    protocol() {
+      wx.navigateTo({url: '/pages/pickProtocol/main'})
+    },
+    openMap() {
+      // openLocation({latitude:this.pcikData.latitude, longitude:this.pcikData.longitude})
+      wx.getLocation({
+        type: 'gcj02',
+        success (res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          wx.openLocation({
+            latitude,
+            longitude,
+            scale: 28
+          })
+        }
+      })
     }
   },
   mounted() {
-    this.itemData = orderData.data
+    this.itemData = orderData.delivery.data
     this.addressInfo = this.itemData.address_info
     this.arrivalInfo = this.itemData.expected_arrival_info
     this.foodlist = this.itemData.foodlist
     this.privacy_service = this.itemData.privacy_service
     this.remark_field = this.itemData.remark_field
+    this.pcikData = orderData.pick.data.address_info
+    this.tablewareArr = this.itemData.diners_option.map(item => item.description)
   }
 }
 </script>
@@ -193,74 +260,186 @@ export default {
         justify-content: center;
         display: flex;
         flex: 1;
-        border-right: 2rpx solid $spLine-color;
         font-size: 32rpx;
         color: $textBlack-color;
         height: 88rpx;
       }
       .right {
+        @extend .left;
+        background-color: $page-bgcolor;
+      }
+    }
+    .delivery {
+      display: flex;
+      background-color: white;
+      flex-direction: column;
+      .address-c {
+        display: flex;
+        background-color: white;
+        padding: 20rpx 0;
+        i {
+          font-size: 36rpx;
+          margin: 20rpx;
+          color: #434343;
+        }
+        .address {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          flex: 1;
+          .address-info {
+            font-size: 32rpx;
+            color: $textBlack-color;
+          }
+          .user-info {
+            font-size: 24rpx;
+            color: $textGray-color;
+          }
+        }
+      }
+      .line-sp {
+        height: 2rpx;
+        background-color: $spLine-color;
+        flex: 1;
+        margin: 0 20rpx;
+      }
+      .delivery-time {
         display: flex;
         align-items: center;
-        justify-content: center;
-        height: 88rpx;
-        flex: 1;
-        background-color: $page-bgcolor;
-        font-size: 32rpx;
-        color: $textBlack-color;
-      }
-    }
-    .address-c {
-      display: flex;
-      background-color: white;
-      padding: 20rpx 0;
-      i {
-        font-size: 36rpx;
-        margin: 20rpx;
-        color: #434343;
-      }
-      .address {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        flex: 1;
-        .address-info {
-          font-size: 32rpx;
+        background-color: white;
+        padding: 0 20rpx;
+        i {
+          font-size: 28rpx;
           color: $textBlack-color;
         }
-        .user-info {
-          font-size: 24rpx;
-          color: $textGray-color;
+        .content {
+          display: flex;
+          align-items: center;
+          flex: 1;
+          margin: 20rpx;
+          .c-l {
+            font-size: 32rpx;
+            color: $textBlack-color;
+          }
+          .c-r {
+            font-size: 24rpx;
+            color: #5584E2;
+            margin-left: 20rpx;
+          }
         }
       }
     }
-    .line-sp {
-      height: 2rpx;
-      background-color: $spLine-color;
-      flex: 1;
-      margin: 0 20rpx;
-    }
-    .delivery-time {
+    .pick {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       background-color: white;
-      padding: 0 20rpx;
-      i {
+      padding: 30rpx;
+      .title {
         font-size: 28rpx;
         color: $textBlack-color;
       }
-      .content {
+      .address {
+        font-size: 36rpx;
+        color: $textBlack-color;
+        font-weight: bold;
+        margin-top: 10rpx;
+      }
+      .map {
         display: flex;
         align-items: center;
-        flex: 1;
-        margin: 20rpx;
-        .c-l {
-          font-size: 32rpx;
-          color: $textBlack-color;
+        margin-top: 20rpx;
+        .distance {
+          font-size: 28rpx;
+          color: #000;
         }
-        .c-r {
-          font-size: 24rpx;
-          color: #5584E2;
-          margin-left: 20rpx;
+        .line {
+          width: 2rpx;
+          height: 20rpx;
+          background-color: $textGray-color;
+          margin: 0 16rpx;
+        }
+        .btn {
+          font-size: 28rpx;
+          color: #2F84E9;
+        }
+      }
+      .time {
+        display: flex;
+        align-items: center;
+        border-top: 2rpx solid $spLine-color;
+        border-bottom: 2rpx solid $spLine-color;
+        margin: 30rpx 0;
+        height: 140rpx;
+        .l {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          .l-t {
+            font-size: 28rpx;
+            color: $textGray-color;
+          }
+          .l-b {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 10rpx;
+            span {
+              font-size: 28rpx;
+              color: #000;
+            }
+            i {
+              font-size: 28rpx;
+              color: $textGray-color;
+              margin-left: 10rpx;
+            }
+          }
+        }
+        .line {
+          width: 2rpx;
+          height: 100rpx;
+          background-color: $spLine-color;
+        }
+        .r {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          margin-left: 30rpx;
+          .r-t {
+            font-size: 28rpx;
+            color: $textGray-color;
+          }
+          .r-b {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 10rpx;
+            span {
+              font-size: 28rpx;
+              color: #000;
+            }
+            i {
+              font-size: 28rpx;
+              color: $textGray-color;
+              margin-left: 10rpx;
+            }
+          }
+        }
+      }
+      .protocol {
+        display: flex;
+        align-items: center;
+        i {
+          font-size: 36rpx;
+          color: $theme-color;
+        }
+        span {
+          font-size: 28rpx;
+          color: $textBlack-color;
+          margin-left: 30rpx;
+        }
+        text {
+          font-size: 28rpx;
+          color: #626381;
         }
       }
     }
@@ -557,11 +736,17 @@ export default {
           color: #00CB91;
           margin: 0 10rpx;
         }
-        .s-r {
-          font-size: 28rpx;
-          color: $textGray-color;
-          margin-right: 10rpx;
-          flex: 1;
+        .picker {
+          div {
+            display: flex;
+            align-items: center;
+            .s-r {
+              font-size: 28rpx;
+              color: $textGray-color;
+              margin-right: 10rpx;
+              flex: 1;
+            }
+          }
         }
       }
     }
