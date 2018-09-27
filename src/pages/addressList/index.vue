@@ -63,23 +63,23 @@ export default {
           margin-top: 10rpx;
           .s-l {
             font-size: 32rpx;
-            color:  $textGray-color;
+            color: $textDarkGray-color;
           }
           .s-m {
             font-size: 32rpx;
-            color:  $textGray-color;
+            color: $textDarkGray-color;
             margin-left: 20rpx;
           }
           .s-r {
             font-size: 32rpx;
-            color:  $textGray-color;
+            color: $textDarkGray-color;
             margin-left: 60rpx;
           }
         }
       }
       i{
         font-size: 32rpx;
-        color: $textBlack-color;
+        color: $textDarkGray-color;
       }
     }
   }

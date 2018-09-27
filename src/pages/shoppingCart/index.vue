@@ -128,13 +128,13 @@
               </div>
               <div class="r-imgs">
                 <div class="single" v-if="item.comment_pics.length === 1">
-                  <img src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg">
+                  <img :src="itm.url" v-for="(itm, idx) in item.comment_pics" :key="idx">
                 </div>
                 <div class="double" v-if="item.comment_pics.length === 2 || item.comment_pics.length === 3">
-                  <img class="comment-img" src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg" v-for="(itm, idx) in item.comment_pics" :key="idx">
+                  <img class="comment-img" :src="itm.url" v-for="(itm, idx) in item.comment_pics" :key="idx">
                 </div>
                 <div class="four" v-if="item.comment_pics.length === 4">
-                  <img class="comment-img" src="http://p0.meituan.net/wmcomment/fdda35443288d4b6ecbe31d5c563229946284.jpg" v-for="(itm, idx) in item.comment_pics" :key="idx">
+                  <img class="comment-img" :src="itm.url" v-for="(itm, idx) in item.comment_pics" :key="idx">
                 </div>
               </div>
               <div class="food-name">
@@ -147,7 +147,7 @@
                   <span>{{item.commentTags}}</span>
                 </div>
               </div>
-              <div class="reply-c">
+              <div class="reply-c" v-if="item.add_comment_list.length">
                 <span>{{item.poi_reply_contents}}</span>
               </div>
             </div>
@@ -328,7 +328,7 @@ export default {
           display: flex;
           align-items: center;
           .t-l {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: white;
           }
           .s-l {
@@ -338,7 +338,7 @@ export default {
             background-color: white;
           }
           .t-m {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: white;
           }
           .s-r {
@@ -348,12 +348,12 @@ export default {
             background-color: white;
           }
           .t-r {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: white;
           }
         }
         .r-m {
-          font-size: 24rpx;
+          font-size: 20rpx;
           color: white;
           margin: 20rpx 0;
           line-height: 30rpx;
@@ -374,13 +374,13 @@ export default {
             font-size: 20rpx;
           }
           .b-r {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: white;
             flex: 1;
             margin-left: 20rpx;
           }
           i {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: white;
           }
         }
@@ -444,7 +444,7 @@ export default {
         }
         span {
           font-size: 24rpx;
-          color: $textBlack-color;
+          color: $textDarkGray-color;
           margin-left: 10rpx;
         }
       }
@@ -500,7 +500,7 @@ export default {
             }
             .sub-title {
               font-size: 20rpx;
-              color: $textGray-color;
+              color: $textDarkGray-color;
               line-height: 30rpx;
               overflow: hidden;
               height: 30rpx;
@@ -508,17 +508,16 @@ export default {
             }
             .sale-num {
               font-size: 20rpx;
-              color: $textGray-color;
+              color: $textDarkGray-color;
               margin-top: 10rpx;
             }
             .r-t {
               display: flex;
               align-items: center;
               justify-content: space-between;
-              margin-top: 10rpx;
               .price {
                 font-size: 32rpx;
-                color: red;
+                color: $mtRed-color;
                 font-weight: bold;
               }
               .sku {

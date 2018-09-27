@@ -69,8 +69,9 @@ export default {
         display: flex;
         margin: 20rpx;
         img {
-          width: 140rpx;
-          height: 140rpx;
+          width: 100rpx;
+          height: 100rpx;
+          border: 2rpx solid $textDarkGray-color;
         }
         .top-m {
           display: flex;
@@ -78,39 +79,39 @@ export default {
           margin-left: 20rpx;
           flex: 1;
           .s-t {
-            font-size: 32rpx;
-            color: $textGray-color;
+            font-size: 28rpx;
+            color: $textDarkGray-color;
           }
           .s-m {
-            font-size: 24rpx;
-            color: $textGray-color;
+            font-size: 20rpx;
+            color: $textDarkGray-color;
             border: 2rpx solid $textGray-color;
             width: 80rpx;
             text-align: center;
             margin: 10rpx 0;
           }
           .s-b {
-            font-size: 24rpx;
-            color: $textGray-color;
+            font-size: 20rpx;
+            color: $textDarkGray-color;
           }
         }
         .top-r {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
+          justify-content: space-around;
           margin-right: 20rpx;
           .s-t {
             font-size: 32rpx;
-            color: $textGray-color;
+            color: $textDarkGray-color;
             span {
-              font-size: 76rpx;
-              color: $textGray-color;
+              font-size: 60rpx;
+              color: $textDarkGray-color;
             }
           }
           .s-b {
-            font-size: 24rpx;
-            color: $textGray-color;
+            font-size: 20rpx;
+            color: $textDarkGray-color;
           }
         }
       }
@@ -124,7 +125,7 @@ export default {
         align-items: center;
         .b-l {
           font-size: 20rpx;
-          color: $textGray-color;
+          color: $textDarkGray-color;
           flex: 1;
         }
       }

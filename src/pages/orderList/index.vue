@@ -74,6 +74,7 @@ export default {
           font-size: 32rpx;
           color: $textBlack-color;
           margin-left: 10rpx;
+          font-weight: bold;
         }
         i {
           font-size: 28rpx;
@@ -83,7 +84,7 @@ export default {
         }
         .order-status {
           font-size: 28rpx;
-          color: $textGray-color;
+          color: $textDarkGray-color;
           display: flex;
           margin-right: 20rpx;
         }
@@ -100,7 +101,7 @@ export default {
           margin-right: 20rpx;
           .s-l {
             font-size: 28rpx;
-            color: $textGray-color;
+            color: $textDarkGray-color;
             padding: 10rpx 0;
           }
           .s-r {
@@ -115,11 +116,12 @@ export default {
         justify-content: flex-end;
         .count {
           font-size: 24rpx;
-          color: $textGray-color;
+          color: $textDarkGray-color;
         }
         .amount {
           font-size: 24rpx;
           color: $textBlack-color;
+          font-weight: bold;
         }
       }
       .bottom-c {
@@ -135,6 +137,7 @@ export default {
           justify-content: center;
           border: 2rpx solid $spLine-color;
           margin: 20rpx;
+          border-radius: 4rpx;
           span {
             font-size: 28rpx;
             color: $textBlack-color;

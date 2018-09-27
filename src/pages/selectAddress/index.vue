@@ -4,12 +4,12 @@
       <div class="header-l">
         <i class="icon mt-location-o" :style="{color: '#434343', 'font-size': 38 + 'rpx'}"></i>
         <span>{{cityData.result}}</span>
-        <i class="icon mt-arrow-right-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
+        <i class="icon mt-arrow-down-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
       </div>
       <div class="header-r">
         <div class="search-bar">
           <i class="icon mt-search-o"></i>
-          <input placeholder="请输入收货地址" @input="search"/>
+          <input placeholder="请输入收货地址" placeholder-style="font-size: 24rpx" @input="search"/>
           <div class="cancle" v-if="keyword" @click="cancle">
             <i class="icon qb-icon-cancle-o"></i>
           </div>
@@ -167,7 +167,7 @@ export default {
       display: flex;
       align-items: center;
       i {
-        font-size: 32rpx;
+        font-size: 36rpx;
         color: $theme-color;
       }
       span {
@@ -193,7 +193,7 @@ export default {
         color: $textDarkGray-color;
       }
       span {
-        font-size: 28rpx;
+        font-size: 24rpx;
         color: $textDarkGray-color;
         margin-left: 20rpx;
       }
@@ -211,25 +211,24 @@ export default {
         justify-content: center;
         border-bottom: 2rpx solid $spLine-color;
         .i-t {
-          font-size: 32rpx;
+          font-size: 28rpx;
           color: $textBlack-color;
-          
         }
         .i-b {
           display: flex;
           align-items: center;
           margin-top: 10rpx;
           .b-l {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: $textDarkGray-color;
           }
           .b-m {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: $textDarkGray-color;
             margin-left: 20rpx;
           }
           .b-r {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: $textDarkGray-color;
             margin-left: 60rpx;
           }
@@ -242,7 +241,7 @@ export default {
       height: 88rpx;
       margin-left: 70rpx;
       span {
-        font-size: 28rpx;
+        font-size: 24rpx;
         color: $textDarkGray-color;
       }
       i {
@@ -267,7 +266,7 @@ export default {
         color: $textDarkGray-color;
       }
       span {
-        font-size: 28rpx;
+        font-size: 24rpx;
         color: $textDarkGray-color;
         margin-left: 20rpx;
       }
@@ -286,7 +285,7 @@ export default {
         justify-content: center;
         border-bottom: 2rpx solid $spLine-color;
         span {
-          font-size: 32rpx;
+          font-size: 28rpx;
           color: $textBlack-color;
         }
       }
@@ -306,13 +305,13 @@ export default {
     justify-content: center;
     border-top: 2rpx solid $spLine-color;
     i {
-      font-size: 32rpx;
+      font-size: 36rpx;
       color: $theme-color;
     }
     span {
       font-size: 28rpx;
       color: $textBlack-color;
-      margin-left: 20rpx;
+      margin-left: 10rpx;
     }
   }
 }

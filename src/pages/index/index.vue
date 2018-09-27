@@ -62,12 +62,13 @@ export default {
   },
 
   mounted() {
+    // 调用应用实例的方法获取全局数据
+    this.getUserInfo();
     getCityLocation({ type: "guess" }).then(res => {
     });
   },
   created() {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo();
+
   }
 };
 </script>

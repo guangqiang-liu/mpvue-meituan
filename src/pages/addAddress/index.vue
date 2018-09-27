@@ -2,7 +2,7 @@
   <div class="container">
     <div class="name">
       <span>联系人：</span>
-      <input placeholder="请填写收货人的姓名" placeholder-style="font-size: 28rpx" auto-focus/>
+      <input placeholder="请填写收货人的姓名" placeholder-style="font-size: 24rpx" auto-focus/>
     </div>
     <div class="sex">
       <div class="l"></div>
@@ -17,7 +17,7 @@
     </div>
     <div class="phone">
       <span>手机号：</span>
-      <input placeholder="请填写收货人手机号码" placeholder-style="font-size: 28rpx" auto-focus/>
+      <input placeholder="请填写收货人手机号码" placeholder-style="font-size: 24rpx" auto-focus/>
     </div>
     <div class="address">
       <span class="l">收货地址：</span>
@@ -31,7 +31,7 @@
     </div>
     <div class="house-num">
       <span>门牌号：</span>
-      <input placeholder="详细地址，例：16号楼5楼301室" placeholder-style="font-size: 28rpx" auto-focus/>
+      <input placeholder="详细地址，例：16号楼5楼301室" placeholder-style="font-size: 24rpx" auto-focus/>
     </div>
     <div class="submit">
       <span>保存地址</span>
@@ -86,7 +86,7 @@ export default {
         color: $theme-color;
       }
       span {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: $textBlack-color;
         margin-left: 20rpx;
       }
@@ -99,7 +99,7 @@ export default {
         color: $textGray-color;
       }
       span {
-        font-size: 32rpx;
+        font-size: 28rpx;
         color: $textBlack-color;
         margin-left: 20rpx;
       }
@@ -141,10 +141,10 @@ export default {
         color: $textGray-color;
       }
       span {
-        font-size: 28rpx;
-        color:  $textGray-color;
+        font-size: 24rpx;
+        color: $textDarkGray-color;
         margin-left: 10rpx;
-        margin-top: 6rpx;
+        margin-top: 10rpx;
       }
     }
     .r {
@@ -179,8 +179,8 @@ export default {
     background-color: $theme-color;
     border-radius: 8rpx;
     span {
-      font-size: 32rpx;
-      color: #472A00;
+      font-size: 28rpx;
+      color: $textBlack-color;
     }
   }
 }

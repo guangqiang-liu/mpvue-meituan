@@ -4,7 +4,7 @@
       <div class="search-c">
         <div class="search-bar">
           <i class="icon mt-search-o"></i>
-          <input placeholder="请输入城市名称查询" @input="search"/>
+          <input placeholder="请输入城市名称查询" placeholder-style="font-size: 24rpx" @input="search"/>
           <div class="cancle" v-if="keyword" @click="cancle">
             <i class="icon qb-icon-cancle-o"></i>
           </div>
@@ -109,8 +109,8 @@ export default {
       }
     }
     .title {
-      font-size: 32rpx;
-      color: $textBlack-color;
+      font-size: 24rpx;
+      color: $textDarkGray-color;
       margin: 30rpx;
     }
     .line-t {
@@ -133,7 +133,7 @@ export default {
         margin-right: 20rpx;
         margin-bottom: 20rpx;
         span {
-          font-size: 24rpx;
+          font-size: 20rpx;
           color: $textBlack-color;
         }
       }
@@ -153,7 +153,7 @@ export default {
         span {
           display: flex;
           flex: 1;
-          font-size: 32rpx;
+          font-size: 24rpx;
           color: $textDarkGray-color;
         }
         i {
@@ -182,7 +182,7 @@ export default {
           margin-right: 20rpx;
           margin-bottom: 20rpx;
           span {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: $textBlack-color;
           }
         }

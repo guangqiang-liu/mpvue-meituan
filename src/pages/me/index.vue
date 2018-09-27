@@ -132,7 +132,7 @@ export default {
         flex: 1;
         i {
           font-size: 38rpx;
-          color: $textBlack-color;
+          color: $textDarkGray-color;
         }
         .title {
           font-size: 28rpx;
@@ -142,7 +142,7 @@ export default {
         }
         .amount {
           font-size: 38rpx;
-          color: red;
+          color: $mtRed-color;
           margin: 0 10rpx;
           display: flex;
           align-items: center;
@@ -154,7 +154,7 @@ export default {
         }
       }
       i {
-        font-size: 28rpx;
+        font-size: 24rpx;
         color: $textGray-color;
       }
     }
@@ -170,7 +170,7 @@ export default {
     background-color: white;
     margin-top: 20rpx;
     color: $textBlack-color;
-    font-size: 32rpx;
+    font-size: 28rpx;
   }
 }
 </style>

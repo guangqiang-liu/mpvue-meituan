@@ -76,7 +76,7 @@ export default {
             color: $textGray-color;
           }
           .s-b {
-            font-size: 28rpx;
+            font-size: 24rpx;
             color: $textGray-color;
             margin-top: 10rpx;
           }
@@ -95,7 +95,7 @@ export default {
             }
           }
           .s-b {
-            font-size: 28rpx;
+            font-size: 24rpx;
             color: $textGray-color;
           }
         }
@@ -106,7 +106,7 @@ export default {
       }
       .item-b {
         font-size: 20rpx;
-        color: $textGray-color;
+        color: $textDarkGray-color;
         margin: 20rpx 40rpx;
         height: 30rpx;
         display: -webkit-box;
@@ -130,7 +130,7 @@ export default {
     margin: 40rpx;
     justify-content: center;
     span {
-      font-size: 20rpx;
+      font-size: 24rpx;
       color: $textBlack-color;
     }
   }

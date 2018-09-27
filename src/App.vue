@@ -72,12 +72,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import "assets/iconfont.less";
 
 page {
   box-sizing: border-box;
-  background-color: #f9f9f9;
+  background-color: $page-bgcolor;
   min-height: 100%;
 }
 
@@ -87,7 +87,7 @@ page {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #F9F9F9;
+  background-color: $page-bgcolor;
 }
 
 /* this rule will be remove */

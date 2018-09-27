@@ -2,8 +2,8 @@
   <div class="container">
     <div class="header-c">
       <div class="tab-c">
-        <div class="left" :style="{'background-color': tabIndex === 0 ? '#fff' : '#F8F8F8'}" @click="deliveryClick">外卖配送</div>
-        <div class="right" :style="{'background-color': tabIndex === 1? '#fff' : '#F8F8F8'}" @click="pickClick">到店自取</div>
+        <div class="left" :style="{'background-color': tabIndex === 0 ? '#fff' : '#F8F8F8', 'font-weight': tabIndex === 0 ? 'bold' : ''}" @click="deliveryClick">外卖配送</div>
+        <div class="right" :style="{'background-color': tabIndex === 1? '#fff' : '#F8F8F8', 'font-weight': tabIndex === 1 ? 'bold' : ''}" @click="pickClick">到店自取</div>
       </div>
       <div class="delivery" v-if="tabIndex === 0">
         <div class="address-c" @click="addressClick">
@@ -76,8 +76,8 @@
       </div>
       <div class="footer">
         <div class="fold">
-          <span>点击收起</span>
-          <i class="icon mt-arrow-up-o"></i>
+          <span>展开更多</span>
+          <i class="icon mt-arrow-down-o"></i>
         </div>
         <div class="package-cast">
           <span>包装费</span>
@@ -293,7 +293,7 @@ export default {
           }
           .user-info {
             font-size: 24rpx;
-            color: $textGray-color;
+            color: $textDarkGray-color;
           }
         }
       }
@@ -375,8 +375,8 @@ export default {
           flex-direction: column;
           flex: 1;
           .l-t {
-            font-size: 28rpx;
-            color: $textGray-color;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
           }
           .l-b {
             display: flex;
@@ -384,7 +384,7 @@ export default {
             align-items: center;
             margin-top: 10rpx;
             span {
-              font-size: 28rpx;
+              font-size: 24rpx;
               color: #000;
             }
             i {
@@ -405,8 +405,8 @@ export default {
           flex: 1;
           margin-left: 30rpx;
           .r-t {
-            font-size: 28rpx;
-            color: $textGray-color;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
           }
           .r-b {
             display: flex;
@@ -414,7 +414,7 @@ export default {
             align-items: center;
             margin-top: 10rpx;
             span {
-              font-size: 28rpx;
+              font-size: 24rpx;
               color: #000;
             }
             i {
@@ -462,7 +462,7 @@ export default {
       }
       span {
         font-size: 28rpx;
-        color: $textGray-color;
+        color: $textDarkGray-color;
         flex: 1;
         margin-left: 20rpx;
       }
@@ -505,7 +505,7 @@ export default {
           }
           span {
             font-size: 20rpx;
-              color: $textGray-color;
+              color: $textDarkGray-color;
           }
         }
       }
@@ -519,7 +519,7 @@ export default {
         align-self: center;
         align-items: center;
         justify-content: center;
-        padding: 10rpx;
+        padding: 6rpx;
         margin-top: 30rpx;
         border: 2rpx solid $spLine-color;
         i {
@@ -529,7 +529,7 @@ export default {
         span {
           font-size: 20rpx;
           color: $textDarkGray-color;
-          margin-right: 10rpx;
+          margin-right: 6rpx;
         }
       }
       .package-cast {
@@ -566,13 +566,13 @@ export default {
           }
           .name {
             font-size: 28rpx;
-            color: $textGray-color;
+            color: $textDarkGray-color;
             flex: 1;
             margin-left: 10rpx;
           }
           .info {
             font-size: 28rpx;
-            color: #FF5151;
+            color: $mtRed-color;
           }
         }
       }
@@ -590,7 +590,7 @@ export default {
           align-items: center;
           span {
             font-size: 24rpx;
-            color: #FF5151;
+            color: $mtRed-color;
           }
           i {
             font-size: 28rpx;
@@ -613,7 +613,7 @@ export default {
           align-items: center;
           span {
             font-size: 24rpx;
-            color: #FF5151;
+            color: $mtRed-color;
           }
           i {
             font-size: 28rpx;
@@ -629,7 +629,7 @@ export default {
         margin: 20rpx;
         .l {
           font-size: 24rpx;
-          color: $textGray-color;
+          color: $textDarkGray-color;
         }
         .m {
           font-size: 28rpx;
@@ -638,7 +638,7 @@ export default {
         }
         .r {
           font-size: 28rpx;
-          color: #FF5151;
+          color: $mtRed-color;
         }
       }
     }
@@ -667,7 +667,7 @@ export default {
     }
     span {
       font-size: 20rpx;
-      color: $textGray-color;
+      color: $textDarkGray-color;
       margin: 0 20rpx;
     }
   }
@@ -707,7 +707,7 @@ export default {
         align-items: center;
         span {
           font-size: 28rpx;
-          color: $textGray-color;
+          color: $textDarkGray-color;
         }
         i {
           font-size: 28rpx;
@@ -742,7 +742,7 @@ export default {
             align-items: center;
             .s-r {
               font-size: 28rpx;
-              color: $textGray-color;
+              color: $textDarkGray-color;
               margin-right: 10rpx;
               flex: 1;
             }

@@ -55,8 +55,8 @@
       <div class="category-list">
         <div class="filter-bar">
           <div class="item" v-for="(item, index) in filterList" :key="index">
-            <span>{{item}}</span>
-            <i class="icon mt-arrow-down-o"></i>
+            <span>{{item.title}}</span>
+            <i class="icon" :class="item.icon"></i>
           </div>
         </div>
         <div class="item-list">
@@ -126,7 +126,22 @@ export default {
       topBannerData: [],
       bottomBanner: {},
       shopsList: [],
-      filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
+      filterList: [
+        {
+          title: '综合排序',
+          icon: 'mt-arrow-down-o'
+        },
+        {
+          title: '销量最高'
+        },
+        {
+          title: '速度最快'
+        },
+        {
+          title: '筛选',
+          icon: 'mt-filter-o'
+        },
+      ],
       tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
       stars: [1, 2, 3, 4, 5]
     };
@@ -192,7 +207,7 @@ export default {
         align-items: center;
         flex: 1;
         background-color: $page-bgcolor;
-        height: 50rpx;;
+        height: 60rpx;;
         border-radius: 30rpx;
         margin-left: 30rpx;
         align-items: center;
@@ -229,8 +244,8 @@ export default {
             border-radius: 40rpx;
           }
           span {
-            font-size: 24rpx;
-            color: $textDarkGray-color;
+            font-size: 20rpx;
+            color: $textBlack-color;
             margin-top: 10rpx;
           }
         }
@@ -302,8 +317,8 @@ export default {
             }
           }
           .price {
-            font-size: 20rpx;
-            color: red;
+            font-size: 24rpx;
+            color: $mtRed-color;
             margin: 10rpx 0;
           }
         }
@@ -322,8 +337,9 @@ export default {
       }
       .m {
         font-size: 32rpx;
-        color: $textDarkGray-color;
+        color: $textBlack-color;
         margin: 0 20rpx;
+        font-weight: bold;
       }
       .r {
         height: 2rpx;
@@ -348,13 +364,18 @@ export default {
           justify-content: center;
           flex: 1;
           span {
-            font-size: 28rpx;
-            color: $textBlack-color;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
           }
           i {
             font-size: 24rpx;
-            color: $textBlack-color;
+            color: $textDarkGray-color;
             margin-left: 10rpx;
+          }
+        }
+        .item:first-child {
+          span {
+            color: $textBlack-color;
           }
         }
       }
@@ -376,7 +397,7 @@ export default {
             margin-left: 20rpx;
             padding: 10rpx 0;
             span {
-              font-size: 24rpx;
+              font-size: 20rpx;
               color: $textDarkGray-color;
             }
           }
@@ -399,8 +420,6 @@ export default {
             }
             .tag {
               position: absolute;
-              top: 0;
-              left: 0;
               width: 100rpx;
               height: 60rpx;
             }
@@ -415,6 +434,7 @@ export default {
               .shop-name {
                 font-size: 28rpx;
                 color: $textBlack-color;
+                font-weight: bold;
               }
               .t-c {
                 display: flex;
@@ -433,12 +453,12 @@ export default {
                   }
                   .l-m {
                     font-size: 20rpx;
-                    color: $textDarkGray-color;
+                    color: $textBlack-color;
                     margin-left: 10rpx;
                   }
                   .l-r {
                     font-size: 20rpx;
-                    color: $textDarkGray-color;
+                    color: $textBlack-color;
                     margin-left: 20rpx;
                   }
                 }
@@ -447,7 +467,7 @@ export default {
                   align-items: center;
                   .r-l {
                     font-size: 20rpx;
-                    color: $textDarkGray-color;
+                    color: $textBlack-color;
                   }
                   .r-m {
                     width: 2rpx;
@@ -457,7 +477,7 @@ export default {
                   }
                   .r-r {
                     font-size: 20rpx;
-                    color: $textDarkGray-color;
+                    color: $textBlack-color;
                   }
                 }
               }
@@ -468,7 +488,7 @@ export default {
               margin-top: 10rpx;
               .m-l {
                 font-size: 20rpx;
-                color: $textDarkGray-color;
+                color: $textBlack-color;
               }
               .m-m {
                 width: 2rpx;
@@ -478,7 +498,7 @@ export default {
               }
               .m-r {
                 font-size: 20rpx;
-                color: $textDarkGray-color;
+                color: $textBlack-color;
               }
             }
             .r-b {
@@ -486,18 +506,14 @@ export default {
               align-items: center;
               margin-top: 10rpx;
               .b-l {
-                color: #ACF4E3;
+                color: #09CFB5;
                 font-size: 20rpx;
-                border: 2rpx solid #ACF4E3;
+                border: 2rpx solid #09CFB5;
                 text-align: center;
                 padding: 0 8rpx;
               }
               .b-r {
-                color: #ACF4E3;
-                font-size: 20rpx;
-                border: 2rpx solid #ACF4E3;
-                text-align: center;
-                padding: 0 10rpx;
+                @extend .b-l;
                 margin-left: 10rpx;
               }
             }

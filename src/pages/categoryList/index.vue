@@ -17,8 +17,8 @@
       <div class="category-list">
         <div class="filter-bar">
           <div class="item" v-for="(item, index) in filterList" :key="index">
-            <span>{{item}}</span>
-            <i class="icon mt-arrow-down-o"></i>
+            <span>{{item.title}}</span>
+            <i class="icon" :class="item.icon"></i>
           </div>
         </div>
         <div class="item-list">
@@ -81,7 +81,22 @@ import {categoryData} from './data'
 export default {
   data() {
     return {
-      filterList: ['综合排序', '销量最高', '速度最快', '筛选'],
+      filterList: [
+        {
+          title: '综合排序',
+          icon: 'mt-arrow-down-o'
+        },
+        {
+          title: '销量最高'
+        },
+        {
+          title: '速度最快'
+        },
+        {
+          title: '筛选',
+          icon: 'mt-filter-o'
+        },
+      ],
       tags: ['满减优惠', '点评高分', '新商家', '美团专送'],
       itemList: [],
       stars: [1, 2, 3, 4],
@@ -107,7 +122,7 @@ export default {
   .content {
     display: flex;
     flex-direction: column;
-    background-color: $page-bgcolor;
+    background-color: #FAFAFA;
     .search-bar {
       display: flex;
       margin: 20rpx;
@@ -122,7 +137,7 @@ export default {
         margin-left: 20rpx;
       }
       span {
-        font-size: 28rpx;
+        font-size: 24rpx;
         color: $textDarkGray-color;
         margin-left: 10rpx;
       }
@@ -131,6 +146,7 @@ export default {
       display: flex;
       height: 70rpx;
       position: relative;
+      background-color: #FAFAFA;
       .l {
         text-align: center;
         line-height: 70rpx;
@@ -138,16 +154,20 @@ export default {
         position: relative;
         .tab-item {
           transition: all 0.2s;
-          font-size: 28rpx;
+          font-size: 24rpx;
           height: 70rpx;
           display: inline-block;
           color: $textDarkGray-color;
           margin: 0 30rpx;
         }
+        .tab-item:first-child {
+          color: $theme-color;
+          font-weight: bold;
+        }
         .line {
           display: block;
           position: absolute;
-          left: 40rpx;
+          left: 38rpx;
           height: 4rpx;
           background: $theme-color;
           bottom: 38rpx;
@@ -166,7 +186,7 @@ export default {
         right: 0;
         top: 0;
         bottom: 0;
-        background-color: $page-bgcolor;
+        background-color: #FAFAFA;
         flex: 1;
         i {
           font-size: 24rpx;
@@ -191,13 +211,18 @@ export default {
           justify-content: center;
           flex: 1;
           span {
-            font-size: 28rpx;
-            color: $textBlack-color;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
           }
           i {
             font-size: 24rpx;
-            color: $textBlack-color;
+            color: $textDarkGray-color;
             margin-left: 10rpx;
+          }
+        }
+        .item:first-child {
+          span {
+            color: $textBlack-color;
           }
         }
       }
@@ -219,7 +244,7 @@ export default {
             margin-left: 20rpx;
             padding: 10rpx 0;
             span {
-              font-size: 24rpx;
+              font-size: 20rpx;
               color: $textDarkGray-color;
             }
           }
@@ -235,7 +260,6 @@ export default {
             display: flex;
             width: 160rpx;
             height: 120rpx;
-            background-color: olive;
             position: relative;
             img {
               width: 160rpx;
@@ -243,8 +267,6 @@ export default {
             }
             .tag-img {
               position: absolute;
-              top: 0;
-              left: 0;
               width: 100rpx;
               height: 60rpx;
             }
@@ -259,6 +281,7 @@ export default {
               .shop-name {
                 font-size: 28rpx;
                 color: $textBlack-color;
+                font-weight: bold;
               }
               .t-c {
                 display: flex;
@@ -330,18 +353,14 @@ export default {
               align-items: center;
               margin-top: 10rpx;
               .b-l {
-                color: #ACF4E3;
+                color: #09CFB5;
                 font-size: 20rpx;
-                border: 2rpx solid #ACF4E3;
+                border: 2rpx solid #09CFB5;
                 text-align: center;
                 padding: 0 8rpx;
               }
               .b-r {
-                color: #ACF4E3;
-                font-size: 20rpx;
-                border: 2rpx solid #ACF4E3;
-                text-align: center;
-                padding: 0 10rpx;
+                @extend .b-l;
                 margin-left: 10rpx;
               }
             }

@@ -1,29 +1,46 @@
 /** Created by guangqiang on 2018-06-29 18:07:09 */
 
+  // 美团外卖小程序主题色系
+
   /** 主题色 **/
-  $theme-color: #FFC24A;
-  // 默认背景颜色
+  $theme-color: #F0D179;
+
+  // 默认浅灰色背景颜色
   $page-bgcolor: #F4F4F4;
+
   // 黑色背景颜色
-  $pageBlack-bgcolor: #333333;
+  $pageBlack-bgcolor: #2C2D30;
+
   // 默认黑色字体颜色
-  $textBlack-color: #434343;
-  // 默认灰色字体颜色
-  $textGray-color: #999999;
+  $textBlack-color: #333;
+
   // 默认深灰色字体颜色
-  $textDarkGray-color: #666666;
+  $textDarkGray-color: #666;
+
+  // 默认灰色字体颜色
+  $textGray-color: #ccc;
+
+  // 美团红
+  $mtRed-color: #e74c3c;
+
   // 默认浅灰色
   $textLightGray-color: #ccc;
+
   // 默认分割线颜色
-  $spLine-color: #EFEFEF;
+  $spLine-color: #e4e4e4;
+
   // 默认虚分割线颜色
   $dashedLine-color: #EAEAEA;
+
   // 默认placeholder颜色
-  $placeholder-textcolor: #c8c8cd;
+  $placeholder-textcolor: #9B9B9B;
+
   // borderColor
   $border-color: #808080;
+
   // 导航title 颜色
   $nav-titlecolor: #262626;
+
   // 导航背景颜色
   $nav-bgcolor: #FEFEFE;
 

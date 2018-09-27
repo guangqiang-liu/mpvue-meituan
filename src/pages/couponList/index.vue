@@ -104,7 +104,7 @@ export default {
             margin: 10rpx 0;
           }
           .s-b {
-            font-size: 24rpx;
+            font-size: 20rpx;
             color: $textDarkGray-color;
           }
         }
@@ -112,14 +112,14 @@ export default {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
+          justify-content: space-around;
           margin-right: 20rpx;
           .s-t {
             font-size: 32rpx;
-            color: #E14130;
+            color: $mtRed-color;
             span {
-              font-size: 76rpx;
-              color: #E14130;
+              font-size: 60rpx;
+              color: $mtRed-color;
             }
           }
           .s-b {
@@ -145,13 +145,13 @@ export default {
           display: flex;
           margin-left: 40rpx;
           span {
-            font-size: 24rpx;
-            color: #F54748;
+            font-size: 20rpx;
+            color: $mtRed-color;
           }
           i {
             font-size: 24rpx;
-            color: #F54748;
-            margin-left: 20rpx;
+            color: $mtRed-color;
+            margin-left: 10rpx;
           }
         }
       }

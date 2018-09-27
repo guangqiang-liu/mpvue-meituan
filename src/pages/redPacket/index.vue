@@ -79,11 +79,11 @@ export default {
           flex: 1;
           .s-t {
             font-size: 38rpx;
-            color: #F43C3F;
+            color: $mtRed-color;
           }
           .s-b {
-            font-size: 28rpx;
-            color: $textBlack-color;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
             margin-top: 10rpx;
           }
         }
@@ -94,15 +94,15 @@ export default {
           margin-top: 10rpx;
           .s-t {
             font-size: 32rpx;
-            color: #F43C3F;
+            color: $mtRed-color;
             span {
               font-size: 60rpx;
-              color: #F43C3F;
+              color: $mtRed-color;
             }
           }
           .s-b {
-            font-size: 28rpx;
-            color: $textBlack-color;;
+            font-size: 24rpx;
+            color: $textDarkGray-color;
           }
         }
       }
