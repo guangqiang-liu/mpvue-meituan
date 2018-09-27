@@ -865,7 +865,7 @@ export default {
         display: flex;
         align-items: center;
         height: 80rpx;
-        padding-left: 14rpx;
+        padding-left: 10rpx;
         border-bottom: 2rpx solid $spLine-color;
         i {
           font-size: 32rpx;
@@ -892,7 +892,7 @@ export default {
         display: flex;
         align-items: center;
         height: 80rpx;
-        padding-left: 16rpx;
+        padding-left: 14rpx;
         border-bottom: 2rpx solid $spLine-color;
         i {
           font-size: 28rpx;
