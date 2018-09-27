@@ -11,6 +11,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx69720258b4555088",
 	"projectname": "mpvue-meituan",
+	"libVersion": "2.3.0",
 	"condition": {
 		"search": {
 			"current": -1,

@@ -48,7 +48,7 @@ export default {
         right: 20rpx;
         bottom: 20rpx;
         font-size: 28rpx;
-        color: $textGray-color;
+        color: $textDarkGray-color;
       }
     }
     .tag-c {
@@ -59,14 +59,14 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 120rpx;
-        height: 60rpx;
+        width: 100rpx;
+        height: 50rpx;
         border: 2rpx solid $spLine-color;
         margin-left: 30rpx;
         margin-bottom: 30rpx;
         span {
-          font-size: 24rpx;
-          color: $textGray-color;
+          font-size: 20rpx;
+          color: $textBlack-color;
         }
       }
     }
@@ -77,7 +77,7 @@ export default {
     height: 88rpx;
     width: auto;
     color: $textBlack-color;
-    font-size: 38rpx;
+    font-size: 32rpx;
     margin: 40rpx;
     align-items: center;
     justify-content: center;
