@@ -3,20 +3,20 @@
     <div class="header-c">
       <div class="header">
         <div class="h-l">
-          <img :src="contentData.pic_url">
+          <img :src="shopInfo.pic_url">
         </div>
         <div class="h-r">
           <div class="r-t">
-            <span class="t-l">{{contentData.min_price_tip}}</span>
+            <span class="t-l">{{shopInfo.min_price_tip}}</span>
             <div class="s-l"></div>
-            <span class="t-m">{{contentData.delivery_time_tip}}</span>
+            <span class="t-m">{{shopInfo.delivery_time_tip}}</span>
             <div class="s-r"></div>
-            <span class="t-r">{{contentData.distance}}</span>
+            <span class="t-r">{{shopInfo.distance}}</span>
           </div>
-          <span class="r-m">公告：{{contentData.bulletin}}</span>
+          <span class="r-m">公告：{{shopInfo.bulletin}}</span>
           <div class="r-b">
             <span class="b-l">减</span>
-            <span class="b-r">{{bottomTip}}</span>
+            <span class="b-r">{{shopInfo.prompt_text}}</span>
             <i class="icon mt-arrow-right-o"></i>
           </div>
         </div>
@@ -30,16 +30,17 @@
     </div>
     <div class="list-c" v-if="pageIndex === 0">
       <scroll-view class="list-l" :scroll-y="true">
-        <div class="l-item" :class="{active: index === tagIndex}" v-for="(item, index) in foods" :key="index" @click="tagClick(item, index)">
+        <div class="l-item" :class="{active: index === tagIndex}" v-for="(item, index) in foods" :key="index" @click="categoryClick(item, index)">
           <img :src="item.icon" v-if="item.icon.length > 0">
           <span>{{item.name}}</span>
+          <text class="count" v-if="item.count > 0">{{item.count}}</text>
         </div>
       </scroll-view>
       <scroll-view class="list-r" :scroll-y="true">
         <div class="section">
-          <span class="title">{{tagName}}</span>
+          <span class="title">{{spus.title}}</span>
         </div>
-        <div class="item-list" v-for="(item, index) in spus" :key="index">
+        <div class="item-list" v-for="(item, index) in spus.list" :key="index">
           <div class="item">
             <div class="item-l">
               <img :src="item.picture">
@@ -54,9 +55,9 @@
                   <span>选规格</span>
                 </div>
                 <div class="add-item" v-else>
-                  <div class="add-l" @click="reduceClick(item, index)">
+                  <div class="add-l" @click="reduceClick(item, index)" v-if="item.sequence > 0">
                     <i class="icon mt-reduce-o"></i>
-                    <span>{{item.selectedNum}}</span>
+                    <span>{{item.sequence}}</span>
                   </div>
                   <div class="add-r" @click="addClick(item, index)">
                     <i class="icon mt-add-o"></i>
@@ -75,7 +76,7 @@
       <scroll-view class="comment-sc" :scroll-y="true">
         <div class="comment-header">
           <div class="h-l">
-            <span class="score">{{commentData.quality_score}}</span>
+            <span class="score">{{commentInfo.quality_score}}</span>
             <span class="title">商家评分</span>
           </div>
           <div class="h-m">
@@ -84,29 +85,29 @@
               <div class="star-c">
                 <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
               </div>
-              <span class="score">{{commentData.food_score}}</span>
+              <span class="score">{{commentInfo.food_score}}</span>
             </div>
             <div class="m-b">
               <span class="title">包装</span>
               <div class="star-c">
                 <i class="icon mt-star-s" v-for="(itx, idx) in stars" :key="idx"></i>
               </div>
-              <span class="score">{{commentData.pack_score}}</span>
+              <span class="score">{{commentInfo.pack_score}}</span>
             </div>
           </div>
           <div class="line"></div>
           <div class="h-r">
-            <span class="score">{{commentData.delivery_score}}</span>
+            <span class="score">{{commentInfo.delivery_score}}</span>
             <span class="title">配送评分</span>
           </div>
         </div>
         <div class="comment-tags">
-          <div class="tag-item" v-for="(item, index) in commentData.commentMolds" :key="index">
+          <div class="tag-item" v-for="(item, index) in commentInfo.commentMolds" :key="index">
             <span>{{item}}</span>
           </div>
         </div>
         <div class="comment-list">
-          <div class="item-c" v-for="(item, index) in commentData.comments" :key="index">
+          <div class="item-c" v-for="(item, index) in commentInfo.comments" :key="index">
             <div class="item-l">
               <img :src="item.user_pic_url.length > 0 ? item.user_pic_url : 'http://ovyjkveav.bkt.clouddn.com/18-9-26/85572180.jpg'">
             </div>
@@ -186,7 +187,7 @@
           <span class="v">到店自取（享优惠）</span>
         </div>
         <div class="discounts">
-          <div class="item" v-for="(item, index) in contentData.discounts2" :key="index">
+          <div class="item" v-for="(item, index) in shopInfo.discounts2" :key="index">
             <img :src="item.icon_url">
             <span>{{item.info}}</span>
           </div>
@@ -195,16 +196,16 @@
     </div>
     <div class="footer-c" v-if="pageIndex === 0">
       <div class="c-t">
-        <span>{{bottomTip}}</span>
+        <span>{{shopInfo.prompt_text}}</span>
       </div>
       <div class="c-m">
         <div class="m-l">
-          <span class="l-l">另需配送费￥{{contentData.support_pay}}</span>
+          <span class="l-l">另需配送费￥{{commentInfo.support_pay}}</span>
           <div class="l-m"></div>
           <span class="l-r">支持自取</span>
         </div>
         <div class="m-r" @click="orderClick">
-          <span>{{contentData.min_price}}元起送</span>
+          <span>{{commentInfo.min_price}}元起送</span>
         </div>
       </div>
       <div class="cart-c">
@@ -215,29 +216,23 @@
 </template>
 
 <script>
-import {shoppingCart} from './data'
+
 import {jointStyle} from "@/utils/style";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 import {formatYMD} from '@/utils/formatTime'
 import {_array} from '@/utils/arrayExtension'
-import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      contentData: {},
-      foods: [],
-      spus: [],
-      tagName: '',
-      bottomTip: '',
       tagIndex: 0,
       pageIndex: 0,
       left: '40rpx',
-      commentData: {},
       stars: [1, 2, 3, 4]
     }
   },
   computed: {
-    ...mapState("shoppingCart", ["vvv"]),
+    ...mapState("shoppingCart", ["shopInfo", "foods", "spus", "commentInfo"]),
     lineStyle() {
       let left = this.left
       let style = {left};
@@ -245,21 +240,23 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("shoppingCart", []),
+    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction"]),
     orderClick() {
       wx.navigateTo({url: '/pages/submitOrder/main'})
     },
-    tagClick(item, index) {
+    categoryClick(item, index) {
       this.tagIndex = index;
-      this.tagName = item.name
-      this.spus = item.spus
+      this.getCategoryMenuDataAction({index})
     },
     menuClick() {
       this.left = 40 + 'rpx'
       this.pageIndex = 0
     },
     commentClick() {
-      this.left = 185 + 'rpx'
+      this.left = 182 + 'rpx'
       this.pageIndex = 1
+      this.getCommentDataAction()
     },
     shopClick() {
       this.left = 325 + 'rpx'
@@ -268,47 +265,14 @@ export default {
     skuClick(item, index) {
     },
     addClick(item, index) {
-      var tempArr = this.spus
-      tempArr[index].selectedNum = 1
-      this.spus = tempArr;
-      console.log(this.spus)
+      this.addItemAction({index})
     },
     reduceClick(item, index) {
-      // item.selectedNum += 1
+      this.reduceItemAction({index})
     }
   },
   mounted() {
-    this.contentData = shoppingCart.menuData.data.poi_info
-    this.foods = shoppingCart.menuData.data.food_spu_tags
-    this.spus = this.foods[0].spus
-    this.spus = this.spus.map(item => {
-      item.selectedNum = 0
-      return item
-    })
-    this.tagName = this.foods[0].name
-    this.bottomTip = this.contentData.discounts2[0].info
-
-    this.commentData = shoppingCart.commentData.data
-    var comments = this.commentData.comments.map(item => {
-      var reply = item.add_comment_list[0] || {}
-      item.poi_reply_contents = `${reply.desc}：${reply.content}`
-      item.commentTags = item.comment_labels.map(item => item.content).join()
-      item.comment_time = formatYMD(item.comment_time * 1000)
-      return item;
-    })
-    this.commentData.comments = comments
-
-    var commentMolds = this.commentData.comment_categories.map(item => {
-      var num = item.replace(/[^0-9]/ig,"");
-      var characters = item.match(/[\u4e00-\u9fa5]/g);
-      var title = characters.join("");
-      return `${title}(${num})`
-    })
-    this.commentData.labels.map(item => {
-      var tag = `${item.content}(${item.label_count})`
-      commentMolds.push(tag)
-    })
-    this.commentData.commentMolds = commentMolds
+    this.getMenuDataAction()
   }
 }
 </script>
@@ -455,6 +419,7 @@ export default {
         justify-content: center;
         padding: 20rpx;
         box-sizing: border-box;
+        position: relative;
         img {
           width: 30rpx;
           height: 30rpx;
@@ -465,6 +430,20 @@ export default {
           font-size: 24rpx;
           color: $textDarkGray-color;
           margin-left: 10rpx;
+        }
+        .count {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: red;
+          width: 30rpx;
+          height: 30rpx;
+          border-radius: 15rpx;
+          right: 0;
+          top: 0;
+          position: absolute;
+          font-size: 20rpx;
+          color: white;
         }
       }
       .active {
@@ -479,6 +458,7 @@ export default {
       display: flex;
       flex-direction: column;
       flex: 1;
+      background-color: white;
       .section {
         display: flex;
         height: 88rpx;
