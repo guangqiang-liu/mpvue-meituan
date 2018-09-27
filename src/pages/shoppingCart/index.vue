@@ -50,15 +50,15 @@
               <span class="sale-num">{{item.month_saled_content}} {{item.praise_content}}</span>
               <div class="r-t">
                 <span class="price">￥{{item.min_price}}</span>
-                <div class="sku" v-if="item.attrs.length">
+                <div class="sku" v-if="item.attrs.length" @click="skuClick(item,index)">
                   <span>选规格</span>
                 </div>
                 <div class="add-item" v-else>
-                  <div class="add-l">
+                  <div class="add-l" @click="reduceClick(item, index)">
                     <i class="icon mt-reduce-o"></i>
-                    <span>1</span>
+                    <span>{{item.selectedNum}}</span>
                   </div>
-                  <div class="add-r">
+                  <div class="add-r" @click="addClick(item, index)">
                     <i class="icon mt-add-o"></i>
                   </div>
                 </div>
@@ -218,6 +218,9 @@
 import {shoppingCart} from './data'
 import {jointStyle} from "@/utils/style";
 import {formatYMD} from '@/utils/formatTime'
+import {_array} from '@/utils/arrayExtension'
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -234,6 +237,7 @@ export default {
     }
   },
   computed: {
+    ...mapState("shoppingCart", ["vvv"]),
     lineStyle() {
       let left = this.left
       let style = {left};
@@ -260,12 +264,27 @@ export default {
     shopClick() {
       this.left = 325 + 'rpx'
       this.pageIndex = 2
+    },
+    skuClick(item, index) {
+    },
+    addClick(item, index) {
+      var tempArr = this.spus
+      tempArr[index].selectedNum = 1
+      this.spus = tempArr;
+      console.log(this.spus)
+    },
+    reduceClick(item, index) {
+      // item.selectedNum += 1
     }
   },
   mounted() {
     this.contentData = shoppingCart.menuData.data.poi_info
     this.foods = shoppingCart.menuData.data.food_spu_tags
     this.spus = this.foods[0].spus
+    this.spus = this.spus.map(item => {
+      item.selectedNum = 0
+      return item
+    })
     this.tagName = this.foods[0].name
     this.bottomTip = this.contentData.discounts2[0].info
 

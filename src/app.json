@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/home/main",
-    "pages/submitOrder/main",
     "pages/shoppingCart/main",
+    "pages/submitOrder/main",
     "pages/me/main",
     "pages/expiredRedPacket/main",
     "pages/expiredCoupon/main",
