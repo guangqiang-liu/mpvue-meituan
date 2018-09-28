@@ -63,14 +63,14 @@
         <text class="tag">商家自配</text>
       </div>
       <div class="list">
-        <div class="item" v-for="(item, index) in foodlist" :key="index">
+        <div class="item" v-for="(item, index) in foodList" :key="index">
           <img :src="item.picture">
           <div class="item-r">
             <div class="r-t">
               <span>{{item.name}}</span>
-              <span>￥{{item.price}}</span>
+              <span>￥{{item.totalPrice}}</span>
             </div>
-            <span>x{{item.count}}</span>
+            <span>x{{item.sequence}}</span>
           </div>
         </div>
       </div>
@@ -81,11 +81,11 @@
         </div>
         <div class="package-cast">
           <span>包装费</span>
-          <span>￥{{itemData.box_total_price}}</span>
+          <span>￥{{foodList.length}}</span>
         </div>
         <div class="delivery-cast">
           <span>配送费</span>
-          <span>￥{{itemData.shipping_fee}}</span>
+          <span>￥{{deliveryFee}}</span>
         </div>
         <sep-line></sep-line> 
         <div class="discount">
@@ -111,9 +111,9 @@
         </div>
         <sep-line></sep-line> 
         <div class="totle-price">
-          <span class="l">已优惠￥35</span>
+          <span class="l" v-if="reduceFee > 0">已优惠￥{{reduceFee}}</span>
           <span class="m">小计</span>
-          <span class="r">￥34.8</span>
+          <span class="r">￥{{realFee}}</span>
         </div>
       </div>
     </div>
@@ -157,8 +157,8 @@
     <div class="pay-btn">
       <div class="top">
         <span class="s-l">微信支付</span>
-        <span class="s-m">￥34.8</span>
-        <span class="s-r">已优惠￥35</span>
+        <span class="s-m">￥{{realFee}}</span>
+        <span class="s-r">已优惠￥{{reduceFee}}</span>
       </div>
     </div>
   </div>
@@ -168,6 +168,7 @@
 import sepLine from "@/components/sep-line";
 import {orderData} from './data'
 import {openLocation} from '@/utils/wxapi'
+import {mapState, mapMutations, mapActions, mapGetters} from "vuex"
 
 export default {
   data() {
@@ -175,7 +176,7 @@ export default {
       itemData: {},
       addressInfo: {},
       arrivalInfo: {},
-      foodlist: [],
+      foodList: [],
       privacy_service: {},
       remark_field: {},
       tabIndex: 0,
@@ -184,7 +185,15 @@ export default {
     }
   },
   computed: {
-    
+    ...mapState('shoppingCart', ['shopInfo', 'reduceFee']),
+    deliveryFee() {
+      return this.shopInfo.support_pay
+    },
+    realFee() {
+      var totalPrice = 0
+      this.shopInfo.selectedArr.map(item => totalPrice += item.totalPrice)
+      return parseFloat(totalPrice - this.reduceFee).toFixed(1)
+    }
   },
   components: {
     sepLine
@@ -212,7 +221,6 @@ export default {
       wx.navigateTo({url: '/pages/pickProtocol/main'})
     },
     openMap() {
-      // openLocation({latitude:this.pcikData.latitude, longitude:this.pcikData.longitude})
       wx.getLocation({
         type: 'gcj02',
         success (res) {
@@ -231,11 +239,11 @@ export default {
     this.itemData = orderData.delivery.data
     this.addressInfo = this.itemData.address_info
     this.arrivalInfo = this.itemData.expected_arrival_info
-    this.foodlist = this.itemData.foodlist
     this.privacy_service = this.itemData.privacy_service
     this.remark_field = this.itemData.remark_field
     this.pcikData = orderData.pick.data.address_info
     this.tablewareArr = this.itemData.diners_option.map(item => item.description)
+    this.foodList = this.shopInfo.selectedArr
   }
 }
 </script>

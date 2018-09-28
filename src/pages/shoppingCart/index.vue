@@ -22,9 +22,9 @@
         </div>
       </div>
        <div class="cate-c">
-         <span class="c-l" @click="menuClick">菜单</span>
-         <span class="c-m" @click="commentClick">评价</span>
-         <span class="c-r" @click="shopClick">商家</span>
+         <span class="c-l" :style="{'font-weight': pageIndex === 0 ? 'bold' : null}" @click="menuClick">菜单</span>
+         <span class="c-m" :style="{'font-weight': pageIndex === 1 ? 'bold' : null}" @click="commentClick">评价</span>
+         <span class="c-r" :style="{'font-weight': pageIndex === 2 ? 'bold' : null}" @click="shopClick">商家</span>
          <div class="line" :style="lineStyle"></div>
        </div>
     </div>
@@ -196,20 +196,24 @@
     </div>
     <div class="footer-c" v-if="pageIndex === 0">
       <div class="c-t">
-        <span>{{shopInfo.prompt_text}}</span>
+        <span>{{reduceTip}}</span>
       </div>
       <div class="c-m">
-        <div class="m-l">
-          <span class="l-l">另需配送费￥{{commentInfo.support_pay}}</span>
-          <div class="l-m"></div>
-          <span class="l-r">支持自取</span>
+        <div class="l">
+          <span class="price" v-if="totalPrice > 0 || productCount > 0">￥<span>{{totalPrice}}</span></span>
+          <div class="m-l">
+            <span class="l-l">另需配送费￥{{shopInfo.support_pay}}</span>
+            <div class="l-m"></div>
+            <span class="l-r">支持自取</span>
+          </div>
         </div>
-        <div class="m-r" @click="orderClick">
-          <span>{{commentInfo.min_price}}元起送</span>
+        <div class="m-r" :style="{'background-color': btnTitle === '去结算' ? '#F0D179' : '#2F2F2F'}" @click="orderClick">
+          <span :style="{color: btnTitle === '去结算' ? '#333' : '#666'}">{{btnTitle}}</span>
         </div>
       </div>
       <div class="cart-c">
-        <img mode='widthFix' src="http://ovyjkveav.bkt.clouddn.com/18-9-25/77715001.jpg">
+        <img mode='widthFix' :src="productCount > 0 ? 'http://ovyjkveav.bkt.clouddn.com/18-9-28/55877074.jpg' : 'http://ovyjkveav.bkt.clouddn.com/18-9-25/77715001.jpg'">
+        <span v-if="productCount > 0">{{productCount}}</span>
       </div>
     </div>
   </div>
@@ -237,13 +241,68 @@ export default {
       let left = this.left
       let style = {left};
       return jointStyle(style);
+    },
+    totalPrice() {
+      var price = 0
+      this.foods.map(item => price += item.totalPrice)
+      return parseFloat(price).toFixed(1);
+    },
+    productCount() {
+      var count = 0
+      this.foods.map(item => count += item.count)
+      return count
+    },
+    reduceTip() {
+      var content = this.shopInfo.prompt_text
+      var price = 0
+      this.foods.map(item => price += item.totalPrice)
+      if (price <= 0) return content
+      if (price < this.shopInfo.min_price) {
+        var value = parseFloat(this.shopInfo.min_price - price).toFixed(1)
+        return `还差 ${value}元 就能起送`
+      }
+      var activity_info = this.shopInfo.activity_info
+      for (let i = 0; i < activity_info.length; i++) {
+        const item = activity_info[i];
+        if (price < item.priceLower) {
+          var str = parseFloat(item.priceLower - price).toFixed(1)
+          if (i === 0) {
+            this.changeReduceFeeDataMut(0.0)
+            return `再买 ${str}元 可减 ${item.reduce}元 [去凑单]`
+          } else {
+            var perItem = activity_info[i - 1];
+            this.changeReduceFeeDataMut(perItem.reduce)
+            return `已减${perItem.reduce}元 再买 ${str}元 可减 ${item.reduce}元 [去凑单]`
+          }
+        } else {
+          continue
+        }
+      }
+      var lastItem = activity_info[activity_info.length - 1]
+      this.changeReduceFeeDataMut(lastItem.priceLower)
+      return `已满 ${lastItem.priceLower} 可减 ${lastItem.reduce}`
+    },
+    btnTitle() {
+      var content = `${this.shopInfo.min_price}元起送`
+      var price = 0
+      this.foods.map(item => price += item.totalPrice)
+      if (price <= 0) return content
+      if (price < this.shopInfo.min_price) {
+        var value = parseFloat(this.shopInfo.min_price - price).toFixed(1)
+        return `还差${value}元`
+      } else {
+        return '去结算'
+      }
     }
   },
   methods: {
-    ...mapMutations("shoppingCart", []),
-    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction"]),
+    ...mapMutations("shoppingCart", ["changeReduceFeeDataMut"]),
+    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction", "closeShoppingCartAction"]),
     orderClick() {
-      wx.navigateTo({url: '/pages/submitOrder/main'})
+      var price = 0
+      this.foods.map(item => price += item.totalPrice)
+      if (price < this.shopInfo.min_price) return;
+      this.closeShoppingCartAction()
     },
     categoryClick(item, index) {
       this.tagIndex = index;
@@ -265,10 +324,10 @@ export default {
     skuClick(item, index) {
     },
     addClick(item, index) {
-      this.addItemAction({index})
+      this.addItemAction({item, index})
     },
     reduceClick(item, index) {
-      this.reduceItemAction({index})
+      this.reduceItemAction({item, index})
     }
   },
   mounted() {
@@ -405,7 +464,7 @@ export default {
   .list-c {
     display: flex;
     position: fixed;
-    top: 284rpx;
+    top: 274rpx;
     bottom: 200rpx;
     .list-l {
       display: flex;
@@ -435,12 +494,12 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: red;
+          background-color: $mtRed-color;
           width: 30rpx;
           height: 30rpx;
           border-radius: 15rpx;
           right: 0;
-          top: 0;
+          top: 6rpx;
           position: absolute;
           font-size: 20rpx;
           color: white;
@@ -461,7 +520,7 @@ export default {
       background-color: white;
       .section {
         display: flex;
-        height: 88rpx;
+        height: 70rpx;
         align-items: center;
         margin-left: 20rpx;
         span {
@@ -769,7 +828,6 @@ export default {
                 flex-wrap: wrap;
                 justify-content: space-between;
                 img {
-                  background-color: forestgreen;
                   width: 140rpx;
                   height: 140rpx;
                   margin: 10rpx 0;
@@ -968,24 +1026,37 @@ export default {
       display: flex;
       justify-content: center;
       height: 88rpx;
-      margin-left: 120rpx;
-      .m-l {
+      margin-left: 140rpx;
+      .l {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         flex: 1;
-        .l-l {
+        justify-content: space-around;
+        .price {
           font-size: 24rpx;
-          color: $textDarkGray-color;
+          color: white;
+          span {
+            font-size: 40rpx;
+            color: white;
+          }
         }
-        .l-m {
-          width: 2rpx;
-          height: 20rpx;
-          background-color: $textDarkGray-color;
-          margin: 0 20rpx;
-        }
-        .l-r {
-          font-size: 24rpx;
-          color: $textDarkGray-color;
+        .m-l {
+          display: flex;
+          align-items: center;
+          .l-l {
+            font-size: 24rpx;
+            color: $textDarkGray-color;
+          }
+          .l-m {
+            width: 2rpx;
+            height: 20rpx;
+            background-color: $textDarkGray-color;
+            margin: 0 20rpx;
+          }
+          .l-r {
+            font-size: 24rpx;
+            color: $textDarkGray-color;
+          }
         }
       }
       .m-r {
@@ -1005,12 +1076,26 @@ export default {
     .cart-c {
       position: absolute;
       left: 20rpx;
-      top: 30rpx;
+      top: 20rpx;
       z-index: 991;
       img {
-        width: 90rpx;
-        height: 90rpx;
+        width: 100rpx;
+        height: 100rpx;
         background-size: cover;
+      }
+      span {
+        position: absolute;
+        right: 0;
+        top: 20rpx;
+        background-color: $mtRed-color;
+        width: 30rpx;
+        height: 30rpx;
+        border-radius: 15rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20rpx;
       }
     }
   }

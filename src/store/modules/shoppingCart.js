@@ -7,7 +7,8 @@ const state = {
   shopInfo: {},
   foods: [],
   spus: [],
-  commentInfo: []
+  commentInfo: [],
+  reduceFee: 0.0
 }
 
 const mutations = {
@@ -22,6 +23,9 @@ const mutations = {
   },
   changeCommentDataMut(state, info) {
     state.commentInfo = info
+  },
+  changeReduceFeeDataMut(state, info) {
+    state.reduceFee = info
   }
 }
 
@@ -31,11 +35,13 @@ const actions = {
 
     var shopInfo = res.poi_info || {}
     shopInfo.prompt_text = res.shopping_cart.prompt_text
+    shopInfo.activity_info = JSON.parse(res.shopping_cart.activity_info.policy)
     commit('changeShopInfoDataMut', shopInfo)
 
     var foods = res.food_spu_tags
     foods = foods.map(item => {
       item.count = 0
+      item.totalPrice = 0
       return item
     })
     commit('changeFoodsDataMut', foods)
@@ -70,7 +76,7 @@ const actions = {
       commentMolds.push(tag)
     })
     commentData.commentMolds = commentMolds
-
+    
     commit('changeCommentDataMut', commentData)
   },
   getCategoryMenuDataAction({state, commit}, {index}) {
@@ -83,26 +89,47 @@ const actions = {
     })
     commit('changeSpusDataMut', spus)
   },
-  addItemAction({state, commit}, {index}) {
+  addItemAction({state, commit}, {item, index}) {
     var spus = state.spus
     spus.list[index].sequence += 1
     commit('changeSpusDataMut', spus)
 
-    var foodsIndex = spus.index
     var foods = state.foods
-    foods[foodsIndex].count = foods[foodsIndex].count + 1
+    var foodsIndex = spus.index
+    var selectedFood = foods[foodsIndex]
+    selectedFood.count += 1
+    selectedFood.totalPrice += item.min_price + (item.min_price > 0 ? 1 : 0 )
     commit('changeFoodsDataMut', foods)
   },
-  reduceItemAction({state, commit}, {index}) {
+  reduceItemAction({state, commit}, {item, index}) {
     var spus = state.spus
     spus.list[index].sequence -= 1
     if (spus.list[index].sequence <= 0) spus.list[index].sequence = 0
     commit('changeSpusDataMut', spus)
 
-    var foodsIndex = spus.index
     var foods = state.foods
-    foods[foodsIndex].count = foods[foodsIndex].count - 1
+    var foodsIndex = spus.index
+    var selectedFood = foods[foodsIndex]
+    selectedFood.count = selectedFood.count - 1
+    selectedFood.totalPrice = selectedFood.totalPrice - item.min_price - (item.min_price > 0 ? 1 : 0)
     commit('changeFoodsDataMut', foods)
+  },
+  closeShoppingCartAction({state, commit}) {
+    var array = state.foods
+    var selectedArr = []
+    array.map((item, index) => {
+      item.spus.map((itm, idx) => {
+        if (itm.sequence > 0) {
+          var price = itm.min_price * itm.sequence
+          itm.totalPrice = parseFloat(price).toFixed(1)
+          selectedArr.push(itm)
+        }
+      })
+    })
+    var shopInfo = state.shopInfo
+    shopInfo.selectedArr = selectedArr
+    commit('changeShopInfoDataMut', shopInfo)
+    wx.navigateTo({url: '/pages/submitOrder/main'})
   }
 }
 
