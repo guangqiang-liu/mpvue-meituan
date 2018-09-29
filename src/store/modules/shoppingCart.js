@@ -12,7 +12,8 @@ const state = {
   reduceFee: 0.0,
   visibleSkuModal: false,
   visibleItemModal: false,
-  skuInfo: {}
+  skuInfo: {},
+  previewInfo: {}
 }
 
 const mutations = {
@@ -39,6 +40,9 @@ const mutations = {
   },
   changeSkuDataMut(state, info) {
     state.skuInfo = info
+  },
+  changePreviewDataMut(state, info) {
+    state.previewInfo = info
   }
 }
 
@@ -194,6 +198,13 @@ const actions = {
     var sku = state.skuInfo
     sku.selectedCount = sku.selectedCount + num
     commit('changeSkuDataMut', sku)
+  },
+  previewItemAction({state, commit}, {item, index}) {
+    commit('changeItemModalMut', true)
+    var preview = item
+    preview.preIndex = index
+    preview.description = item.skus[0].description
+    commit('changePreviewDataMut', preview)
   }
 }
 

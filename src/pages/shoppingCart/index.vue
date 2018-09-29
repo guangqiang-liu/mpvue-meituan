@@ -41,7 +41,7 @@
           <span class="title">{{spus.title}}</span>
         </div>
         <div class="item-list" v-for="(item, index) in spus.list" :key="index">
-          <div class="item">
+          <div class="item" @click="itemClick(item, index)">
             <div class="item-l">
               <img :src="item.picture">
             </div>
@@ -51,16 +51,16 @@
               <span class="sale-num">{{item.month_saled_content}} {{item.praise_content}}</span>
               <div class="r-t">
                 <span class="price">￥{{item.min_price}}</span>
-                <div class="sku" v-if="item.attrs.length" @click="skuClick(item, index)">
+                <div class="sku" v-if="item.attrs.length" @click.stop="skuClick(item, index)">
                   <span>选规格</span>
                   <span class="count" v-if="item.sequence > 0">{{item.sequence}}</span>
                 </div>
                 <div class="add-item" v-else>
-                  <div class="add-l" @click="reduceClick(item, index)" v-if="item.sequence > 0">
+                  <div class="add-l" @click.stop="reduceClick(item, index)" v-if="item.sequence > 0">
                     <i class="icon mt-reduce-o"></i>
                     <span>{{item.sequence}}</span>
                   </div>
-                  <div class="add-r" @click="addClick(item, index)">
+                  <div class="add-r" @click.stop="addClick(item, index)">
                     <i class="icon mt-add-o"></i>
                   </div>
                 </div>
@@ -249,7 +249,42 @@
         </div>
       </div>
       <div class="cancle" @click="closeSku">
-        <i class="icon mt-delete-o"></i>
+        <i class="icon mt-fork-o"></i>
+      </div>
+    </div>
+    <div class="previewModal" v-if="visibleItemModal">
+      <div class="modal-c">
+        <div class="header-p">
+          <img class="item-img" :src="previewInfo.picture">
+          <span class="title">{{previewInfo.name}}</span>
+          <div class="saled">
+            <span class="l">{{previewInfo.month_saled_content}}</span>
+            <span class="r">{{previewInfo.praise_content}}</span>
+          </div>
+          <div class="tags-c" v-if="previewInfo.product_label_picture_list > 0">
+            <img class="tags" :src="itm.picture_url" v-for="(itm, idx) in previewInfo.product_label_picture_list" :key="idx">
+          </div>
+          <span class="desc">{{previewInfo.description}}</span>
+        </div>
+        <div class="footer-p">
+          <span class="l">￥{{previewInfo.min_price}}</span>
+          <div class="r">
+            <div class="add-c" v-if="previewInfo.attrs.length === 0">
+              <div class="c-l" v-if="previewInfo.sequence > 0">
+                <i class="icon mt-reduce-o" :style="{color: '#ccc'}" @click="previewReduce"></i>
+                <span>{{previewInfo.sequence}}</span>
+              </div>
+              <i class="icon mt-add-o" :style="{color: '#F9D173', 'font-size': 40 + 'rpx'}" @click="previewAdd"></i>
+            </div>
+            <div class="attr" v-if="previewInfo.attrs.length > 0" @click="previewAttr">
+              <span>选规格</span>
+              <span class="count" v-if="previewInfo.sequence > 0">{{previewInfo.sequence}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cancle" @click="closePreview">
+        <i class="icon mt-fork-o"></i>
       </div>
     </div>
   </div>
@@ -272,7 +307,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("shoppingCart", ["shopInfo", "foods", "spus", "commentInfo", "visibleSkuModal", "visibleItemModal", "skuInfo"]),
+    ...mapState("shoppingCart", ["shopInfo", "foods", "spus", "commentInfo", "visibleSkuModal", "visibleItemModal", "skuInfo", "previewInfo"]),
     lineStyle() {
       let left = this.left
       let style = {left};
@@ -332,8 +367,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("shoppingCart", ["changeReduceFeeDataMut", "changeSkuModalMut"]),
-    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction", "closeShoppingCartAction", "selectSkuAction", "changeSkuDataMut", "attrSelectAction", "changeSkuModalDataAction"]),
+    ...mapMutations("shoppingCart", ["changeReduceFeeDataMut", "changeSkuModalMut", "changeItemModalMut"]),
+    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction", "closeShoppingCartAction", "selectSkuAction", "changeSkuDataMut", "attrSelectAction", "changeSkuModalDataAction", "previewItemAction"]),
     orderClick() {
       var price = 0
       this.foods.map(item => price += item.totalPrice)
@@ -383,6 +418,25 @@ export default {
       const {item, index} = skuInfo
       this.reduceItemAction({item, index})
       this.changeSkuModalDataAction({num: -1})
+    },
+    closePreview() {
+      this.changeItemModalMut(false)
+    },
+    itemClick(item ,index) {
+      this.previewItemAction({item, index})
+    },
+    previewAdd() {
+      var item = this.previewInfo
+      this.addItemAction({item, index:item.preIndex})
+    },
+    previewReduce() {
+      var item = this.previewInfo
+      this.reduceItemAction({item, index:item.preIndex})
+    },
+    previewAttr() {
+      this.changeItemModalMut(false)
+      var item = this.previewInfo
+      this.selectSkuAction({item, index: item.preIndex})
     }
   },
   mounted() {
@@ -687,6 +741,7 @@ export default {
               display: flex;
               align-items: center;
               margin-top: 10rpx;
+              flex-wrap: wrap;
               img {
                 width: 60rpx;
                 height: 30rpx;
@@ -697,7 +752,7 @@ export default {
         }
       }
     }
-    ::-webkit-scrollbar{
+    ::-webkit-scrollbar {
       width: 0;
       height: 0;
       color: transparent;
@@ -1250,6 +1305,7 @@ export default {
           .price {
             font-size: 36rpx;
             color: $mtRed-color;
+            font-weight: bold;
           }
           .sku {
             font-size: 20rpx;
@@ -1299,9 +1355,126 @@ export default {
       height: 70rpx;
       border-radius: 35rpx;
       background: rgba($color: #000000, $alpha: 0.5);
+      border: 2rpx solid $textGray-color;
       i {
-        font-size: 30rpx;
+        font-size: 32rpx;
         color: white;
+      }
+    }
+  }
+  .previewModal {
+    @extend .sku-modal;
+    .modal-c {
+      .header-p {
+        display: flex;
+        flex-direction: column;
+        .item-img {
+          width: 100%;
+          height: 400rpx;
+          background-color: #E7AC40;
+          border-top-left-radius: 10rpx;
+          border-top-right-radius: 10rpx;
+        }
+        .title {
+          font-size: 28rpx;
+          color: $textBlack-color;
+          font-weight: bold;
+          margin-left: 16rpx;
+          margin-top: 16rpx;
+        }
+        .saled {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          margin: 0 16rpx;
+          margin-top: 10rpx;
+          .l {
+            font-size: 20rpx;
+            color: $textDarkGray-color;
+          }
+          .r {
+            @extend .l;
+            margin-left: 30rpx;
+          }
+        }
+        .tags-c {
+          display: flex;
+          align-items: center;
+          margin: 0 16rpx;
+          margin-top: 10rpx;
+          flex-wrap: wrap;
+          img {
+            width: 60rpx;
+            height: 30rpx;
+            background-size: cover;
+          }
+        }
+        .desc {
+          font-size: 20rpx;
+          color: $textDarkGray-color;
+          margin-left: 16rpx;
+          margin-top: 30rpx;
+          margin-bottom: 20rpx;
+        }
+      }
+      .footer-p {
+        display: flex;
+        align-items: center;
+        height: 80rpx;
+        background-color: $page-bgcolor;
+        padding: 0 20rpx;
+        border-bottom-left-radius: 10rpx;
+        border-bottom-right-radius: 10rpx;
+        .l {
+          font-size: 36rpx;
+          color: $mtRed-color;
+          flex: 1;
+          font-weight: bold;
+        }
+        .r {
+          display: flex;
+          align-items: center;
+          .add-c {
+            display: flex;
+            align-items: center;
+            .c-l {
+              display: flex;
+              align-items: center;
+            }
+            span {
+              font-size: 20rpx;
+              color: $textBlack-color;
+              margin: 0 20rpx;
+            }
+          }
+          .attr {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $theme-color;
+            padding: 8rpx 12rpx;
+            border-radius: 25rpx;
+            position: relative;
+            span {
+              font-size: 20rpx;
+              color: $textBlack-color
+            }
+            .count {
+              width: 30rpx;
+              height: 30rpx;
+              background-color: $mtRed-color;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: absolute;
+              color: white;
+              font-size: 20rpx;
+              right: 0;
+              top: -14rpx;
+              border-radius: 15rpx;
+            }
+          }
+        }
       }
     }
   }
