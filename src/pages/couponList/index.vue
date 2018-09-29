@@ -84,7 +84,6 @@ export default {
         img {
           width: 140rpx;
           height: 140rpx;
-          background-color: aquamarine;
         }
         .top-m {
           display: flex;
