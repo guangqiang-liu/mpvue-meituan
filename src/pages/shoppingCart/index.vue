@@ -51,8 +51,9 @@
               <span class="sale-num">{{item.month_saled_content}} {{item.praise_content}}</span>
               <div class="r-t">
                 <span class="price">￥{{item.min_price}}</span>
-                <div class="sku" v-if="item.attrs.length" @click="skuClick(item,index)">
+                <div class="sku" v-if="item.attrs.length" @click="skuClick(item, index)">
                   <span>选规格</span>
+                  <span class="count" v-if="item.sequence > 0">{{item.sequence}}</span>
                 </div>
                 <div class="add-item" v-else>
                   <div class="add-l" @click="reduceClick(item, index)" v-if="item.sequence > 0">
@@ -216,6 +217,41 @@
         <span v-if="productCount > 0">{{productCount}}</span>
       </div>
     </div>
+    <div class="sku-modal" v-if="visibleSkuModal">
+      <div class="modal-c">
+        <div class="header">
+          <span class="title">{{skuInfo.title}}</span>
+          <div class="attrs" v-for="(item, index) in skuInfo.attrs" :key="index">
+            <span class="name">{{item.name}}：</span>
+            <div class="sku">
+              <div class="item" :class="{selected: itm.selected}" v-for="(itm, idx) in item.values" :key="idx" @click="attrClick(itm, idx, index)">
+                <span>{{itm.value}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="f-l">
+            <span class="price">￥{{skuInfo.price}}</span>
+            <span class="sku">({{skuInfo.selectedItems}})</span>
+          </div>
+          <div class="f-r">
+            <div class="shopping-c" v-if="!skuInfo.selectedCount" @click="modalAdd">
+              <i class="icon mt-shopping-cart-o"></i>
+              <span>加入购物车</span>
+            </div>
+            <div class="add" v-if="skuInfo.selectedCount > 0">
+              <i class="icon mt-reduce-o" :style="{color: '#ccc'}" @click="modalReduce"></i>
+              <span>{{skuInfo.selectedCount}}</span>
+              <i class="icon mt-add-o" :style="{color: '#F9D173', 'font-size': 40 + 'rpx'}" @click="modalAdd"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cancle" @click="closeSku">
+        <i class="icon mt-delete-o"></i>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -236,7 +272,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("shoppingCart", ["shopInfo", "foods", "spus", "commentInfo"]),
+    ...mapState("shoppingCart", ["shopInfo", "foods", "spus", "commentInfo", "visibleSkuModal", "visibleItemModal", "skuInfo"]),
     lineStyle() {
       let left = this.left
       let style = {left};
@@ -296,8 +332,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("shoppingCart", ["changeReduceFeeDataMut"]),
-    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction", "closeShoppingCartAction"]),
+    ...mapMutations("shoppingCart", ["changeReduceFeeDataMut", "changeSkuModalMut"]),
+    ...mapActions("shoppingCart", ["getMenuDataAction", "getCommentDataAction", "getCategoryMenuDataAction", "addItemAction", "reduceItemAction", "closeShoppingCartAction", "selectSkuAction", "changeSkuDataMut", "attrSelectAction", "changeSkuModalDataAction"]),
     orderClick() {
       var price = 0
       this.foods.map(item => price += item.totalPrice)
@@ -322,12 +358,31 @@ export default {
       this.pageIndex = 2
     },
     skuClick(item, index) {
+      this.selectSkuAction({item, index})
     },
     addClick(item, index) {
       this.addItemAction({item, index})
     },
     reduceClick(item, index) {
       this.reduceItemAction({item, index})
+    },
+    closeSku() {
+      this.changeSkuModalMut(false)
+    },
+    attrClick(itm, idx, setIdx) {
+      this.attrSelectAction({itm, idx, setIdx})
+    },
+    modalAdd() {
+      var skuInfo = this.skuInfo
+      const {item, index} = skuInfo
+      this.addItemAction({item, index})
+      this.changeSkuModalDataAction({num: 1})
+    },
+    modalReduce() {
+      var skuInfo = this.skuInfo
+      const {item, index} = skuInfo
+      this.reduceItemAction({item, index})
+      this.changeSkuModalDataAction({num: -1})
     }
   },
   mounted() {
@@ -584,9 +639,24 @@ export default {
                 background-color: $theme-color;
                 padding: 8rpx 12rpx;
                 border-radius: 25rpx;
+                position: relative;
                 span {
                   font-size: 20rpx;
                   color: $textBlack-color
+                }
+                .count {
+                  width: 30rpx;
+                  height: 30rpx;
+                  background-color: $mtRed-color;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  color: white;
+                  font-size: 20rpx;
+                  right: 0;
+                  top: -14rpx;
+                  border-radius: 15rpx;
                 }
               }
               .add-item {
@@ -1095,6 +1165,143 @@ export default {
         justify-content: center;
         color: white;
         font-size: 20rpx;
+      }
+    }
+  }
+  .sku-modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba($color: #000000, $alpha: 0.3);
+    z-index: 996;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal-c {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      width: 90%;
+      margin-right: 40rpx;
+      margin-left: 40rpx;
+      border-radius: 10rpx;
+      .header {
+        display: flex;
+        flex-direction: column;
+        .title {
+          font-size: 32rpx;
+          color: $textDarkGray-color;
+          align-self: center;
+          margin-top: 20rpx;
+        }
+        .attrs {
+          display: flex;
+          flex-direction: column;
+          margin: 0 20rpx;
+          margin-top: 20rpx;
+          .name {
+            font-size: 28rpx;
+            color: $textBlack-color;
+          }
+          .sku {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex-wrap: wrap;
+            margin-bottom: 20rpx;
+            .item {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 140rpx;
+              height: 50rpx;
+              border: 2rpx solid $spLine-color;
+              border-radius: 4rpx;
+              margin-top: 20rpx;
+              margin-right: 20rpx;
+              span {
+                font-size: 24rpx;
+                color: $textBlack-color
+              }
+            }
+            .selected {
+              background-color: #FFF9F4;
+              border: 2rpx solid $theme-color;
+              span {
+                color: $theme-color;
+              }
+            }
+          }
+        }
+      }
+      .footer {
+        display: flex;
+        align-items: center;
+        background-color: $page-bgcolor;
+        height: 100rpx;
+        border-bottom-right-radius: 10rpx;
+        border-bottom-left-radius: 10rpx;
+        padding: 0 20rpx;
+        .f-l {
+          display: flex;
+          align-items: center;
+          flex: 1;
+          .price {
+            font-size: 36rpx;
+            color: $mtRed-color;
+          }
+          .sku {
+            font-size: 20rpx;
+            color:  $textBlack-color;
+            margin-left: 20rpx;
+          }
+        }
+        .f-r {
+          display: flex;
+          align-items: center;
+          .shopping-c {
+            display: flex;
+            align-items: center;
+            height: 60rpx;
+            border-radius: 30rpx;
+            padding: 0 20rpx;
+            background-color: $theme-color;
+            i {
+              font-size: 28rpx;
+              color:  $textBlack-color;
+            }
+            span {
+              font-size: 24rpx;
+              color:  $textBlack-color;
+              margin-left: 10rpx;
+            }
+          }
+          .add {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            span {
+              font-size: 24rpx;
+              color: $textDarkGray-color;
+              margin: 0 20rpx;
+            }
+          }
+        }
+      }
+    }
+    .cancle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 40rpx;
+      width: 70rpx;
+      height: 70rpx;
+      border-radius: 35rpx;
+      background: rgba($color: #000000, $alpha: 0.5);
+      i {
+        font-size: 30rpx;
+        color: white;
       }
     }
   }

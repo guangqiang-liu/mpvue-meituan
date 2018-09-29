@@ -2,13 +2,17 @@
 import {formatYMD} from '@/utils/formatTime'
 import {_array} from '@/utils/arrayExtension'
 import {shoppingCart} from '@/pages/shoppingCart/data'
+import {deepClone} from '@/utils/deepClone'
 
 const state = {
   shopInfo: {},
   foods: [],
   spus: [],
   commentInfo: [],
-  reduceFee: 0.0
+  reduceFee: 0.0,
+  visibleSkuModal: false,
+  visibleItemModal: false,
+  skuInfo: {}
 }
 
 const mutations = {
@@ -26,6 +30,15 @@ const mutations = {
   },
   changeReduceFeeDataMut(state, info) {
     state.reduceFee = info
+  },
+  changeSkuModalMut(state, info) {
+    state.visibleSkuModal = info
+  },
+  changeItemModalMut(state, info) {
+    state.visibleItemModal = info
+  },
+  changeSkuDataMut(state, info) {
+    state.skuInfo = info
   }
 }
 
@@ -130,6 +143,57 @@ const actions = {
     shopInfo.selectedArr = selectedArr
     commit('changeShopInfoDataMut', shopInfo)
     wx.navigateTo({url: '/pages/submitOrder/main'})
+  },
+  selectSkuAction({state, commit}, {item, index}) {
+    commit('changeSkuModalMut', true)
+    var sku = {}
+    var array = item.attrs
+    var selectedItems = []
+    for (let i = 0; i < array.length; i++) {
+      var attr = array[i].values
+      attr.map((item, idx) => {
+        if (idx === 0) {
+          item.selected = true;
+          selectedItems.push(item.value)
+        } else {
+          item.selected = false;
+        }
+        return item
+      })
+    }
+
+    sku.item = item
+    sku.index = index
+    sku.attrs = array
+    sku.title = item.name
+    sku.selectedCount = item.sequence
+    sku.price = parseFloat(item.min_price).toFixed(1)
+    sku.selectedItems = selectedItems.join(',')
+    sku.time = new Date()
+    commit('changeSkuDataMut', sku)
+  },
+  attrSelectAction({state, commit}, {itm, idx, setIdx}) {
+    var sku = state.skuInfo
+    var array = sku.attrs
+    var selectedItems = sku.selectedItems.split(',')
+    var section = array[setIdx]
+    for (var i = 0; i < section.values.length; i++) {
+      var item = section.values[i]
+      if (i === idx) {
+        item.selected = true
+        selectedItems[setIdx] = item.value
+      } else {
+        item.selected = false
+      }
+    }
+    sku.selectedItems = selectedItems.join(',')
+    sku.time = new Date()
+    commit('changeSkuDataMut', sku)
+  },
+  changeSkuModalDataAction({state, commit}, {num}) {
+    var sku = state.skuInfo
+    sku.selectedCount = sku.selectedCount + num
+    commit('changeSkuDataMut', sku)
   }
 }
 
