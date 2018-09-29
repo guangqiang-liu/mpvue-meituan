@@ -3,7 +3,7 @@
     <div class="header-c">
       <div class="header">
         <div class="h-l">
-          <img :src="shopInfo.pic_url">
+          <img class="shop-logo" :src="shopInfo.pic_url">
         </div>
         <div class="h-r">
           <div class="r-t">
@@ -349,22 +349,21 @@ export default {
     position: fixed;
     .header {
       display: flex;
-      height: 204rpx;
       align-items: center;
       background-color: #333;
+      height: 150rpx;
       .h-l {
-        border-radius: 8rpx;
-        margin-left: 20rpx;
-        img {
-          width: 136rpx;
-          height: 136rpx;
+        display: flex;
+        margin-left: 16rpx;
+        .shop-logo {
+          height: 120rpx;
+          width: 120rpx;
           border-radius: 8rpx;
         }
       }
       .h-r {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         margin: 0 20rpx;
         .r-t {
           display: flex;
@@ -397,10 +396,10 @@ export default {
         .r-m {
           font-size: 20rpx;
           color: white;
-          margin: 20rpx 0;
           line-height: 30rpx;
           height: 30rpx;
           overflow: hidden;
+          margin: 10rpx 0;
         }
         .r-b {
           display: flex;
@@ -464,7 +463,7 @@ export default {
   .list-c {
     display: flex;
     position: fixed;
-    top: 274rpx;
+    top: 220rpx;
     bottom: 200rpx;
     .list-l {
       display: flex;
@@ -638,11 +637,11 @@ export default {
     .comment-sc {
       display: flex;
       position: fixed;
-      top: 284rpx;
+      top: 220rpx;
       flex-direction: column;
       height: 100%;
       .comment-header {
-        margin-top: 14rpx;
+        margin-top: 20rpx;
         display: flex;
         align-items: center;
         height: 140rpx;
@@ -872,7 +871,7 @@ export default {
           }
         }
         .item-c:last-child {
-          margin-bottom: 284rpx;
+          margin-bottom: 220rpx;
         }
       }
     }
@@ -880,7 +879,7 @@ export default {
   .shop-info {
     display: flex;
     position: fixed;
-    top: 284rpx;
+    top: 220rpx;
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -888,7 +887,7 @@ export default {
       display: flex;
       align-items: center;
       height: 70rpx;
-      margin-top: 16rpx;
+      margin-top: 20rpx;
       background-color: white;
       padding: 0 20rpx;
       i {
@@ -915,7 +914,7 @@ export default {
     .delivery {
       display: flex;
       flex-direction: column;
-      margin-top: 16rpx;
+      margin-top: 20rpx;
       background-color: white;
       padding: 0 16rpx;
       .top {
@@ -942,7 +941,7 @@ export default {
     .service {
       display: flex;
       flex-direction: column;
-      margin-top: 16rpx;
+      margin-top: 20rpx;
       background-color: white;
       padding: 0 16rpx;
       .top {
