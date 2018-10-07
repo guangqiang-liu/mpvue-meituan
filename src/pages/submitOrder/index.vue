@@ -154,7 +154,7 @@
         </div>
       </div>
     </div>
-    <div class="pay-btn">
+    <div class="pay-btn" @click="payClick">
       <div class="top">
         <span class="s-l">微信支付</span>
         <span class="s-m">￥{{realFee}}</span>
@@ -191,7 +191,7 @@ export default {
     },
     realFee() {
       var totalPrice = 0
-      this.shopInfo.selectedArr.map(item => totalPrice += item.totalPrice)
+      this.shopInfo.selectedArr.map(item => totalPrice += parseFloat(item.totalPrice))
       return parseFloat(totalPrice - this.reduceFee).toFixed(1)
     }
   },
@@ -233,6 +233,9 @@ export default {
           })
         }
       })
+    },
+    payClick() {
+      wx.navigateTo({url: '/pages/orderDetail/main'})
     }
   },
   mounted() {

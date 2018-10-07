@@ -1,5 +1,4 @@
-/** Created by guangqiang on 2018-09-19 20:13:22 */
-
+/** Created by guangqiang on 2018-10-07 17:51:40 */
 import Vue from 'vue'
 import App from './index'
 

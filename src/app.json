@@ -20,7 +20,8 @@
     "pages/addressList/main",
     "pages/protocol/main",
     "pages/feedback/main",
-    "pages/pickProtocol/main"
+    "pages/pickProtocol/main",
+    "pages/orderDetail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

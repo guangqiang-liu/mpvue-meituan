@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>订单详情，待完成</span>
+    <span>评论</span>
   </div>
 </template>
 

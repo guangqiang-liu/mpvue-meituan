@@ -8,7 +8,7 @@
           <i class="icon mt-arrow-right-o"></i>
           <span class="order-status">{{item.status_description}}</span>
         </div>
-        <div class="googs-c">
+        <div class="googs-c" @click="orderDetail">
           <div class="goods" v-for="(itx, idx) in item.product_list" :key="idx">
             <span class="s-l">{{itx.product_name}}</span>
             <span class="s-r">x{{itx.product_count}}</span>
@@ -18,7 +18,7 @@
           <span class="count">共{{item.product_list.length}}件商品，实付</span>
           <span class="amount">￥{{item.total}}</span>
         </div>
-        <div class="bottom-c">
+        <div class="bottom-c" @click="headerClick">
           <div class="btn">
             <span>再来一单</span>
           </div>
@@ -40,6 +40,9 @@ export default {
   methods: {
     headerClick() {
       wx.navigateTo({url: '/pages/shoppingCart/main'})
+    },
+    orderDetail() {
+      wx.navigateTo({url: '/pages/orderDetail/main'})
     }
   },
   mounted() {
