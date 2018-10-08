@@ -47,7 +47,7 @@
 * 待补充
 
 # 预览效果图
-![mpvue](http://ovyjkveav.bkt.clouddn.com/18-10-8/56911830.jpg)
+![mpvue](http://ovyjkveav.bkt.clouddn.com/18-10-8/81707810.jpg)
 
 # 安装调试
 
