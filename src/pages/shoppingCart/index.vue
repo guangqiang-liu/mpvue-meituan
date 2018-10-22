@@ -241,7 +241,7 @@
               <span>加入购物车</span>
             </div>
             <div class="add" v-if="skuInfo.selectedCount > 0">
-              <i class="icon mt-reduce-o" :style="{color: '#ccc'}" @click="modalReduce"></i>
+              <i class="icon mt-reduce-o" :style="{color: '#ccc', 'font-size': 36 + 'rpx'}" @click="modalReduce"></i>
               <span>{{skuInfo.selectedCount}}</span>
               <i class="icon mt-add-o" :style="{color: '#F9D173', 'font-size': 40 + 'rpx'}" @click="modalAdd"></i>
             </div>
@@ -271,7 +271,7 @@
           <div class="r">
             <div class="add-c" v-if="previewInfo.attrs.length === 0">
               <div class="c-l" v-if="previewInfo.sequence > 0">
-                <i class="icon mt-reduce-o" :style="{color: '#ccc'}" @click="previewReduce"></i>
+                <i class="icon mt-reduce-o" :style="{color: '#ccc', 'font-size': 36 + 'rpx'}" @click="previewReduce"></i>
                 <span>{{previewInfo.sequence}}</span>
               </div>
               <i class="icon mt-add-o" :style="{color: '#F9D173', 'font-size': 40 + 'rpx'}" @click="previewAdd"></i>
@@ -733,6 +733,7 @@ export default {
                 .add-r {
                   i {
                     color: $theme-color;
+                    font-size: 40rpx;
                   }
                 }
               }
