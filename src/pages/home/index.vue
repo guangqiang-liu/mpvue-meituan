@@ -160,6 +160,19 @@ export default {
       wx.navigateTo({url: '/pages/shoppingCart/main'})
     }
   },
+  onShareAppMessage: function (res) {
+    var that = this
+    const {content, shareImg} = this.activityInfo || {}
+    return {
+      title: 'shareTest',
+      imageUrl: 'http://p1.meituan.net/aichequan/6dd136c9612331817f952475d749770b4238.png',
+      path: "pages/citySearch/main",
+      success: function(res) {
+         that.util.wxapi.toast('分享成功')
+　　　    that.shareInfoAction({res, id: that.parentId})
+　　　　}
+    }
+  },
   mounted() {
     var categoryData = homeData.headData.data.primary_filter;
     categoryData.map((item, index) => {
