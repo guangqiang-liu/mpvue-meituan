@@ -49,7 +49,8 @@
 * 待补充
 
 # 预览效果图
-![mpvue](https://imgs-1257778377.cos.ap-shanghai.myqcloud.com/meituangif.2020-02-17 21_14_14.gif)
+
+![](https://imgs-1257778377.cos.ap-shanghai.myqcloud.com/meituangif.gif)
 
 # 安装调试
 
