@@ -1,7 +1,6 @@
 # mpvue-meituan
 > mpvue-meituan 是一款使用mpvue开发的实战小程序项目，完全仿制美团官方外卖点餐小程序开发而成，项目的框架结构完全按照企业开发架构搭建而成。结合了原生小程序的开发能力和Vue能力，使小程序开发起来更加便捷高效，项目使用了比较流行的Vuex框架来作为全局的状态数据管理，使数据交互更加的便捷，结合了sass的使用让写Css样式更加的得心应手。目前市面上有很多使用mpvue开发的示例Demo，但是那些示例Demo都过于简单，没有提供一套系统的框架结构，借鉴的意义不是很大。所以作者就开源了一个企业级框架开发的小程序供大家学习参考，总之是一个极力推荐学习的小程序实战项目。
 
-**掘金专栏文章详解：[mpvue-meituan](https://juejin.im/post/5bbb6198f265da0ac962ba00)**
 
 # 目录
 * [项目简介](#项目简介)
@@ -277,7 +276,6 @@ npm run build --report
 > 
 > 当然，如果老铁们认为作者的开源项目还不错，也请点个 **`star`** 支持一下 ❤️❤️❤️❤️ ，也衷心的欢迎小伙伴们提些宝贵的意见和建议。
 
-**掘金专栏文章详解：[mpvue-meituan](https://juejin.im/post/5bbb6198f265da0ac962ba00)**
 
 **欢迎小伙伴们扫码进群**
 
@@ -285,7 +283,6 @@ npm run build --report
 
 ## 更多文章
 * 作者React Native开源项目OneM地址(按照企业开发标准搭建框架完成开发的)：**[https://github.com/guangqiang-liu/OneM](https://github.com/guangqiang-liu/OneM)**：欢迎小伙伴们 **star**
-* 作者简书主页：包含60多篇RN开发相关的技术文章[http://www.jianshu.com/u/023338566ca5](http://www.jianshu.com/u/023338566ca5) 欢迎小伙伴们：**多多关注**，**多多点赞**
 * 作者React Native QQ技术交流群：**620792950** 欢迎小伙伴进群交流学习
 
 ## License
